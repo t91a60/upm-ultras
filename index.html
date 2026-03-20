@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+
+<html lang="pl">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>UPM — Ultras Polonia Międzyrzecze</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Barlow+Condensed:wght@300;400;600;700;900&amp;family=Barlow:wght@300;400;500&amp;display=swap"
+    rel="stylesheet" />
+    <meta name="description" content="Ultras Polonia Międzyrzecze – oficjalna strona kibiców. Naklejki, manifest, galerie z trybun i rekrutacja.">
+<meta property="og:image" content="/assets/og-image.jpg">
+<link rel="icon" href="/favicon.ico">
+  <style>
+    :root {
+      --black: #000000;
+      --deep: #060e09;
+      --dark: #0a1a10;
+      --forest: #122418;
+      --green: #1e4028;
+      --mid: #2a5c38;
+      --accent: #3a8050;
+      --light-green: #4daa68;
+      --white: #e8f0eb;
+      --muted: #8aaa92;
+      --dim: #445549;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.35;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.92);
+      border-bottom: 1px solid var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4rem;
+      height: 64px;
+      backdrop-filter: blur(8px);
+      transition: border-bottom-color 0.3s;
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .nav-logo img {
+      height: 38px;
+      width: auto;
+    }
+
+    .nav-logo span {
+      color: var(--light-green);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--light-green);
+    }
+
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: var(--deep);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(10, 26, 16, 0.3) 2px, rgba(10, 26, 16, 0.3) 4px),
+        radial-gradient(ellipse 80% 60% at 50% 60%, rgba(30, 64, 40, 0.5) 0%, transparent 70%);
+    }
+
+    .hero-diagonal {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      background: var(--black);
+      clip-path: polygon(0 100%, 100% 0, 100% 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-logo-img {
+      width: min(280px, 55vw);
+      height: auto;
+      margin-bottom: 2rem;
+      filter: drop-shadow(0 0 40px rgba(58, 128, 80, 0.4));
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+
+    .hero-logo-img {
+  position: relative;
+}
+.hero-logo-img:hover {
+  animation: glitch 0.4s linear infinite;
+}
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-3px, 2px); }
+  40% { transform: translate(3px, -2px); }
+  60% { transform: translate(-2px, 2px); }
+  80% { transform: translate(2px, -3px); }
+  100% { transform: translate(0); }
+}
+
+    .hero-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 8vw, 7rem);
+      line-height: 0.92;
+      letter-spacing: 0.08em;
+      color: var(--white);
+    }
+
+    .hero-title .outline {
+      -webkit-text-stroke: 2px var(--mid);
+      color: transparent;
+    }
+
+    .hero-title { line-height: 0.85; }
+@media (max-width: 480px) {
+  .hero-subtitle { letter-spacing: 0.3em; font-size: 1rem; }
+}
+
+    .hero-subtitle {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(0.85rem, 2.5vw, 1.4rem);
+      font-weight: 300;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.8rem;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.6rem 2rem;
+      border: 1px solid var(--accent);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--light-green);
+    }
+
+    section {
+      padding: 6rem 4rem;
+    }
+
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      letter-spacing: 0.04em;
+      line-height: 0.92;
+      color: var(--white);
+      margin-bottom: 3rem;
+    }
+
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: var(--accent);
+      margin-bottom: 3rem;
+    }
+
+    #manifesto {
+      background: var(--black);
+      padding: 5rem 4rem;
+    }
+
+    .manifesto-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .manifesto-banner-wrap {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 3rem;
+    }
+
+    .manifesto-banner-img {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      object-position: center 40%;
+      display: block;
+    }
+
+    .manifesto-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.7) 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 2rem;
+    }
+
+    .manifesto-overlay-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      letter-spacing: 0.08em;
+      color: var(--white);
+      text-align: left;
+      line-height: 1;
+    }
+
+    .manifesto-body {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--muted);
+      margin-top: 2rem;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #aktualnosci {
+      background: var(--deep);
+      clip-path: polygon(0 2%, 100% 0, 100% 98%, 0 100%);
+      margin: -2px 0;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5px;
+      margin-top: 1rem;
+    }
+
+    .news-card {
+      background: var(--forest);
+      position: relative;
+      border-left: 3px solid transparent;
+      transition: border-color 0.2s, background 0.2s;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .news-card:hover {
+      border-left-color: var(--accent);
+      background: var(--green);
+    }
+
+    .news-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .news-img-placeholder {
+      width: 100%;
+      height: 200px;
+      background: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--green);
+    }
+
+    .news-img-placeholder span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    .news-body-wrap {
+      padding: 1.5rem 1.5rem 3rem;
+    }
+
+    .news-date {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
+    .news-body {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .news-arrow {
+      position: absolute;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+
+    .news-card:hover .news-arrow {
+      border-color: var(--accent);
+      color: var(--light-green);
+    }
+
+    #galeria {
+      background: var(--black);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 200px 200px;
+      gap: 4px;
+    }
+
+    .gallery-item {
+      background: var(--forest);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .gallery-item:first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .gallery-item:nth-child(4) {
+      grid-column: span 2;
+    }
+
+    .gallery-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+      transition: background 0.3s;
+    }
+
+    .gallery-item:hover .gallery-inner {
+      background: rgba(42, 92, 56, 0.4);
+    }
+
+    .gallery-icon {
+      font-size: 3rem;
+      color: var(--dim);
+      transition: color 0.3s;
+    }
+
+    .gallery-item:hover .gallery-icon {
+      color: var(--accent);
+    }
+
+    .gallery-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--dim);
+      transition: color 0.3s;
+    }
+
+    .gallery-item:hover .gallery-label {
+      color: var(--muted);
+    }
+
+    #sklep {
+      background: var(--deep);
+    }
+
+    .sticker-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .sticker-visual {
+      position: relative;
+    }
+
+    .sticker-pack-display {
+      background: var(--forest);
+      border: 1px solid var(--green);
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 250px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sticker-pack-logo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    .sticker-pack-badge {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      color: var(--light-green);
+      border: 1px solid var(--accent);
+      padding: 0.4rem 1.2rem;
+      position: relative;
+      z-index: 2;
+      background: rgba(10, 15, 10, 0.8);
+    }
+
+    .sticker-info {}
+
+    .sticker-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 0.92;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .sticker-detail {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .sticker-stat {}
+
+    .sticker-stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: var(--light-green);
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+
+    .sticker-stat-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .sticker-desc {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      max-width: 420px;
+    }
+
+    .sticker-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      margin-bottom: 1.5rem;
+      line-height: 1;
+    }
+
+    .sticker-price span {
+      font-size: 1.5rem;
+      color: var(--muted);
+    }
+
+    .shop-btn-big {
+      display: inline-block;
+      padding: 1rem 3rem;
+      background: var(--accent);
+      border: none;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.15em;
+      color: var(--black);
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+    }
+
+    .shop-btn-big:hover {
+      background: var(--light-green);
+    }
+
+    .shop-note {
+      margin-top: 1rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      color: var(--dim);
+      text-transform: uppercase;
+    }
+
+    #dolacz {
+      background: var(--forest);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #dolacz::before {
+      content: 'UPM';
+      position: absolute;
+      right: -2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(10rem, 20vw, 20rem);
+      color: rgba(10, 26, 16, 0.8);
+      letter-spacing: 0.04em;
+      pointer-events: none;
+      line-height: 1;
+    }
+
+    .join-inner {
+      max-width: 640px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .ig-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1.1rem 2.5rem;
+      background: var(--accent);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.12em;
+      color: var(--black);
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .ig-cta-btn:hover {
+      background: var(--light-green);
+    }
+
+    #kontakt {
+      background: var(--black);
+      padding: 4rem;
+      border-top: 1px solid var(--green);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 3rem;
+    }
+
+    .contact-type {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-val {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      color: var(--white);
+      word-break: break-all;
+    }
+
+    .contact-val a {
+      color: var(--light-green);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-val a:hover {
+      color: var(--white);
+    }
+
+    footer {
+      background: var(--deep);
+      padding: 2rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(42, 92, 56, 0.3);
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.1em;
+      color: var(--dim);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .footer-logo img {
+      height: 28px;
+      width: auto;
+      opacity: 0.5;
+    }
+
+    .footer-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-socials a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-socials a:hover {
+      color: var(--light-green);
+    }
+
+    .btn-outline {
+      display: inline-block;
+      padding: 0.8rem 2.5rem;
+      border: 1px solid var(--accent);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--light-green);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      background: var(--accent);
+      color: var(--black);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .sticker-hero {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 0 1.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      section {
+        padding: 4rem 1.5rem;
+      }
+
+      #manifesto {
+        padding: 4rem 1.5rem;
+      }
+
+      #kontakt {
+        padding: 3rem 1.5rem;
+      }
+
+      footer {
+        padding: 1.5rem;
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(4, 140px);
+      }
+
+      .gallery-item:first-child {
+        grid-column: span 2;
+        grid-row: span 1;
+      }
+
+      .gallery-item:nth-child(4) {
+        grid-column: span 1;
+      }
+
+      #dolacz::before {
+        font-size: 8rem;
+        right: -1rem;
+      }
+    }
+    .nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 30px;
+}
+.nav-toggle span {
+  height: 3px;
+  background: var(--light-green);
+  transition: 0.3s;
+}
+@media (max-width: 768px) {
+  .nav-toggle { display: flex; }
+  .nav-links {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    background: var(--deep);
+    flex-direction: column;
+    padding: 2rem;
+    display: none;
+  }
+  .nav-links.open { display: flex; }
+}
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(transparent 0px, rgba(0,0,0,0.03) 1px, transparent 2px);
+  pointer-events: none;
+  z-index: 9998;
+  animation: scan 8s linear infinite;
+}
+@keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+  </style>
+</head>
+
+<body>
+  <nav id="main-nav">
+    <a class="nav-logo" href="#hero">
+      <img alt="UPM Logo"
+        src="https://i.imgur.com/NFTSF1O.png">
+              <span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#aktualnosci">Aktualności</a></li>
+      <li><a href="#galeria">Galeria</a></li>
+      <li><a href="#sklep">Sklep</a></li>
+      <li><a href="#dolacz">Dołącz</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+  </nav>
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <img alt="UPM Ultras Polonia Międzyrzecze" class="hero-logo-img"
+        src="https://i.imgur.com/NFTSF1O.png">
+              <p class="hero-eyebrow">Klub Założony 1987 — Fanatycy z Polonii</p>
+      <h1 class="hero-title">
+        Ultras <span class="outline">Polonia</span>
+      </h1>
+      <p class="hero-subtitle">Międzyrzecze</p>
+      <div class="hero-badge">Razem Tworzymy Historię</div>
+    </div>
+    <div class="hero-diagonal"></div>
+  </section>
+  <div id="manifesto">
+    <div class="manifesto-inner reveal">
+      <div class="manifesto-banner-wrap">
+        <img alt="Razem Tworzymy Historię — Oprawa UPM" class="manifesto-banner-img"
+          src="">" <div class="manifesto-banner-overlay">
+          <p class="manifesto-overlay-text">Razem<br />Tworzymy<br />Historię</p>
+        </div>
+      </div>
+      <p class="manifesto-body">
+        Ultras Polonia Międzyrzecze to więcej niż sekcja kibiców — to rodzina, braterstwo i styl życia.
+        Stoimy za naszymi barwami bez względu na wynik, pogodę czy tabelę.
+        Czarno-zieloni na dobre i na złe.
+      </p>
+    </div>
+  </div>
+  <section id="aktualnosci">
+    <p class="section-label">Aktualności</p>
+    <h2 class="section-title">Co Słychać<br />Na Trybunach</h2>
+    <div class="news-grid">
+      <article class="news-card reveal">
+
+        <div class="news-body-wrap">
+          <p class="news-date">Mar 2026</p>
+          <img alt="Graphic"
+            src="">"            style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid var(--dim);" />
+          <p class="news-body">Siemanko! Za tydzień podejmujemy <strong style="color:var(--white);">Ogrodnik
+              Tychy</strong> na własnym boisku, obecność obowiązkowa! Na meczu będziemy zbierać do puszki na cele
+            Ultras. Nie zatrzymujemy się po ostatnich oprawach i nie zaniżamy poprzeczki którą podnieśliśmy przy oprawie
+            “Razem Tworzymy Historię”. Wlepki dostępne w przerwie spotkania. 👊</p>
+        </div>
+        <div class="news-arrow">→</div>
+      </article>
+      <article class="news-card reveal">
+
+        <div class="news-body-wrap">
+          <p class="news-date">11 Listopada 2025</p>
+          <img alt="News image"
+            src="">"            style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid var(--dim);" />
+          <p class="news-body">Dziś świętujemy <strong style="color:var(--white);">107. rocznicę odzyskania
+              niepodległości!</strong> POLONIA znaczy POLSKA ⚪🔴</p>
+        </div>
+        <div class="news-arrow">→</div>
+      </article>
+      <article class="news-card reveal">
+
+        <div class="news-body-wrap">
+          <p class="news-date">2 Listopada 2025</p>
+          <img alt="News image"
+            src="">"            style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid var(--dim);" />
+          <p class="news-body">W niedzielę z samego rana postanawiamy zadbać o tężyznę fizyczną wyruszając w góry.
+            Wyprawa kończy się sukcesem — zdobywamy <strong style="color:var(--white);">Babią Górę</strong>. Sport to
+            zdrowie! UPM!</p>
+        </div>
+        <div class="news-arrow">→</div>
+      </article>
+      <article class="news-card reveal">
+        <div class="news-body-wrap">
+          <p class="news-date">14 Października 2025</p>
+          <img alt="News image"
+            src="">"            style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid var(--dim);" />
+          <p class="news-body">W najbliższą niedzielę, <strong style="color:var(--white);">19 października o
+              15:30</strong>, Polonia zmierzy się z Siódemką Tychy na własnym boisku. Każdy mecz to nie tylko gra — to
+            siła wsparcia z trybun. Przyjdź i bądź częścią tej atmosfery! 📍 Boisko w Międzyrzeczu ‼️</p>
+        </div>
+        <div class="news-arrow">→</div>
+      </article>
+      <article class="news-card reveal">
+
+        <div class="news-body-wrap">
+          <p class="news-date">9 Czerwca 2025</p>
+          <img alt="News image"
+            src="">"            style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid var(--dim);" />
+          <p class="news-body">Polonia mierzy się z LKS Gardawice — jesteśmy tam w 2 auta, prowadzimy przyzwoity doping
+            w asyście bębna. Nasi piłkarze stają na wysokości zadania i wygrywają <strong style="color:var(--white);">aż
+              6:0!</strong> Po meczu dziękujemy sobie nawzajem i w znakomitych nastrojach wracamy do Gminy.</p>
+        </div>
+        <div class="news-arrow">→</div>
+      </article>
+      <article class="news-card reveal">
+
+        <div class="news-body-wrap">
+          <p class="news-date">16 Maja 2025</p>
+          <img alt="News image"
+            src="">"            style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid var(--dim);" />
+          <p class="news-body"><strong style="color:var(--white);">DERBY DLA POLONII! ⚫🟢</strong> Jutrzejsze derby
+            gminy z GTS Bojszowy — nie ma innej opcji, DERBY SĄ NASZE! Nie może Was tam zabraknąć!!! BYŁA, BĘDZIE, JEST
+            — POLONIA NASZ KS. Dostępna nowa edycja wlepek! 👊</p>
+        </div>
+        <div class="news-arrow">→</div>
+      </article>
+    </div>
+  </section>
+  <section id="galeria">
+    <p class="section-label">Galeria</p>
+    <h2 class="section-title">Żywe Zdjęcia<br />Z Trybun</h2>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <div class="gallery-inner" style="background: linear-gradient(135deg, #0a1a10 0%, #1e4028 100%);">
+          <div class="gallery-icon">
+            <img src="https://scontent.fktw4-1.fna.fbcdn.net/v/t39.30808-6/646843563_122094886635118467_3301104435003877778_n.jpg" alt="">
+          </div>
+          <span class="gallery-label">Doping — Derby 2025</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-inner" style="background: linear-gradient(135deg, #060e09 0%, #122418 100%);">
+          <div class="gallery-icon">🔥</div>
+          <span class="gallery-label">Race — Gorzów</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-inner" style="background: linear-gradient(135deg, #0d2018 0%, #2a5c38 100%);">
+          <div class="gallery-icon">🎌</div>
+          <span class="gallery-label">Flagi — Sezon 25/26</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-inner" style="background: linear-gradient(135deg, #060e09 0%, #1e4028 100%);">
+          <div class="gallery-icon">🏟</div>
+          <span class="gallery-label">Pełny stadion</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-inner" style="background: linear-gradient(135deg, #0a1a10 0%, #122418 100%);">
+          <div class="gallery-icon">🎆</div>
+          <span class="gallery-label">Oprawy 2024</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:2rem; text-align:center;">
+      <a class="btn-outline" href="https://www.instagram.com/ultras_polonia_miedzyrzecze/" target="_blank">Więcej na
+        Instagramie →</a>
+    </div>
+  </section>
+  <section id="sklep">
+    <p class="section-label">Sklep UPM</p>
+    <h2 class="section-title">Noś Barwy<br />Z Dumą</h2>
+    <div class="sticker-hero">
+      <div class="sticker-visual reveal">
+        <div class="sticker-pack-display">
+          <img alt="UPM Logo" class="sticker-pack-logo"
+            src="">"          <div class="sticker-pack-badge">Oficjalny Pakiet Wlepek UPM</div>
+        </div>
+      </div>
+      <div class="sticker-info reveal">
+        <p class="sticker-title">Pakiet<br />Wlepek UPM</p>
+        <div class="sticker-detail">
+          <div class="sticker-stat">
+            <p class="sticker-stat-num">24</p>
+            <p class="sticker-stat-label">Sztuki w zestawie</p>
+          </div>
+          <div class="sticker-stat">
+            <p class="sticker-stat-num">6</p>
+            <p class="sticker-stat-label">Unikalne wzory</p>
+          </div>
+        </div>
+        <p class="sticker-desc">
+          Oficjalny pakiet wlepek Ultras Polonia Międzyrzecze. 24 naklejki w 6 różnych wzorach
+          — logo UPM, hasła ultrasów, barwy czarno-zielone. Idealne na każdą powierzchnię.
+          Zamów przez e-mail lub odbierz osobiście na stadionie przy ul. Sportowej.
+        </p>
+        <a class="shop-btn-big"
+          href="/cdn-cgi/l/email-protection#9faea6eff0f3f0f1f6feb1f2f6fafbe5e6ede5fafce5faa7a8dff8f2fef6f3b1fcf0f2a0eceafdf5fafceba2c5fef25c2ce8f6faf1f6fabaadafb9f2fbfeecf7a4baadafcffef4f6faebbaadafe8f3faeffaf4baadafcacfd2">Zamów
+          Przez E-mail</a>
+        <p class="shop-note">lub napisz na FB / IG przed meczem</p>
+      </div>
+    </div>
+  </section>
+  <section id="dolacz">
+    <div class="join-inner">
+      <p class="section-label">Dołącz do Nas</p>
+      <h2 class="section-title">Zostań<br />Jednym z Nas</h2>
+      <div class="divider"></div>
+      <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.8; max-width: 480px; margin-bottom: 2.5rem;">
+        Masz w sobie pasję i lojalność? Napisz do nas na Instagramie — to najszybszy sposób, żeby trafić do naszej
+        rodziny. Nie gryziemy.
+      </p>
+      <a class="ig-cta-btn" href="https://www.instagram.com/ultras_polonia_miedzyrzecze/" target="_blank">
+        <svg fill="none" height="22" style="flex-shrink:0;" viewbox="0 0 24 24" width="22"
+          xmlns="http://www.w3.org/2000/svg">
+          <rect height="20" rx="5" stroke="currentColor" stroke-width="1.8" width="20" x="2" y="2"></rect>
+          <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"></circle>
+          <circle cx="17.5" cy="6.5" fill="currentColor" r="1"></circle>
+        </svg>
+        @ultras_polonia_miedzyrzecze
+      </a>
+      <p
+        style="margin-top:1.5rem; font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--dim);">
+        lub napisz na maila — <a
+          href="/cdn-cgi/l/email-protection#66575f16090a09080f07480b0f03021c1f141c03051c035e5126010b070f0a4805090b"
+          style="color:var(--muted); text-decoration:none;"><span class="__cf_email__"
+            data-cfemail="67565e17080b08090e06490a0e02031d1e151d02041d025f5027000a060e0b4904080a">[email protected]</span></a>
+      </p>
+    </div>
+  </section>
+  <div id="kontakt">
+    <p class="section-label" style="margin-bottom:2rem;">Kontakt</p>
+    <div class="contact-grid">
+      <div>
+        <p class="contact-type">E-mail</p>
+        <p class="contact-val"><a
+            href="/cdn-cgi/l/email-protection#506169203f3c3f3e39317e3d3935342a29222a35332a35686710373d31393c7e333f3d">19polonia.miedzyrzecze87<br />@gmail.com</a>
+        </p>
+      </div>
+      <div>
+        <p class="contact-type">Adres Boiska</p>
+        <p class="contact-val">ul. Sportowa<br />43-220 Międzyrzecze</p>
+      </div>
+      <div>
+        <p class="contact-type">Facebook</p>
+        <p class="contact-val"><a href="https://www.facebook.com/profile.php?id=61567464391274" target="_blank">UPM na
+            Facebooku →</a></p>
+      </div>
+      <div>
+        <p class="contact-type">Instagram</p>
+        <p class="contact-val">
+          <a href="https://www.instagram.com/ultras_polonia_miedzyrzecze/"
+            target="_blank">@ultras_polonia_miedzyrzecze</a><br />
+          <a href="https://www.instagram.com/fanatycy_z_polonii/" style="margin-top:0.3rem;display:block;"
+            target="_blank">@fanatycy_z_polonii</a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-logo">
+      <img alt="UPM"
+        src="https://i.imgur.com/NFTSF1O.png">      Ultras Polonia Międzyrzecze
+    </div>
+    <p class="footer-text">© 2026 UPM</p>
+    <div class="footer-socials">
+      <a href="https://www.facebook.com/profile.php?id=61567464391274" target="_blank">FB</a>
+      <a href="https://www.instagram.com/ultras_polonia_miedzyrzecze/" target="_blank">IG</a>
+      <a href="https://www.instagram.com/fanatycy_z_polonii/" target="_blank">IG2</a>
+      <a
+        href="/cdn-cgi/l/email-protection#4e7f773e21222120272f6023272b2a34373c342b2d342b76790e29232f2722602d2123">MAIL</a>
+    </div>
+  </footer>
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+
+    // Nav scroll
+    window.addEventListener('scroll', () => {
+      document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Mobile menu
+    const toggle = document.querySelector('.nav-toggle');
+    const menu = document.querySelector('.nav-links');
+    if (toggle) {
+      toggle.addEventListener('click', () => menu.classList.toggle('open'));
+    }
+
+    // News card click -> scroll to IG section (placeholder)
+    document.querySelectorAll('.news-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelector('#dolacz') && document.querySelector('#dolacz').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+
+</html>
