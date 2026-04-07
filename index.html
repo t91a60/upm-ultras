@@ -9,6 +9,8 @@
   <meta name="author" content="UPM Ultras Polonia Miedzyrzecze">
   <meta name="copyright" content="Copyright (c) 2026 Ultras Polonia Miedzyrzecze. All rights reserved.">
   <meta name="generator" content="UPM">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data: https://i.imgur.com https://scontent.fktw4-1.fna.fbcdn.net; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; media-src 'self'; upgrade-insecure-requests">
   <title>UPM — Ultras Polonia Międzyrzecze</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Barlow+Condensed:wght@300;400;600;700;900&amp;family=Barlow:wght@300;400;500&amp;display=swap"
@@ -49,6 +51,9 @@
       font-family: 'Barlow', sans-serif;
       font-weight: 300;
       overflow-x: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
     }
 
     body::before {
@@ -533,8 +538,6 @@
       background: rgba(10, 15, 10, 0.8);
     }
 
-    .sticker-info {}
-
     .sticker-title {
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(2.5rem, 5vw, 4.5rem);
@@ -549,8 +552,6 @@
       gap: 2rem;
       margin-bottom: 2rem;
     }
-
-    .sticker-stat {}
 
     .sticker-stat-num {
       font-family: 'Bebas Neue', sans-serif;
@@ -724,6 +725,7 @@
       height: 28px;
       width: auto;
       opacity: 0.5;
+      -webkit-user-drag: none;
     }
 
     .footer-text {
@@ -1095,13 +1097,7 @@ body::after {
         </svg>
         @ultras_polonia_miedzyrzecze
       </a>
-      <p
-        style="margin-top:1.5rem; font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--dim);">
-        lub napisz na maila — <a
-          href="/cdn-cgi/l/email-protection#66575f16090a09080f07480b0f03021c1f141c03051c035e5126010b070f0a4805090b"
-          style="color:var(--muted); text-decoration:none;"><span class="__cf_email__"
-            data-cfemail="67565e17080b08090e06490a0e02031d1e151d02041d025f5027000a060e0b4904080a">[email protected]</span></a>
-      </p>
+      <p style="margin-top:1.5rem; font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--dim);">lub napisz na maila — <a href="mailto:19polonia.miedzyrzecze87@gmail.com" style="color:var(--muted); text-decoration:none;">19polonia.miedzyrzecze87@gmail.com</a></p>
     </div>
   </section>
   <div id="kontakt">
@@ -1148,7 +1144,7 @@ body::after {
     </div>
   </footer>
   <script>
-    const r=document.querySelectorAll('.reveal'),o=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add('visible'),o.unobserve(e.target))})},{threshold:.1});r.forEach(e=>o.observe(e)),window.addEventListener('scroll',()=>{document.querySelector('nav').classList.toggle('scrolled',window.scrollY>50)});const t=document.querySelector('.nav-toggle'),n=document.querySelector('.nav-links');t&&t.addEventListener('click',()=>n.classList.toggle('open'));console.log('%cUltras Polonia Miedzyrzecze 2026','font-size:18px;color:#3a8050;font-weight:bold'),console.log('%c© UPM. All rights reserved.','color:#8aaa92'),document.addEventListener('contextmenu',e=>e.preventDefault()),document.addEventListener('selectstart',e=>e.preventDefault());
+    const r=document.querySelectorAll('.reveal'),o=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add('visible'),o.unobserve(e.target))})},{threshold:.1}),t=document.querySelector('.nav-toggle'),n=document.querySelector('.nav-links'),a=e=>{(e.ctrlKey||e.metaKey)&&(e.key==='s'||e.key==='u'||e.key==='p'||e.key==='c'||e.key==='x'||e.key==='i'||e.key==='j')&&e.preventDefault(),e.key==='F12'&&e.preventDefault(),e.shiftKey&&e.key==='F10'&&e.preventDefault()},s=()=>{try{window.top!==window.self&&window.top.location.replace(window.self.location.href)}catch(e){window.location.replace(window.location.href)}};r.forEach(e=>o.observe(e)),window.addEventListener('scroll',()=>{document.querySelector('nav').classList.toggle('scrolled',window.scrollY>50)}),t&&t.addEventListener('click',()=>n.classList.toggle('open')),document.addEventListener('contextmenu',e=>e.preventDefault()),document.addEventListener('selectstart',e=>e.preventDefault()),document.addEventListener('keydown',a),window.addEventListener('dragstart',e=>e.preventDefault()),document.addEventListener('copy',e=>e.preventDefault()),window.addEventListener('load',s),setInterval(s,1500);
   </script>
   <noscript><p style="background:#000;color:#e8f0eb;padding:1rem;text-align:center;font-family:Barlow,sans-serif;margin:0">Ta strona wymaga JavaScript</p></noscript>
 </body>
