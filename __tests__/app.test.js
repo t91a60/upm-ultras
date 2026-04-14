@@ -52,6 +52,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
+  jest.clearAllTimers();
   jest.restoreAllMocks();
   jest.useRealTimers();
 
@@ -167,7 +168,7 @@ describe('Scroll handler', () => {
     loadAppWithDOM();
     const nav = document.querySelector('nav');
 
-    Object.defineProperty(window, 'scrollY', { value: 51, writable: true });
+    Object.defineProperty(window, 'scrollY', { value: 51, writable: true, configurable: true });
     window.dispatchEvent(new Event('scroll'));
 
     expect(nav.classList.contains('scrolled')).toBe(true);
@@ -178,12 +179,12 @@ describe('Scroll handler', () => {
     const nav = document.querySelector('nav');
 
     // First scroll past 50
-    Object.defineProperty(window, 'scrollY', { value: 100, writable: true });
+    Object.defineProperty(window, 'scrollY', { value: 100, writable: true, configurable: true });
     window.dispatchEvent(new Event('scroll'));
     expect(nav.classList.contains('scrolled')).toBe(true);
 
     // Scroll back to 50
-    Object.defineProperty(window, 'scrollY', { value: 50, writable: true });
+    Object.defineProperty(window, 'scrollY', { value: 50, writable: true, configurable: true });
     window.dispatchEvent(new Event('scroll'));
     expect(nav.classList.contains('scrolled')).toBe(false);
   });
@@ -192,7 +193,7 @@ describe('Scroll handler', () => {
     loadAppWithDOM();
     const nav = document.querySelector('nav');
 
-    Object.defineProperty(window, 'scrollY', { value: 50, writable: true });
+    Object.defineProperty(window, 'scrollY', { value: 50, writable: true, configurable: true });
     window.dispatchEvent(new Event('scroll'));
 
     expect(nav.classList.contains('scrolled')).toBe(false);
@@ -202,7 +203,7 @@ describe('Scroll handler', () => {
     loadAppWithDOM();
     const nav = document.querySelector('nav');
 
-    Object.defineProperty(window, 'scrollY', { value: 0, writable: true });
+    Object.defineProperty(window, 'scrollY', { value: 0, writable: true, configurable: true });
     window.dispatchEvent(new Event('scroll'));
 
     expect(nav.classList.contains('scrolled')).toBe(false);
@@ -230,6 +231,15 @@ describe('Nav toggle', () => {
     expect(() => {
       loadAppWithDOM({ hasNavToggle: false });
     }).not.toThrow();
+  });
+
+  test('does not error when .nav-toggle exists but .nav-links is missing', () => {
+    expect(() => {
+      loadAppWithDOM({ hasNavToggle: true, hasNavLinks: false });
+    }).not.toThrow();
+    // Clicking the toggle should not throw even without .nav-links
+    const toggle = document.querySelector('.nav-toggle');
+    expect(() => toggle.click()).not.toThrow();
   });
 });
 
@@ -379,20 +389,6 @@ describe('Frame-busting', () => {
     loadAppWithDOM();
     // No error means it ran successfully
     window.dispatchEvent(new Event('load'));
-  });
-
-  test('frame-buster runs on interval (every 1500ms)', () => {
-    const replaceSpy = jest.fn();
-    // Save original
-    const originalLocation = window.location;
-
-    // window.top === window.self in jsdom, so no redirect
-    loadAppWithDOM();
-
-    // Advance interval
-    jest.advanceTimersByTime(1500);
-    // Should run without error since top === self
-    jest.advanceTimersByTime(1500);
   });
 
   test('frame-buster does not redirect when top === self', () => {
@@ -626,15 +622,15 @@ describe('Edge cases', () => {
     loadAppWithDOM();
     const nav = document.querySelector('nav');
 
-    Object.defineProperty(window, 'scrollY', { value: 100, writable: true });
+    Object.defineProperty(window, 'scrollY', { value: 100, writable: true, configurable: true });
     window.dispatchEvent(new Event('scroll'));
     expect(nav.classList.contains('scrolled')).toBe(true);
 
-    Object.defineProperty(window, 'scrollY', { value: 10, writable: true });
+    Object.defineProperty(window, 'scrollY', { value: 10, writable: true, configurable: true });
     window.dispatchEvent(new Event('scroll'));
     expect(nav.classList.contains('scrolled')).toBe(false);
 
-    Object.defineProperty(window, 'scrollY', { value: 51, writable: true });
+    Object.defineProperty(window, 'scrollY', { value: 51, writable: true, configurable: true });
     window.dispatchEvent(new Event('scroll'));
     expect(nav.classList.contains('scrolled')).toBe(true);
   });

@@ -34,7 +34,7 @@ r.forEach((e) => o.observe(e)),
   window.addEventListener('scroll', () => {
     document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 50);
   }),
-  t && t.addEventListener('click', () => n.classList.toggle('open')),
+  t && t.addEventListener('click', () => n && n.classList.toggle('open')),
   console.log('Ultras Polonia Miedzyrzecze 2026'),
   console.log('© UPM. All rights reserved.'),
   document.addEventListener('contextmenu', (e) => e.preventDefault()),
