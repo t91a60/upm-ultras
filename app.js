@@ -38,12 +38,14 @@ const toggleMenu = () => {
 };
 
 const hardenExternalLinks = () => {
-  document.querySelectorAll('a[target="_blank"]').forEach((link) => {
-    const existingRel = (link.getAttribute('rel') || '').split(/\s+/).filter(Boolean);
-    const relSet = new Set(existingRel);
-    relSet.add('noopener');
-    relSet.add('noreferrer');
-    link.setAttribute('rel', Array.from(relSet).join(' '));
+  document.querySelectorAll('a').forEach((link) => {
+    if (link.getAttribute('target') === '_blank') {
+      const existingRel = (link.getAttribute('rel') || '').split(/\s+/).filter(Boolean);
+      const relSet = new Set(existingRel);
+      relSet.add('noopener');
+      relSet.add('noreferrer');
+      link.setAttribute('rel', Array.from(relSet).join(' '));
+    }
 
     const rawHref = link.getAttribute('href');
     if (!rawHref) {
