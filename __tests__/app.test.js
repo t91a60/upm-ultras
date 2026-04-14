@@ -12,9 +12,8 @@
  *  - Scroll handler (nav "scrolled" class)
  *  - Nav toggle (mobile menu open/close)
  *  - Console log output
- *  - Event prevention (contextmenu, selectstart, keydown, dragstart, copy)
- *  - Keydown handler specifics (Ctrl/Meta combos, F12, Shift+F10)
- *  - Frame-busting logic
+ *  - Mobile menu close behavior (link click, Escape)
+ *  - Body class toggle for mobile menu lock
  */
 
 let observerCallback;
@@ -44,17 +43,12 @@ beforeEach(() => {
     };
   });
 
-  // Mock timers for setInterval
-  jest.useFakeTimers();
-
   // Spy on console.log
   jest.spyOn(console, 'log').mockImplementation(() => {});
 });
 
 afterEach(() => {
-  jest.clearAllTimers();
   jest.restoreAllMocks();
-  jest.useRealTimers();
 
   // Clean up global mocks
   delete global.IntersectionObserver;
@@ -68,6 +62,7 @@ function loadAppWithDOM({
   hasNavToggle = true,
   hasNavLinks = true,
   hasNav = true,
+  navLinkCount = 0,
 } = {}) {
   // Build DOM
   if (hasNav) {
@@ -84,6 +79,14 @@ function loadAppWithDOM({
   if (hasNavLinks) {
     const links = document.createElement('ul');
     links.classList.add('nav-links');
+
+    for (let i = 0; i < navLinkCount; i++) {
+      const link = document.createElement('a');
+      link.href = `#section-${i}`;
+      link.textContent = `Section ${i}`;
+      links.appendChild(link);
+    }
+
     document.body.appendChild(links);
   }
 
@@ -222,9 +225,44 @@ describe('Nav toggle', () => {
 
     toggle.click();
     expect(links.classList.contains('open')).toBe(true);
+    expect(document.body.classList.contains('menu-open')).toBe(true);
 
     toggle.click();
     expect(links.classList.contains('open')).toBe(false);
+    expect(document.body.classList.contains('menu-open')).toBe(false);
+  });
+
+  test('closes menu when nav link is clicked', () => {
+    loadAppWithDOM({ navLinkCount: 1 });
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.querySelector('.nav-links');
+    const link = links.querySelector('a');
+
+    toggle.click();
+    expect(links.classList.contains('open')).toBe(true);
+
+    link.click();
+    expect(links.classList.contains('open')).toBe(false);
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+  });
+
+  test('closes menu on Escape key press', () => {
+    loadAppWithDOM();
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.querySelector('.nav-links');
+
+    toggle.click();
+    expect(links.classList.contains('open')).toBe(true);
+
+    const event = new KeyboardEvent('keydown', {
+      cancelable: true,
+      bubbles: true,
+      key: 'Escape',
+    });
+    document.dispatchEvent(event);
+
+    expect(links.classList.contains('open')).toBe(false);
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
   });
 
   test('does not error when .nav-toggle is missing', () => {
@@ -259,164 +297,6 @@ describe('Console output', () => {
   });
 });
 
-// ─── Context menu prevention ───────────────────────────────────────────
-
-describe('Context menu prevention', () => {
-  test('prevents default on contextmenu event', () => {
-    loadAppWithDOM();
-    const event = new Event('contextmenu', { cancelable: true });
-    document.dispatchEvent(event);
-    expect(event.defaultPrevented).toBe(true);
-  });
-});
-
-// ─── Select start prevention ───────────────────────────────────────────
-
-describe('Select start prevention', () => {
-  test('prevents default on selectstart event', () => {
-    loadAppWithDOM();
-    const event = new Event('selectstart', { cancelable: true });
-    document.dispatchEvent(event);
-    expect(event.defaultPrevented).toBe(true);
-  });
-});
-
-// ─── Drag start prevention ─────────────────────────────────────────────
-
-describe('Drag start prevention', () => {
-  test('prevents default on dragstart event', () => {
-    loadAppWithDOM();
-    const event = new Event('dragstart', { cancelable: true });
-    window.dispatchEvent(event);
-    expect(event.defaultPrevented).toBe(true);
-  });
-});
-
-// ─── Copy prevention ───────────────────────────────────────────────────
-
-describe('Copy prevention', () => {
-  test('prevents default on copy event', () => {
-    loadAppWithDOM();
-    const event = new Event('copy', { cancelable: true });
-    document.dispatchEvent(event);
-    expect(event.defaultPrevented).toBe(true);
-  });
-});
-
-// ─── Keydown handler ───────────────────────────────────────────────────
-
-describe('Keydown handler', () => {
-  function dispatchKeydown(options) {
-    const event = new KeyboardEvent('keydown', {
-      cancelable: true,
-      bubbles: true,
-      ...options,
-    });
-    document.dispatchEvent(event);
-    return event;
-  }
-
-  // Ctrl + key combinations that should be prevented
-  const blockedCtrlKeys = ['s', 'u', 'p', 'c', 'x', 'i', 'j'];
-
-  blockedCtrlKeys.forEach((key) => {
-    test(`prevents Ctrl+${key}`, () => {
-      loadAppWithDOM();
-      const event = dispatchKeydown({ key, ctrlKey: true });
-      expect(event.defaultPrevented).toBe(true);
-    });
-  });
-
-  // Meta (Cmd) + key combinations that should be prevented
-  blockedCtrlKeys.forEach((key) => {
-    test(`prevents Meta+${key}`, () => {
-      loadAppWithDOM();
-      const event = dispatchKeydown({ key, metaKey: true });
-      expect(event.defaultPrevented).toBe(true);
-    });
-  });
-
-  test('prevents F12', () => {
-    loadAppWithDOM();
-    const event = dispatchKeydown({ key: 'F12' });
-    expect(event.defaultPrevented).toBe(true);
-  });
-
-  test('prevents Shift+F10', () => {
-    loadAppWithDOM();
-    const event = dispatchKeydown({ key: 'F10', shiftKey: true });
-    expect(event.defaultPrevented).toBe(true);
-  });
-
-  test('does NOT prevent regular key presses (e.g. "a")', () => {
-    loadAppWithDOM();
-    const event = dispatchKeydown({ key: 'a' });
-    expect(event.defaultPrevented).toBe(false);
-  });
-
-  test('does NOT prevent Ctrl+a (not in blocked list)', () => {
-    loadAppWithDOM();
-    const event = dispatchKeydown({ key: 'a', ctrlKey: true });
-    expect(event.defaultPrevented).toBe(false);
-  });
-
-  test('does NOT prevent F10 without Shift', () => {
-    loadAppWithDOM();
-    const event = dispatchKeydown({ key: 'F10' });
-    expect(event.defaultPrevented).toBe(false);
-  });
-
-  test('does NOT prevent F12 with Ctrl (still prevented since key is F12)', () => {
-    loadAppWithDOM();
-    const event = dispatchKeydown({ key: 'F12', ctrlKey: true });
-    // F12 check is independent of ctrlKey, so it should still be prevented
-    expect(event.defaultPrevented).toBe(true);
-  });
-
-  test('does NOT prevent Shift+F12 (only F12 key matters)', () => {
-    loadAppWithDOM();
-    const event = dispatchKeydown({ key: 'F12', shiftKey: true });
-    // The F12 condition triggers regardless of shiftKey
-    expect(event.defaultPrevented).toBe(true);
-  });
-});
-
-// ─── Frame-busting ─────────────────────────────────────────────────────
-
-describe('Frame-busting', () => {
-  test('runs frame-buster on window load', () => {
-    // When window.top === window.self, no redirect should happen
-    loadAppWithDOM();
-    // No error means it ran successfully
-    window.dispatchEvent(new Event('load'));
-  });
-
-  test('frame-buster does not redirect when top === self', () => {
-    // In normal (non-iframe) context, top === self, so no redirect
-    const originalReplace = window.location.replace;
-    const replaceSpy = jest.fn();
-    window.location.replace = replaceSpy;
-
-    loadAppWithDOM();
-    window.dispatchEvent(new Event('load'));
-
-    // Should NOT redirect since we're not in an iframe
-    expect(replaceSpy).not.toHaveBeenCalled();
-
-    window.location.replace = originalReplace;
-  });
-
-  test('frame-buster interval fires every 1500ms', () => {
-    const setIntervalSpy = jest.spyOn(global, 'setInterval');
-    loadAppWithDOM();
-
-    // Verify setInterval was called with 1500ms
-    const calls = setIntervalSpy.mock.calls;
-    const intervalCall = calls.find((c) => c[1] === 1500);
-    expect(intervalCall).toBeDefined();
-    expect(typeof intervalCall[0]).toBe('function');
-  });
-});
 
 // ─── HTML structure validation ─────────────────────────────────────────
 
@@ -456,8 +336,12 @@ describe('HTML structure', () => {
     expect(htmlContent).toMatch(/Content-Security-Policy/);
   });
 
-  test('has robots noindex meta tag', () => {
-    expect(htmlContent).toMatch(/name="robots".*noindex/);
+  test('has robots index/follow meta tag', () => {
+    expect(htmlContent).toMatch(/name="robots".*index, follow/);
+  });
+
+  test('has og:title meta tag', () => {
+    expect(htmlContent).toMatch(/property="og:title"/);
   });
 
   test('links to style.css', () => {
@@ -581,8 +465,12 @@ describe('CSS structure', () => {
     expect(cssContent).toMatch(/footer\s*\{/);
   });
 
-  test('has user-select none on body', () => {
-    expect(cssContent).toMatch(/user-select:\s*none/);
+  test('has user-select text on body', () => {
+    expect(cssContent).toMatch(/user-select:\s*text/);
+  });
+
+  test('has reduced motion media query', () => {
+    expect(cssContent).toMatch(/prefers-reduced-motion:\s*reduce/);
   });
 
   test('has keyframe animations defined', () => {
@@ -651,7 +539,7 @@ describe('Edge cases', () => {
     expect(links.classList.contains('open')).toBe(false);
   });
 
-  test('Ctrl+Shift+key combo still prevented for blocked keys', () => {
+  test('does not block regular keyboard shortcuts anymore', () => {
     loadAppWithDOM();
     const event = new KeyboardEvent('keydown', {
       cancelable: true,
@@ -661,6 +549,6 @@ describe('Edge cases', () => {
       shiftKey: true,
     });
     document.dispatchEvent(event);
-    expect(event.defaultPrevented).toBe(true);
+    expect(event.defaultPrevented).toBe(false);
   });
 });

@@ -1,0 +1,1 @@
+AI must always load and follow rules from .skills directory.

@@ -1,49 +1,61 @@
-const r = document.querySelectorAll('.reveal'),
-  o = new IntersectionObserver(
-    (e) => {
-      e.forEach((e) => {
-        e.isIntersecting && (e.target.classList.add('visible'), o.unobserve(e.target));
-      });
-    },
-    { threshold: 0.1 }
-  ),
-  t = document.querySelector('.nav-toggle'),
-  n = document.querySelector('.nav-links'),
-  a = (e) => {
-    (e.ctrlKey || e.metaKey) &&
-      (e.key === 's' ||
-        e.key === 'u' ||
-        e.key === 'p' ||
-        e.key === 'c' ||
-        e.key === 'x' ||
-        e.key === 'i' ||
-        e.key === 'j') &&
-      e.preventDefault(),
-      e.key === 'F12' && e.preventDefault(),
-      e.shiftKey && e.key === 'F10' && e.preventDefault();
-  },
-  s = () => {
-    try {
-      window.top !== window.self && window.top.location.replace(window.self.location.href);
-    } catch (e) {
-      window.location.replace(window.location.href);
-    }
-  };
+const revealElements = document.querySelectorAll('.reveal');
+const navToggle = document.querySelector('.nav-toggle');
+const navLinks = document.querySelector('.nav-links');
+const navElement = document.querySelector('nav');
 
-r.forEach((e) => o.observe(e)),
-  window.addEventListener('scroll', () => {
-    document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 50);
-  }),
-  t && n && t.addEventListener('click', () => {
-    n.classList.toggle('open');
-    t.setAttribute('aria-expanded', n.classList.contains('open'));
-  }),
-  console.log('Ultras Polonia Miedzyrzecze 2026'),
-  console.log('© UPM. All rights reserved.'),
-  document.addEventListener('contextmenu', (e) => e.preventDefault()),
-  document.addEventListener('selectstart', (e) => e.preventDefault()),
-  document.addEventListener('keydown', a),
-  window.addEventListener('dragstart', (e) => e.preventDefault()),
-  document.addEventListener('copy', (e) => e.preventDefault()),
-  window.addEventListener('load', s),
-  setInterval(s, 1500);
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.1 }
+);
+
+const closeMenu = () => {
+  if (!navLinks || !navToggle) {
+    return;
+  }
+
+  navLinks.classList.remove('open');
+  navToggle.setAttribute('aria-expanded', 'false');
+  document.body.classList.remove('menu-open');
+};
+
+const toggleMenu = () => {
+  if (!navLinks || !navToggle) {
+    return;
+  }
+
+  const isOpen = navLinks.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', String(isOpen));
+  document.body.classList.toggle('menu-open', isOpen);
+};
+
+revealElements.forEach((element) => observer.observe(element));
+
+window.addEventListener('scroll', () => {
+  if (navElement) {
+    navElement.classList.toggle('scrolled', window.scrollY > 50);
+  }
+});
+
+if (navToggle && navLinks) {
+  navToggle.addEventListener('click', toggleMenu);
+
+  navLinks.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeMenu();
+    }
+  });
+}
+
+console.log('Ultras Polonia Miedzyrzecze 2026');
+console.log('© UPM. All rights reserved.');
