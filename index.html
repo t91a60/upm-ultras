@@ -10,7 +10,7 @@
   <meta name="copyright" content="Copyright (c) 2026 Ultras Polonia Miedzyrzecze. All rights reserved.">
   <meta name="generator" content="UPM">
   <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; img-src 'self' data: https://i.imgur.com; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; connect-src 'self'; media-src 'self'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; img-src 'self' data: https://i.imgur.com; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; media-src 'self'; upgrade-insecure-requests">
   <title>UPM — Ultras Polonia Międzyrzecze</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Barlow+Condensed:wght@300;400;600;700;900&amp;family=Barlow:wght@300;400;500&amp;display=swap"
@@ -1143,7 +1143,9 @@ body::after {
         href="mailto:19polonia.miedzyrzecze87@gmail.com">MAIL</a>
     </div>
   </footer>
-  <script src="js/main.js"></script>
+  <script>
+    const r=document.querySelectorAll('.reveal'),o=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add('visible'),o.unobserve(e.target))})},{threshold:.1}),t=document.querySelector('.nav-toggle'),n=document.querySelector('.nav-links'),a=e=>{(e.ctrlKey||e.metaKey)&&(e.key==='s'||e.key==='u'||e.key==='p'||e.key==='c'||e.key==='x'||e.key==='i'||e.key==='j')&&e.preventDefault(),e.key==='F12'&&e.preventDefault(),e.shiftKey&&e.key==='F10'&&e.preventDefault()},s=()=>{try{window.top!==window.self&&window.top.location.replace(window.self.location.href)}catch(e){window.location.replace(window.location.href)}};r.forEach(e=>o.observe(e)),window.addEventListener('scroll',()=>{document.querySelector('nav').classList.toggle('scrolled',window.scrollY>50)}),t&&t.addEventListener('click',()=>n.classList.toggle('open')),console.log('Ultras Polonia Miedzyrzecze 2026'),console.log('© UPM. All rights reserved.'),document.addEventListener('contextmenu',e=>e.preventDefault()),document.addEventListener('selectstart',e=>e.preventDefault()),document.addEventListener('keydown',a),window.addEventListener('dragstart',e=>e.preventDefault()),document.addEventListener('copy',e=>e.preventDefault()),window.addEventListener('load',s),setInterval(s,1500);
+  </script>
   <noscript><p style="background:#000;color:#e8f0eb;padding:1rem;text-align:center;font-family:Barlow,sans-serif;margin:0">Ta strona wymaga JavaScript</p></noscript>
 </body>
 
