@@ -30,13 +30,14 @@
   <meta name="twitter:title" content="UPM — Ultras Polonia Międzyrzecze">
   <meta name="twitter:description" content="Oficjalna strona kibiców UPM: aktualności, galerie z trybun i sklep z wlepkami.">
   <meta name="twitter:image" content="https://i.imgur.com/NFTSF1O.png">
+  <link rel="canonical" href="https://upm-ultras.pl/">
   <link rel="icon" type="image/png" href="https://i.imgur.com/NFTSF1O.png">
   <link rel="preload" as="image" href="https://i.imgur.com/NFTSF1O.png" fetchpriority="high">
   <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-  <a class="skip-link" href="#hero">Przejdź do treści</a>
+  <a class="skip-link" href="#main-content">Przejdź do treści</a>
   <nav id="main-nav">
     <a class="nav-logo" href="#hero">
       <img alt="UPM Logo"
@@ -54,6 +55,7 @@
       <li><a href="#kontakt">Kontakt</a></li>
     </ul>
   </nav>
+  <main id="main-content">
   <section id="hero">
     <div class="hero-bg"></div>
     <div class="hero-content">
@@ -72,7 +74,7 @@
     <div class="manifesto-inner reveal">
       <div class="manifesto-banner-wrap">
         <img alt="Razem Tworzymy Historię — Oprawa UPM" class="manifesto-banner-img"
-          src="">
+          loading="lazy" decoding="async">
         <div class="manifesto-banner-overlay">
           <p class="manifesto-overlay-text">Razem<br />Tworzymy<br />Historię</p>
         </div>
@@ -93,7 +95,7 @@
         <div class="news-body-wrap">
           <p class="news-date">Mar 2026</p>
           <img alt="Graphic"
-            src="" loading="lazy" decoding="async" style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid var(--dim);" />
+            class="news-image" loading="lazy" decoding="async" width="640" height="400" fetchpriority="low" />
           <p class="news-body">Siemanko! Za tydzień podejmujemy <strong style="color:var(--white);">Ogrodnik
               Tychy</strong> na własnym boisku, obecność obowiązkowa! Na meczu będziemy zbierać do puszki na cele
             Ultras. Nie zatrzymujemy się po ostatnich oprawach i nie zaniżamy poprzeczki którą podnieśliśmy przy oprawie
@@ -106,7 +108,7 @@
         <div class="news-body-wrap">
           <p class="news-date">11 Listopada 2025</p>
           <img alt="News image"
-            src="" loading="lazy" decoding="async" style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid var(--dim);" />
+            class="news-image" loading="lazy" decoding="async" width="640" height="400" fetchpriority="low" />
           <p class="news-body">Dziś świętujemy <strong style="color:var(--white);">107. rocznicę odzyskania
               niepodległości!</strong> POLONIA znaczy POLSKA ⚪🔴</p>
         </div>
@@ -117,7 +119,7 @@
         <div class="news-body-wrap">
           <p class="news-date">2 Listopada 2025</p>
           <img alt="News image"
-            src="" loading="lazy" decoding="async" style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid var(--dim);" />
+            class="news-image" loading="lazy" decoding="async" width="640" height="400" fetchpriority="low" />
           <p class="news-body">W niedzielę z samego rana postanawiamy zadbać o tężyznę fizyczną wyruszając w góry.
             Wyprawa kończy się sukcesem — zdobywamy <strong style="color:var(--white);">Babią Górę</strong>. Sport to
             zdrowie! UPM!</p>
@@ -128,7 +130,7 @@
         <div class="news-body-wrap">
           <p class="news-date">14 Października 2025</p>
           <img alt="News image"
-            src="" loading="lazy" decoding="async" style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid var(--dim);" />
+            class="news-image" loading="lazy" decoding="async" width="640" height="400" fetchpriority="low" />
           <p class="news-body">W najbliższą niedzielę, <strong style="color:var(--white);">19 października o
               15:30</strong>, Polonia zmierzy się z Siódemką Tychy na własnym boisku. Każdy mecz to nie tylko gra — to
             siła wsparcia z trybun. Przyjdź i bądź częścią tej atmosfery! 📍 Boisko w Międzyrzeczu ‼️</p>
@@ -140,7 +142,7 @@
         <div class="news-body-wrap">
           <p class="news-date">9 Czerwca 2025</p>
           <img alt="News image"
-            src="" loading="lazy" decoding="async" style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid var(--dim);" />
+            class="news-image" loading="lazy" decoding="async" width="640" height="400" fetchpriority="low" />
           <p class="news-body">Polonia mierzy się z LKS Gardawice — jesteśmy tam w 2 auta, prowadzimy przyzwoity doping
             w asyście bębna. Nasi piłkarze stają na wysokości zadania i wygrywają <strong style="color:var(--white);">aż
               6:0!</strong> Po meczu dziękujemy sobie nawzajem i w znakomitych nastrojach wracamy do Gminy.</p>
@@ -152,7 +154,7 @@
         <div class="news-body-wrap">
           <p class="news-date">16 Maja 2025</p>
           <img alt="News image"
-            src="" loading="lazy" decoding="async" style="width: 100%; border-radius: 4px; margin-bottom: 1rem; border: 1px solid var(--dim);" />
+            class="news-image" loading="lazy" decoding="async" width="640" height="400" fetchpriority="low" />
           <p class="news-body"><strong style="color:var(--white);">DERBY DLA POLONII! ⚫🟢</strong> Jutrzejsze derby
             gminy z GTS Bojszowy — nie ma innej opcji, DERBY SĄ NASZE! Nie może Was tam zabraknąć!!! BYŁA, BĘDZIE, JEST
             — POLONIA NASZ KS. Dostępna nowa edycja wlepek! 👊</p>
@@ -210,7 +212,7 @@
       <div class="sticker-visual reveal">
         <div class="sticker-pack-display">
           <img alt="UPM Logo" class="sticker-pack-logo"
-            src="" loading="lazy" decoding="async">
+            loading="lazy" decoding="async" width="800" height="800" fetchpriority="low">
           <div class="sticker-pack-badge">Oficjalny Pakiet Wlepek UPM</div>
         </div>
       </div>
@@ -288,6 +290,7 @@
       </div>
     </div>
   </div>
+  </main>
   <footer>
     <div class="footer-logo">
       <img alt="UPM"

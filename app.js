@@ -83,6 +83,28 @@ const hardenExternalLinks = () => {
   });
 };
 
+const onDocumentClick = (event) => {
+  if (!navLinks || !navToggle || !navLinks.classList.contains('open')) {
+    return;
+  }
+
+  const target = event.target;
+
+  if (!(target instanceof Element)) {
+    return;
+  }
+
+  if (!navLinks.contains(target) && !navToggle.contains(target)) {
+    closeMenu();
+  }
+};
+
+const onResize = () => {
+  if (window.innerWidth > 768) {
+    closeMenu();
+  }
+};
+
 revealElements.forEach((element) => observer.observe(element));
 hardenExternalLinks();
 
@@ -90,7 +112,7 @@ window.addEventListener('scroll', () => {
   if (navElement) {
     navElement.classList.toggle('scrolled', window.scrollY > 50);
   }
-});
+}, { passive: true });
 
 if (navToggle && navLinks) {
   navToggle.addEventListener('click', toggleMenu);
@@ -104,6 +126,9 @@ if (navToggle && navLinks) {
       closeMenu();
     }
   });
+
+  document.addEventListener('click', onDocumentClick);
+  window.addEventListener('resize', onResize);
 }
 
 console.log('Ultras Polonia Miedzyrzecze 2026');
