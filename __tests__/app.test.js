@@ -874,7 +874,7 @@ describe('Window resize handler', () => {
     expect(links.classList.contains('open')).toBe(true);
   });
 
-  test('does not close menu at exactly 769px (above 768 threshold)', () => {
+  test('closes menu at exactly 769px (above 768 threshold)', () => {
     loadAppWithDOM({ navLinkCount: 1 });
     const toggle = document.querySelector('.nav-toggle');
     const links = document.querySelector('.nav-links');
