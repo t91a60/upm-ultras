@@ -63,6 +63,7 @@ function loadAppWithDOM({
   hasNavLinks = true,
   hasNav = true,
   navLinkCount = 0,
+  extraAnchors = [],
 } = {}) {
   // Build DOM
   if (hasNav) {
@@ -89,6 +90,24 @@ function loadAppWithDOM({
 
     document.body.appendChild(links);
   }
+
+  extraAnchors.forEach((anchorConfig) => {
+    const anchor = document.createElement('a');
+
+    if (anchorConfig.href) {
+      anchor.setAttribute('href', anchorConfig.href);
+    }
+
+    if (anchorConfig.target) {
+      anchor.setAttribute('target', anchorConfig.target);
+    }
+
+    if (anchorConfig.rel) {
+      anchor.setAttribute('rel', anchorConfig.rel);
+    }
+
+    document.body.appendChild(anchor);
+  });
 
   for (let i = 0; i < revealCount; i++) {
     const el = document.createElement('div');
@@ -278,6 +297,30 @@ describe('Nav toggle', () => {
     // Clicking the toggle should not throw even without .nav-links
     const toggle = document.querySelector('.nav-toggle');
     expect(() => toggle.click()).not.toThrow();
+  });
+});
+
+// ─── Link hardening ───────────────────────────────────────────────────
+
+describe('Link hardening', () => {
+  test('removes javascript: URLs from anchors', () => {
+    loadAppWithDOM({
+      extraAnchors: [{ href: 'javascript:alert(1)', target: '_blank' }],
+    });
+
+    const link = document.querySelector('a[target="_blank"]');
+    expect(link.getAttribute('href')).toBe('#');
+    expect(link.getAttribute('rel')).toBe('noopener noreferrer');
+  });
+
+  test('adds rel and referrerpolicy to external _blank links', () => {
+    loadAppWithDOM({
+      extraAnchors: [{ href: 'https://example.com', target: '_blank' }],
+    });
+
+    const link = document.querySelector('a[target="_blank"]');
+    expect(link.getAttribute('rel')).toBe('noopener noreferrer');
+    expect(link.getAttribute('referrerpolicy')).toBe('no-referrer');
   });
 });
 
