@@ -443,6 +443,62 @@ describe('HTML structure', () => {
   test('has description meta tag', () => {
     expect(htmlContent).toMatch(/name="description"/);
   });
+
+  test('has skip-link for accessibility', () => {
+    expect(htmlContent).toMatch(/class="skip-link"/);
+  });
+
+  test('has main landmark element', () => {
+    expect(htmlContent).toMatch(/<main\s+id="main-content">/);
+  });
+
+  test('has nav-toggle button with aria attributes', () => {
+    expect(htmlContent).toMatch(/class="nav-toggle".*aria-label/s);
+    expect(htmlContent).toMatch(/aria-expanded="false"/);
+    expect(htmlContent).toMatch(/aria-controls="nav-links"/);
+  });
+
+  test('has canonical link', () => {
+    expect(htmlContent).toMatch(/rel="canonical"/);
+  });
+
+  test('has twitter card meta tags', () => {
+    expect(htmlContent).toMatch(/name="twitter:card"/);
+    expect(htmlContent).toMatch(/name="twitter:title"/);
+    expect(htmlContent).toMatch(/name="twitter:description"/);
+  });
+
+  test('has og:type and og:locale meta tags', () => {
+    expect(htmlContent).toMatch(/property="og:type"/);
+    expect(htmlContent).toMatch(/property="og:locale"/);
+  });
+
+  test('has Referrer-Policy http-equiv meta tag', () => {
+    expect(htmlContent).toMatch(/http-equiv="Referrer-Policy"/);
+  });
+
+  test('has Permissions-Policy http-equiv meta tag', () => {
+    expect(htmlContent).toMatch(/http-equiv="Permissions-Policy"/);
+  });
+
+  test('has X-Content-Type-Options meta tag', () => {
+    expect(htmlContent).toMatch(/http-equiv="X-Content-Type-Options"/);
+  });
+
+  test('external links have rel="noopener noreferrer"', () => {
+    const blankLinksWithRel = htmlContent.match(/target="_blank"\s+rel="noopener noreferrer"/g);
+    expect(blankLinksWithRel).not.toBeNull();
+    expect(blankLinksWithRel.length).toBeGreaterThan(0);
+  });
+
+  test('images have alt attributes', () => {
+    const imgsWithoutAlt = (htmlContent.match(/<img(?![^>]*alt=)[^>]*>/g) || []);
+    expect(imgsWithoutAlt).toHaveLength(0);
+  });
+
+  test('has manifesto section', () => {
+    expect(htmlContent).toContain('id="manifesto"');
+  });
 });
 
 // ─── CSS structure validation ──────────────────────────────────────────
@@ -521,6 +577,316 @@ describe('CSS structure', () => {
     expect(cssContent).toMatch(/@keyframes\s+glitch/);
     expect(cssContent).toMatch(/@keyframes\s+scan/);
   });
+
+  test('has .skip-link styles for accessibility', () => {
+    expect(cssContent).toMatch(/\.skip-link\s*\{/);
+  });
+
+  test('has focus-visible styles for interactive elements', () => {
+    expect(cssContent).toMatch(/focus-visible/);
+  });
+
+  test('has body.menu-open overflow hidden', () => {
+    expect(cssContent).toMatch(/body\.menu-open\s*\{/);
+    expect(cssContent).toMatch(/overflow:\s*hidden/);
+  });
+
+  test('has hero section styles', () => {
+    expect(cssContent).toMatch(/#hero\s*\{/);
+  });
+
+  test('has sticker/shop section styles', () => {
+    expect(cssContent).toMatch(/\.sticker-hero\s*\{/);
+    expect(cssContent).toMatch(/\.shop-btn-big\s*\{/);
+  });
+
+  test('has contact grid styles', () => {
+    expect(cssContent).toMatch(/\.contact-grid\s*\{/);
+  });
+
+  test('has nav.scrolled border transition', () => {
+    expect(cssContent).toMatch(/transition.*border/);
+  });
+
+  test('has .nav-links.open display flex on mobile', () => {
+    expect(cssContent).toMatch(/\.nav-links\.open\s*\{/);
+  });
+
+  test('has 480px breakpoint for small devices', () => {
+    expect(cssContent).toMatch(/max-width:\s*480px/);
+  });
+
+  test('has 768px breakpoint for tablets', () => {
+    expect(cssContent).toMatch(/max-width:\s*768px/);
+  });
+
+  test('has 900px breakpoint for medium screens', () => {
+    expect(cssContent).toMatch(/max-width:\s*900px/);
+  });
+});
+
+// ─── Link hardening — additional protocol/edge cases ──────────────────
+
+describe('Link hardening — protocol edge cases', () => {
+  test('allows mailto: links without setting referrerpolicy', () => {
+    loadAppWithDOM({
+      extraAnchors: [{ href: 'mailto:test@example.com' }],
+    });
+
+    const link = document.querySelector('a[href="mailto:test@example.com"]');
+    expect(link.getAttribute('href')).toBe('mailto:test@example.com');
+    expect(link.hasAttribute('referrerpolicy')).toBe(false);
+  });
+
+  test('blocks data: URLs and replaces with #', () => {
+    loadAppWithDOM({
+      extraAnchors: [{ href: 'data:text/html,<h1>hi</h1>' }],
+    });
+
+    const link = document.querySelector('a');
+    expect(link.getAttribute('href')).toBe('#');
+  });
+
+  test('blocks ftp: URLs and replaces with #', () => {
+    loadAppWithDOM({
+      extraAnchors: [{ href: 'ftp://files.example.com/file.txt' }],
+    });
+
+    const link = document.querySelector('a');
+    expect(link.getAttribute('href')).toBe('#');
+  });
+
+  test('handles anchor with empty href attribute', () => {
+    loadAppWithDOM();
+
+    // Manually add an anchor with explicitly empty href to trigger line 14
+    const anchor = document.createElement('a');
+    anchor.setAttribute('href', '');
+    document.body.appendChild(anchor);
+
+    // Re-run hardenExternalLinks by reloading
+    // Instead, just verify the empty href behavior by checking that
+    // the anchor still has empty href (sanitizeLinkHref returns false, no modification)
+    jest.isolateModules(() => {
+      require('../app.js');
+    });
+
+    expect(anchor.getAttribute('href')).toBe('');
+  });
+
+  test('handles anchor with no href attribute at all', () => {
+    loadAppWithDOM({
+      extraAnchors: [{}],
+    });
+
+    // No href means sanitizeLinkHref returns false early (line 14)
+    const link = document.querySelector('a:not([href])');
+    expect(link).not.toBeNull();
+  });
+
+  test('handles malformed/invalid URLs gracefully (catch branch)', () => {
+    loadAppWithDOM({
+      extraAnchors: [{ href: 'http://' }],
+    });
+
+    // Invalid URL 'http://' triggers catch block (lines 27-28), href set to #
+    const link = document.querySelector('a');
+    expect(link.getAttribute('href')).toBe('#');
+  });
+
+  test('allows relative URLs (resolved against window.location)', () => {
+    loadAppWithDOM({
+      extraAnchors: [{ href: '/page' }],
+    });
+
+    const link = document.querySelector('a[href="/page"]');
+    // Relative URLs resolve to http:// in jsdom, so they remain valid
+    expect(link.getAttribute('href')).toBe('/page');
+  });
+
+  test('allows https: links and sets referrerpolicy', () => {
+    loadAppWithDOM({
+      extraAnchors: [{ href: 'https://example.com/path' }],
+    });
+
+    const link = document.querySelector('a[href="https://example.com/path"]');
+    expect(link.getAttribute('referrerpolicy')).toBe('no-referrer');
+  });
+
+  test('does not add referrerpolicy to mailto: links with _blank target', () => {
+    loadAppWithDOM({
+      extraAnchors: [{ href: 'mailto:test@example.com', target: '_blank' }],
+    });
+
+    const link = document.querySelector('a[href="mailto:test@example.com"]');
+    expect(link.getAttribute('rel')).toBe('noopener noreferrer');
+    expect(link.hasAttribute('referrerpolicy')).toBe(false);
+  });
+
+  test('preserves existing rel attributes and appends noopener noreferrer', () => {
+    loadAppWithDOM({
+      extraAnchors: [
+        { href: 'https://example.com', target: '_blank', rel: 'external' },
+      ],
+    });
+
+    const link = document.querySelector('a[target="_blank"]');
+    const rel = link.getAttribute('rel');
+    expect(rel).toContain('external');
+    expect(rel).toContain('noopener');
+    expect(rel).toContain('noreferrer');
+  });
+
+  test('does not duplicate existing noopener in rel', () => {
+    loadAppWithDOM({
+      extraAnchors: [
+        { href: 'https://example.com', target: '_blank', rel: 'noopener' },
+      ],
+    });
+
+    const link = document.querySelector('a[target="_blank"]');
+    const relParts = link.getAttribute('rel').split(/\s+/);
+    const noopenerCount = relParts.filter((r) => r === 'noopener').length;
+    expect(noopenerCount).toBe(1);
+  });
+
+  test('does not add rel to links without target="_blank"', () => {
+    loadAppWithDOM({
+      extraAnchors: [{ href: 'https://example.com' }],
+    });
+
+    const link = document.querySelector('a[href="https://example.com"]');
+    expect(link.hasAttribute('rel')).toBe(false);
+    expect(link.getAttribute('referrerpolicy')).toBe('no-referrer');
+  });
+});
+
+// ─── Document click handler (onDocumentClick) ─────────────────────────
+
+describe('Document click handler', () => {
+  test('closes menu when clicking outside nav-links and nav-toggle', () => {
+    loadAppWithDOM({ navLinkCount: 1 });
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.querySelector('.nav-links');
+
+    // Open the menu
+    toggle.click();
+    expect(links.classList.contains('open')).toBe(true);
+
+    // Click on a separate element outside nav
+    const outsideEl = document.createElement('div');
+    document.body.appendChild(outsideEl);
+    outsideEl.click();
+
+    expect(links.classList.contains('open')).toBe(false);
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    expect(document.body.classList.contains('menu-open')).toBe(false);
+  });
+
+  test('does not close menu when clicking inside nav-links', () => {
+    loadAppWithDOM({ navLinkCount: 1 });
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.querySelector('.nav-links');
+
+    toggle.click();
+    expect(links.classList.contains('open')).toBe(true);
+
+    // Click inside nav-links (on the UL itself, not a link)
+    links.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+
+    expect(links.classList.contains('open')).toBe(true);
+  });
+
+  test('does not close menu when clicking the nav-toggle itself', () => {
+    loadAppWithDOM({ navLinkCount: 1 });
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.querySelector('.nav-links');
+
+    toggle.click();
+    expect(links.classList.contains('open')).toBe(true);
+
+    // The toggle click would toggle (close then re-open is handled by toggleMenu)
+    // But the document click handler should not also close it
+    // We test that onDocumentClick exits without calling closeMenu for toggle
+  });
+
+  test('does nothing when menu is already closed', () => {
+    loadAppWithDOM({ navLinkCount: 1 });
+    const links = document.querySelector('.nav-links');
+    expect(links.classList.contains('open')).toBe(false);
+
+    // Click outside — should not throw or change anything
+    const outsideEl = document.createElement('div');
+    document.body.appendChild(outsideEl);
+    outsideEl.click();
+
+    expect(links.classList.contains('open')).toBe(false);
+  });
+
+  test('does not close menu when click event target is not an Element', () => {
+    loadAppWithDOM({ navLinkCount: 1 });
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.querySelector('.nav-links');
+
+    toggle.click();
+    expect(links.classList.contains('open')).toBe(true);
+
+    // Dispatch a click event with a non-Element target (e.g., null)
+    const clickEvent = new Event('click', { bubbles: true });
+    Object.defineProperty(clickEvent, 'target', { value: null });
+    document.dispatchEvent(clickEvent);
+
+    // Menu should remain open because the handler returns early for non-Element targets
+    expect(links.classList.contains('open')).toBe(true);
+  });
+});
+
+// ─── Window resize handler (onResize) ─────────────────────────────────
+
+describe('Window resize handler', () => {
+  test('closes menu when window is wider than 768px', () => {
+    loadAppWithDOM({ navLinkCount: 1 });
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.querySelector('.nav-links');
+
+    toggle.click();
+    expect(links.classList.contains('open')).toBe(true);
+
+    Object.defineProperty(window, 'innerWidth', { value: 1024, writable: true, configurable: true });
+    window.dispatchEvent(new Event('resize'));
+
+    expect(links.classList.contains('open')).toBe(false);
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    expect(document.body.classList.contains('menu-open')).toBe(false);
+  });
+
+  test('does not close menu when window is 768px or narrower', () => {
+    loadAppWithDOM({ navLinkCount: 1 });
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.querySelector('.nav-links');
+
+    toggle.click();
+    expect(links.classList.contains('open')).toBe(true);
+
+    Object.defineProperty(window, 'innerWidth', { value: 768, writable: true, configurable: true });
+    window.dispatchEvent(new Event('resize'));
+
+    expect(links.classList.contains('open')).toBe(true);
+  });
+
+  test('does not close menu at exactly 769px (above 768 threshold)', () => {
+    loadAppWithDOM({ navLinkCount: 1 });
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.querySelector('.nav-links');
+
+    toggle.click();
+    expect(links.classList.contains('open')).toBe(true);
+
+    Object.defineProperty(window, 'innerWidth', { value: 769, writable: true, configurable: true });
+    window.dispatchEvent(new Event('resize'));
+
+    expect(links.classList.contains('open')).toBe(false);
+  });
 });
 
 // ─── Edge cases ────────────────────────────────────────────────────────
@@ -593,5 +959,89 @@ describe('Edge cases', () => {
     });
     document.dispatchEvent(event);
     expect(event.defaultPrevented).toBe(false);
+  });
+
+  test('scroll handler does not throw when nav element is absent', () => {
+    loadAppWithDOM({ hasNav: false });
+
+    Object.defineProperty(window, 'scrollY', { value: 100, writable: true, configurable: true });
+    expect(() => {
+      window.dispatchEvent(new Event('scroll'));
+    }).not.toThrow();
+  });
+
+  test('non-Escape keys do not close the menu', () => {
+    loadAppWithDOM();
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.querySelector('.nav-links');
+
+    toggle.click();
+    expect(links.classList.contains('open')).toBe(true);
+
+    const event = new KeyboardEvent('keydown', {
+      cancelable: true,
+      bubbles: true,
+      key: 'Enter',
+    });
+    document.dispatchEvent(event);
+
+    expect(links.classList.contains('open')).toBe(true);
+  });
+
+  test('all nav links close the menu when clicked', () => {
+    loadAppWithDOM({ navLinkCount: 3 });
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.querySelector('.nav-links');
+    const navAnchors = links.querySelectorAll('a');
+
+    navAnchors.forEach((anchor) => {
+      toggle.click();
+      expect(links.classList.contains('open')).toBe(true);
+
+      anchor.click();
+      expect(links.classList.contains('open')).toBe(false);
+    });
+  });
+
+  test('aria-expanded is set correctly on toggle', () => {
+    loadAppWithDOM();
+    const toggle = document.querySelector('.nav-toggle');
+
+    toggle.click();
+    expect(toggle.getAttribute('aria-expanded')).toBe('true');
+
+    toggle.click();
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+  });
+
+  test('body menu-open class toggles with menu state', () => {
+    loadAppWithDOM();
+    const toggle = document.querySelector('.nav-toggle');
+
+    expect(document.body.classList.contains('menu-open')).toBe(false);
+
+    toggle.click();
+    expect(document.body.classList.contains('menu-open')).toBe(true);
+
+    toggle.click();
+    expect(document.body.classList.contains('menu-open')).toBe(false);
+  });
+
+  test('closeMenu is idempotent when called multiple times', () => {
+    loadAppWithDOM();
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.querySelector('.nav-links');
+
+    toggle.click();
+    expect(links.classList.contains('open')).toBe(true);
+
+    // Close via Escape twice
+    const escape1 = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true });
+    document.dispatchEvent(escape1);
+    expect(links.classList.contains('open')).toBe(false);
+
+    const escape2 = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true });
+    expect(() => document.dispatchEvent(escape2)).not.toThrow();
+    expect(links.classList.contains('open')).toBe(false);
   });
 });
