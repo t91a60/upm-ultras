@@ -94,7 +94,7 @@ function loadAppWithDOM({
   extraAnchors.forEach((anchorConfig) => {
     const anchor = document.createElement('a');
 
-    if (anchorConfig.href) {
+    if (anchorConfig.href !== undefined) {
       anchor.setAttribute('href', anchorConfig.href);
     }
 
@@ -486,9 +486,15 @@ describe('HTML structure', () => {
   });
 
   test('external links have rel="noopener noreferrer"', () => {
-    const blankLinksWithRel = htmlContent.match(/target="_blank"\s+rel="noopener noreferrer"/g);
-    expect(blankLinksWithRel).not.toBeNull();
-    expect(blankLinksWithRel.length).toBeGreaterThan(0);
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlContent, 'text/html');
+    const blankLinks = doc.querySelectorAll('a[target="_blank"]');
+    expect(blankLinks.length).toBeGreaterThan(0);
+    blankLinks.forEach((link) => {
+      const rel = (link.getAttribute('rel') || '').split(/\s+/);
+      expect(rel).toContain('noopener');
+      expect(rel).toContain('noreferrer');
+    });
   });
 
   test('images have alt attributes', () => {
@@ -657,21 +663,14 @@ describe('Link hardening — protocol edge cases', () => {
   });
 
   test('handles anchor with empty href attribute', () => {
-    loadAppWithDOM();
-
-    // Manually add an anchor with explicitly empty href to trigger line 14
-    const anchor = document.createElement('a');
-    anchor.setAttribute('href', '');
-    document.body.appendChild(anchor);
-
-    // Re-run hardenExternalLinks by reloading
-    // Instead, just verify the empty href behavior by checking that
-    // the anchor still has empty href (sanitizeLinkHref returns false, no modification)
-    jest.isolateModules(() => {
-      require('../app.js');
+    loadAppWithDOM({
+      extraAnchors: [{ href: '' }],
     });
 
-    expect(anchor.getAttribute('href')).toBe('');
+    // Empty href is falsy, so sanitizeLinkHref returns false early (line 14)
+    const link = document.querySelector('a[href=""]');
+    expect(link).not.toBeNull();
+    expect(link.getAttribute('href')).toBe('');
   });
 
   test('handles anchor with no href attribute at all', () => {
@@ -797,17 +796,23 @@ describe('Document click handler', () => {
     expect(links.classList.contains('open')).toBe(true);
   });
 
-  test('does not close menu when clicking the nav-toggle itself', () => {
+  test('does not close menu via document click handler when clicking nav-toggle', () => {
     loadAppWithDOM({ navLinkCount: 1 });
     const toggle = document.querySelector('.nav-toggle');
     const links = document.querySelector('.nav-links');
 
+    // Open the menu
     toggle.click();
     expect(links.classList.contains('open')).toBe(true);
 
-    // The toggle click would toggle (close then re-open is handled by toggleMenu)
-    // But the document click handler should not also close it
-    // We test that onDocumentClick exits without calling closeMenu for toggle
+    // Simulate a document click with the toggle as target.
+    // The onDocumentClick handler should not close the menu for toggle clicks.
+    const clickEvent = new MouseEvent('click', { bubbles: true });
+    Object.defineProperty(clickEvent, 'target', { value: toggle });
+    document.dispatchEvent(clickEvent);
+
+    // Menu should still be open because onDocumentClick skips toggle clicks
+    expect(links.classList.contains('open')).toBe(true);
   });
 
   test('does nothing when menu is already closed', () => {
