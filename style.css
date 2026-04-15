@@ -22,6 +22,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 76px;
 }
 
 body {
@@ -150,6 +151,10 @@ nav {
   color: var(--light-green);
 }
 
+.nav-links a:focus-visible {
+  color: var(--light-green);
+}
+
 a:focus-visible,
 button:focus-visible {
   outline: 2px solid var(--light-green);
@@ -192,6 +197,7 @@ button:focus-visible {
 #kontakt {
   content-visibility: auto;
   contain-intrinsic-size: 800px;
+  scroll-margin-top: 76px;
 }
 
 .hero-bg {
@@ -518,7 +524,7 @@ section {
   background: var(--forest);
   position: relative;
   overflow: hidden;
-  cursor: pointer;
+  cursor: default;
 }
 
 .gallery-item:first-child {
@@ -877,6 +883,14 @@ footer {
 }
 
 @media (max-width: 768px) {
+  body::before {
+    opacity: 0.2;
+  }
+
+  body::after {
+    display: none;
+  }
+
   nav {
     padding: 0 max(1rem, env(safe-area-inset-left)) 0 max(1rem, env(safe-area-inset-right));
   }
@@ -890,11 +904,14 @@ footer {
     top: 64px;
     left: 0;
     width: 100%;
+    max-height: calc(100dvh - 64px);
     background: var(--deep);
     flex-direction: column;
     padding: 1.2rem max(1rem, env(safe-area-inset-left)) calc(1.2rem + env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-right));
     gap: 1rem;
     border-bottom: 1px solid var(--green);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     display: none;
   }
 
