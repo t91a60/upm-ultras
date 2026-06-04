@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="theme-color" content="#000000">
+  <title>404 — Nie znaleziono | UPM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Barlow+Condensed:wght@300;400;600;700;900&amp;family=Barlow:wght@300;400;500&amp;display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="https://i.imgur.com/NFTSF1O.png">
+  <style>
+    /* Minimal inline CSS for 404 page to ensure it works even if paths break */
+    :root {
+      --black: #000000;
+      --white: #e8f0eb;
+      --accent: #3a8050;
+      --light-green: #4daa68;
+      --deep: #060e09;
+    }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.08) 3px, rgba(0,0,0,0.08) 4px),
+        linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.85) 100%);
+      z-index: 1;
+    }
+    .hero-bg-img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      min-width: 100%;
+      min-height: 100%;
+      opacity: 0.15;
+      filter: grayscale(100%);
+    }
+    .content {
+      position: relative;
+      z-index: 2;
+      padding: 2rem;
+    }
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(6rem, 15vw, 12rem);
+      margin: 0;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--white) 0%, var(--light-green) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 30px rgba(77, 170, 104, 0.4));
+    }
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #8aaa92;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 2rem;
+      min-height: 44px;
+      border-radius: 999px;
+      text-decoration: none;
+      background: var(--accent);
+      color: var(--black);
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    .btn:hover {
+      background: var(--light-green);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(77, 170, 104, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-bg" aria-hidden="true">
+    <img class="hero-bg-img" src="https://i.imgur.com/421xxEr.png" alt="">
+  </div>
+  <div class="content">
+    <h1>404</h1>
+    <p>Ta strona nie istnieje na naszym rewirze.</p>
+    <a href="/upm-ultras/" class="btn">Wróć do bazy</a>
+  </div>
+</body>
+</html>
