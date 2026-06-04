@@ -10,7 +10,7 @@
   <meta name="copyright" content="Copyright (c) 2026 Ultras Polonia Miedzyrzecze. All rights reserved.">
   <meta name="generator" content="UPM">
   <meta name="robots" content="index, follow">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; img-src 'self' data: https://i.imgur.com; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; script-src-attr 'none'; connect-src 'self'; media-src 'self'; upgrade-insecure-requests; block-all-mixed-content">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; img-src 'self' data: https://i.imgur.com https://*.fbcdn.net https://*.instagram.com; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; script-src-attr 'none'; connect-src 'self'; media-src 'self'; block-all-mixed-content">
   <meta http-equiv="Referrer-Policy" content="no-referrer">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="Permissions-Policy" content="geolocation=(), camera=(), microphone=(), payment=(), usb=()">
@@ -35,245 +35,234 @@
   <link rel="icon" type="image/png" href="https://i.imgur.com/NFTSF1O.png">
   <link rel="preload" as="image" href="https://i.imgur.com/NFTSF1O.png" fetchpriority="high">
   <link rel="stylesheet" href="./style.css">
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SportsOrganization",
-      "name": "Ultras Polonia Międzyrzecze",
-      "alternateName": "UPM",
-      "url": "https://t91a60.github.io/upm-ultras/",
-      "logo": "https://i.imgur.com/NFTSF1O.png",
-      "sameAs": [
-        "https://www.instagram.com/ultras_polonia_miedzyrzecze/",
-        "https://www.instagram.com/fanatycy_z_polonii/",
-        "https://www.facebook.com/profile.php?id=61567464391274"
-      ],
-      "email": "mailto:19polonia.miedzyrzecze87@gmail.com",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "ul. Sportowa",
-        "postalCode": "43-220",
-        "addressLocality": "Międzyrzecze",
-        "addressCountry": "PL"
-      }
-    }
-  </script>
+  <script type="application/ld+json" src="./schema.json"></script>
 </head>
 
 <body>
   <a class="skip-link" href="#main-content">Przejdź do treści</a>
-  <nav id="main-nav">
-    <a class="nav-logo" href="#hero">
-      <img alt="UPM Logo"
-        src="https://i.imgur.com/NFTSF1O.png" width="38" height="38" loading="eager" decoding="async">
-      <span>UPM</span>
-    </a>
-    <button class="nav-toggle" type="button" aria-label="Otwórz menu nawigacyjne" aria-expanded="false" aria-controls="nav-links">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="#aktualnosci">Aktualności</a></li>
-      <li><a href="#galeria">Galeria</a></li>
-      <li><a href="#sklep">Sklep</a></li>
-      <li><a href="#dolacz">Dołącz</a></li>
-      <li><a href="#kontakt">Kontakt</a></li>
-    </ul>
-  </nav>
-  <main id="main-content">
-  <section id="hero">
-    <div class="hero-bg"></div>
+  <header class="site-header">
+    <nav id="main-nav" aria-label="Główna nawigacja">
+      <a class="nav-logo" href="#hero">
+        <img alt="UPM Logo"
+          src="https://i.imgur.com/NFTSF1O.png" width="38" height="38" loading="eager" decoding="async">
+        <span>UPM</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Otwórz menu nawigacyjne" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#aktualnosci">Aktualności</a></li>
+        <li><a href="#galeria">Galeria</a></li>
+        <li><a href="#sklep">Sklep</a></li>
+        <li><a href="#dolacz">Dołącz</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main id="main-content" class="main-content" tabindex="-1">
+  <section id="hero" class="section section-hero">
+    <div class="hero-bg" aria-hidden="true">
+      <img class="hero-bg-img" src="https://i.imgur.com/421xxEr.png" alt="" aria-hidden="true" fetchpriority="high" decoding="async">
+      <div class="glow-orb"></div>
+      <div class="glow-orb orb-2"></div>
+    </div>
     <div class="hero-content">
       <img alt="UPM Ultras Polonia Międzyrzecze" class="hero-logo-img"
-        src="https://i.imgur.com/NFTSF1O.png" width="280" height="280" fetchpriority="high" decoding="async">
-              <p class="hero-eyebrow">Klub Założony 1987 — Fanatycy z Polonii</p>
+        src="https://i.imgur.com/NFTSF1O.png" srcset="https://i.imgur.com/NFTSF1O.png 280w, https://i.imgur.com/NFTSF1O.png 560w" sizes="(max-width: 600px) 60vw, 280px" width="280" height="280" fetchpriority="high" decoding="async">
+        <p class="hero-eyebrow">Klub Założony 1987 — Fanatycy z Polonii</p>
       <h1 class="hero-title">
         Ultras <span class="outline">Polonia</span>
       </h1>
       <p class="hero-subtitle">Międzyrzecze</p>
       <div class="hero-badge">Razem Tworzymy Historię</div>
     </div>
-    <div class="hero-diagonal"></div>
+    <div class="hero-diagonal" aria-hidden="true"></div>
   </section>
-  <div id="manifesto">
-    <div class="manifesto-inner reveal">
-      <div class="manifesto-banner-wrap">
+  <section id="manifesto" class="section section--deferred">
+    <div class="container manifesto-inner reveal">
+      <figure class="manifesto-banner-wrap">
         <img alt="Razem Tworzymy Historię — Oprawa UPM" class="manifesto-banner-img"
-          src="https://i.imgur.com/5q4C9Qp.jpeg" loading="lazy" decoding="async" width="1400" height="800">
-        <div class="manifesto-banner-overlay">
+          src="https://i.imgur.com/5q4C9Qp.jpeg" srcset="https://i.imgur.com/5q4C9Qp.jpeg 800w, https://i.imgur.com/5q4C9Qp.jpeg 1400w" sizes="(max-width:900px) 100vw, 900px" loading="lazy" decoding="async" width="1400" height="800">
+        <figcaption class="manifesto-banner-overlay">
           <p class="manifesto-overlay-text">Razem<br />Tworzymy<br />Historię</p>
-        </div>
-      </div>
+        </figcaption>
+      </figure>
       <p class="manifesto-body">
         Ultras Polonia Międzyrzecze to więcej niż sekcja kibiców — to rodzina, braterstwo i styl życia.
         Stoimy za naszymi barwami bez względu na wynik, pogodę czy tabelę.
         Czarno-zieloni na dobre i na złe.
       </p>
     </div>
-  </div>
-  <section id="aktualnosci">
-    <p class="section-label">Aktualności</p>
-    <h2 class="section-title">Co Słychać<br />Na Trybunach</h2>
-    <div class="news-grid">
-      <article class="news-card reveal">
+  </section>
+  <section id="aktualnosci" class="section section--deferred">
+    <div class="container">
+      <h2 class="section-title">Co Słychać<br />Na Trybunach</h2>
+      <div class="news-grid">
+      <article class="news-card card reveal">
 
         <div class="news-body-wrap">
-          <p class="news-date">Mar 2026</p>
+          <time class="news-date" datetime="2026-03">Mar 2026</time>
           <img alt="Zapowiedź meczu UPM i zbiórka na cele Ultras"
             src="https://i.imgur.com/2lrmtWB.jpeg" class="news-image" loading="lazy" decoding="async" width="640" height="400" fetchpriority="low" />
-          <p class="news-body">Siemanko! Za tydzień podejmujemy <strong style="color:var(--white);">Ogrodnik
-              Tychy</strong> na własnym boisku, obecność obowiązkowa! Na meczu będziemy zbierać do puszki na cele
+            <p class="news-body">Siemanko! Za tydzień podejmujemy <strong class="text-white">Ogrodnik
+                Tychy</strong> na własnym boisku, obecność obowiązkowa! Na meczu będziemy zbierać do puszki na cele
             Ultras. Nie zatrzymujemy się po ostatnich oprawach i nie zaniżamy poprzeczki którą podnieśliśmy przy oprawie
             “Razem Tworzymy Historię”. Wlepki dostępne w przerwie spotkania. 👊</p>
         </div>
-        <div class="news-arrow">→</div>
+        <div class="news-arrow" aria-hidden="true">→</div>
       </article>
-      <article class="news-card reveal">
+      <article class="news-card card reveal">
 
         <div class="news-body-wrap">
-          <p class="news-date">11 Listopada 2025</p>
+          <time class="news-date" datetime="2025-11-11">11 Listopada 2025</time>
           <img alt="Grafika rocznicowa 11 listopada"
             src="https://i.imgur.com/vXU3Fr2.jpeg" class="news-image" loading="lazy" decoding="async" width="640" height="400" fetchpriority="low" />
-          <p class="news-body">Dziś świętujemy <strong style="color:var(--white);">107. rocznicę odzyskania
+            <p class="news-body">Dziś świętujemy <strong class="text-white">107. rocznicę odzyskania
               niepodległości!</strong> POLONIA znaczy POLSKA ⚪🔴</p>
         </div>
-        <div class="news-arrow">→</div>
+        <div class="news-arrow" aria-hidden="true">→</div>
       </article>
-      <article class="news-card reveal">
+      <article class="news-card card reveal">
 
         <div class="news-body-wrap">
-          <p class="news-date">2 Listopada 2025</p>
+          <time class="news-date" datetime="2025-11-02">2 Listopada 2025</time>
           <img alt="Wyprawa UPM w góry"
             src="https://i.imgur.com/Ig78gs9.jpeg" class="news-image" loading="lazy" decoding="async" width="640" height="400" fetchpriority="low" />
           <p class="news-body">W niedzielę z samego rana postanawiamy zadbać o tężyznę fizyczną wyruszając w góry.
-            Wyprawa kończy się sukcesem — zdobywamy <strong style="color:var(--white);">Babią Górę</strong>. Sport to
+            Wyprawa kończy się sukcesem — zdobywamy <strong class="text-white">Babią Górę</strong>. Sport to
             zdrowie! UPM!</p>
         </div>
-        <div class="news-arrow">→</div>
+        <div class="news-arrow" aria-hidden="true">→</div>
       </article>
-      <article class="news-card reveal">
+      <article class="news-card card reveal">
         <div class="news-body-wrap">
-          <p class="news-date">14 Października 2025</p>
+          <time class="news-date" datetime="2025-10-14">14 Października 2025</time>
           <img alt="Zapowiedź meczu domowego Polonii"
             src="https://i.imgur.com/OrMxuYf.jpeg" class="news-image" loading="lazy" decoding="async" width="640" height="400" fetchpriority="low" />
-          <p class="news-body">W najbliższą niedzielę, <strong style="color:var(--white);">19 października o
+            <p class="news-body">W najbliższą niedzielę, <strong class="text-white">19 października o
               15:30</strong>, Polonia zmierzy się z Siódemką Tychy na własnym boisku. Każdy mecz to nie tylko gra — to
             siła wsparcia z trybun. Przyjdź i bądź częścią tej atmosfery! 📍 Boisko w Międzyrzeczu ‼️</p>
         </div>
-        <div class="news-arrow">→</div>
+        <div class="news-arrow" aria-hidden="true">→</div>
       </article>
-      <article class="news-card reveal">
+      <article class="news-card card reveal">
 
         <div class="news-body-wrap">
-          <p class="news-date">9 Czerwca 2025</p>
+          <time class="news-date" datetime="2025-06-09">9 Czerwca 2025</time>
           <img alt="Relacja z wyjazdu i zwycięstwa 6 do 0"
             src="https://i.imgur.com/v1GotTl.jpeg" class="news-image" loading="lazy" decoding="async" width="640" height="400" fetchpriority="low" />
           <p class="news-body">Polonia mierzy się z LKS Gardawice — jesteśmy tam w 2 auta, prowadzimy przyzwoity doping
-            w asyście bębna. Nasi piłkarze stają na wysokości zadania i wygrywają <strong style="color:var(--white);">aż
+            w asyście bębna. Nasi piłkarze stają na wysokości zadania i wygrywają <strong class="text-white">aż
               6:0!</strong> Po meczu dziękujemy sobie nawzajem i w znakomitych nastrojach wracamy do Gminy.</p>
         </div>
-        <div class="news-arrow">→</div>
+        <div class="news-arrow" aria-hidden="true">→</div>
       </article>
-      <article class="news-card reveal">
+      <article class="news-card card reveal">
 
         <div class="news-body-wrap">
-          <p class="news-date">16 Maja 2025</p>
+          <time class="news-date" datetime="2025-05-16">16 Maja 2025</time>
           <img alt="Zapowiedź derbów gminy"
             src="https://i.imgur.com/cJ8wQ8M.jpeg" class="news-image" loading="lazy" decoding="async" width="640" height="400" fetchpriority="low" />
-          <p class="news-body"><strong style="color:var(--white);">DERBY DLA POLONII! ⚫🟢</strong> Jutrzejsze derby
+          <p class="news-body"><strong class="text-white">DERBY DLA POLONII! ⚫🟢</strong> Jutrzejsze derby
             gminy z GTS Bojszowy — nie ma innej opcji, DERBY SĄ NASZE! Nie może Was tam zabraknąć!!! BYŁA, BĘDZIE, JEST
             — POLONIA NASZ KS. Dostępna nowa edycja wlepek! 👊</p>
         </div>
-        <div class="news-arrow">→</div>
+        <div class="news-arrow" aria-hidden="true">→</div>
       </article>
+      </div>
     </div>
   </section>
-  <section id="galeria">
-    <p class="section-label">Galeria</p>
-    <h2 class="section-title">Żywe Zdjęcia<br />Z Trybun</h2>
-    <div class="gallery-grid">
+  <section id="galeria" class="section section--deferred">
+    <div class="container">
+      <p class="section-label">Galeria</p>
+      <h2 class="section-title">Żywe Zdjęcia<br />Z Trybun</h2>
+        <div class="gallery-grid">
       <div class="gallery-item">
-        <div class="gallery-inner" style="background: linear-gradient(135deg, #0a1a10 0%, #1e4028 100%);">
+        <div class="gallery-inner gallery-bg-1">
           <div class="gallery-icon">
-            <img src="https://i.imgur.com/NFTSF1O.png" alt="UPM gallery" loading="lazy" decoding="async">
+            <img src="https://i.imgur.com/NFTSF1O.png" alt="UPM" loading="lazy" decoding="async" width="56" height="56" class="gallery-logo">
           </div>
           <span class="gallery-label">Doping — Derby 2025</span>
         </div>
       </div>
       <div class="gallery-item">
-        <div class="gallery-inner" style="background: linear-gradient(135deg, #060e09 0%, #122418 100%);">
-          <div class="gallery-icon">🔥</div>
+        <div class="gallery-inner gallery-bg-2">
+          <div class="gallery-icon" aria-hidden="true">🔥</div>
           <span class="gallery-label">Race — Gorzów</span>
         </div>
       </div>
       <div class="gallery-item">
-        <div class="gallery-inner" style="background: linear-gradient(135deg, #0d2018 0%, #2a5c38 100%);">
-          <div class="gallery-icon">🎌</div>
+        <div class="gallery-inner gallery-bg-3">
+          <div class="gallery-icon" aria-hidden="true">🎌</div>
           <span class="gallery-label">Flagi — Sezon 25/26</span>
         </div>
       </div>
       <div class="gallery-item">
-        <div class="gallery-inner" style="background: linear-gradient(135deg, #060e09 0%, #1e4028 100%);">
-          <div class="gallery-icon">🏟</div>
+        <div class="gallery-inner gallery-bg-4">
+          <div class="gallery-icon" aria-hidden="true">🏟</div>
           <span class="gallery-label">Pełny stadion</span>
         </div>
       </div>
       <div class="gallery-item">
-        <div class="gallery-inner" style="background: linear-gradient(135deg, #0a1a10 0%, #122418 100%);">
-          <div class="gallery-icon">🎆</div>
+        <div class="gallery-inner gallery-bg-5">
+          <div class="gallery-icon" aria-hidden="true">🎆</div>
           <span class="gallery-label">Oprawy 2024</span>
         </div>
       </div>
     </div>
-    <div style="margin-top:2rem; text-align:center;">
-      <a class="btn-outline" href="https://www.instagram.com/ultras_polonia_miedzyrzecze/" target="_blank" rel="noopener noreferrer">Więcej na
+    <div class="instagram-cta">
+      <a class="btn btn-outline" href="https://www.instagram.com/ultras_polonia_miedzyrzecze/" target="_blank" rel="noopener noreferrer">Więcej na
         Instagramie →</a>
     </div>
+    </div>
   </section>
-  <section id="sklep">
-    <p class="section-label">Sklep UPM</p>
-    <h2 class="section-title">Noś Barwy<br />Z Dumą</h2>
-    <div class="sticker-hero">
-      <div class="sticker-visual reveal">
-        <div class="sticker-pack-display">
-          <img alt="Wlepki UPM" class="sticker-pack-logo"
-            src="https://i.imgur.com/5q4C9Qp.jpeg" loading="lazy" decoding="async" fetchpriority="low">
-        </div>
-      </div>
-      <div class="sticker-info reveal">
-        <p class="sticker-title">Pakiet<br />Wlepek UPM</p>
-        <div class="sticker-detail">
-          <div class="sticker-stat">
-            <p class="sticker-stat-num">24</p>
-            <p class="sticker-stat-label">Sztuki w zestawie</p>
-          </div>
-          <div class="sticker-stat">
-            <p class="sticker-stat-num">6</p>
-            <p class="sticker-stat-label">Unikalne wzory</p>
+  <section id="sklep" class="section section--deferred">
+    <div class="container">
+      <p class="section-label">Sklep UPM</p>
+      <h2 class="section-title">Noś Barwy<br />Z Dumą</h2>
+      <div class="sticker-hero">
+        <div class="sticker-visual reveal">
+          <div class="sticker-pack-display">
+            <img alt="Wlepki UPM" class="sticker-pack-logo"
+              src="https://instagram.fktw1-1.fna.fbcdn.net/v/t51.75761-15/501380663_17898718299215043_3515588481555874640_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=105&ig_cache_key=MzY0MzMwNjI2OTQ2MDE1NDI4OA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQueHBpZHMuODAwLnNkci5yZWd1bGFyX3Bob3RvLkMzIn0%3D&_nc_ohc=qnzCxYn_k4sQ7kNvwFAsn7A&_nc_oc=Adrv0p27y2GRuzGvMT8Q9Iih5yFF9q9mu7Jq3YcpJGMzMbf7WDZQiMSOMmXkUEeZTZ0&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.fktw1-1.fna&_nc_gid=ZmCQOT2zdGY5SXivcFmZ3g&_nc_ss=7a22e&oh=00_Af_wKIMmln3nae85E_PbhZcCe3SKYOouoDKlGagShQY5XQ&oe=6A27AFC7" loading="lazy" decoding="async" fetchpriority="low">
           </div>
         </div>
-        <p class="sticker-desc">
-          Oficjalny pakiet wlepek Ultras Polonia Międzyrzecze. 24 naklejki w 6 różnych wzorach
-          — logo UPM, hasła ultrasów, barwy czarno-zielone. Idealne na każdą powierzchnię.
-          Zamów przez e-mail lub odbierz osobiście na stadionie przy ul. Sportowej.
-        </p>
-        <a class="shop-btn-big"
-          href="https://www.instagram.com/ultras_polonia_miedzyrzecze/" target="_blank" rel="noopener noreferrer">Napisz do
-          nas</a>
-        <p class="shop-note">przejdź do profilu fanatycy i wyślij wiadomość</p>
+        <div class="sticker-info reveal">
+          <p class="sticker-title">Pakiet<br />Wlepek UPM</p>
+          <div class="sticker-detail">
+            <div class="sticker-stat">
+              <p class="sticker-stat-num">24</p>
+              <p class="sticker-stat-label">Sztuki w zestawie</p>
+            </div>
+            <div class="sticker-stat">
+              <p class="sticker-stat-num">6</p>
+              <p class="sticker-stat-label">Unikalne wzory</p>
+            </div>
+          </div>
+          <p class="sticker-desc">
+            Oficjalny pakiet wlepek Ultras Polonia Międzyrzecze. 24 naklejki w 6 różnych wzorach
+            — logo UPM, hasła ultrasów, barwy czarno-zielone. Idealne na każdą powierzchnię.
+            Zamów przez e-mail lub odbierz osobiście na stadionie przy ul. Sportowej.
+          </p>
+          <a class="btn btn-primary shop-btn-big"
+            href="https://www.instagram.com/ultras_polonia_miedzyrzecze/" target="_blank" rel="noopener noreferrer">Napisz do
+            nas</a>
+          <p class="shop-note">przejdź do profilu fanatycy i wyślij wiadomość</p>
+        </div>
       </div>
     </div>
   </section>
-  <section id="dolacz">
-    <div class="join-inner">
+  <section id="dolacz" class="section section--deferred">
+    <div class="container join-inner">
       <p class="section-label">Dołącz do Nas</p>
       <h2 class="section-title">Zostań<br />Jednym z Nas</h2>
       <div class="divider"></div>
-      <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.8; max-width: 480px; margin-bottom: 2.5rem;">
+      <p class="muted-lead">
         Masz w sobie pasję i lojalność? Napisz do nas na Instagramie — to najszybszy sposób, żeby trafić do naszej
         rodziny. Nie gryziemy.
       </p>
-      <a class="ig-cta-btn" href="https://www.instagram.com/ultras_polonia_miedzyrzecze/" target="_blank" rel="noopener noreferrer">
-        <svg fill="none" height="22" style="flex-shrink:0;" viewbox="0 0 24 24" width="22"
+      <a class="btn btn-primary ig-cta-btn" href="https://www.instagram.com/ultras_polonia_miedzyrzecze/" target="_blank" rel="noopener noreferrer">
+        <svg fill="none" height="22" class="svg-no-shrink" viewbox="0 0 24 24" width="22"
           xmlns="http://www.w3.org/2000/svg">
           <rect height="20" rx="5" stroke="currentColor" stroke-width="1.8" width="20" x="2" y="2"></rect>
           <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"></circle>
@@ -281,12 +270,13 @@
         </svg>
         @ultras_polonia_miedzyrzecze
       </a>
-      <p style="margin-top:1.5rem; font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--dim);">lub napisz na maila — <a href="mailto:19polonia.miedzyrzecze87@gmail.com" style="color:var(--muted); text-decoration:none;">19polonia.miedzyrzecze87@gmail.com</a></p>
+      <p class="small-uppercase-dim">lub napisz na maila — <a href="mailto:19polonia.miedzyrzecze87@gmail.com" class="link-muted">19polonia.miedzyrzecze87@gmail.com</a></p>
     </div>
   </section>
-  <div id="kontakt">
-    <p class="section-label" style="margin-bottom:2rem;">Kontakt</p>
-    <div class="contact-grid">
+  <section id="kontakt" class="section section--deferred">
+    <div class="container">
+      <p class="section-label mb-2">Kontakt</p>
+      <div class="contact-grid">
       <div>
         <p class="contact-type">E-mail</p>
         <p class="contact-val"><a
@@ -295,7 +285,7 @@
       </div>
       <div>
         <p class="contact-type">Adres Boiska</p>
-        <p class="contact-val">ul. Sportowa<br />43-220 Międzyrzecze</p>
+        <address class="contact-val">ul. Sportowa<br />43-220 Międzyrzecze</address>
       </div>
       <div>
         <p class="contact-type">Facebook</p>
@@ -307,29 +297,32 @@
         <p class="contact-val">
           <a href="https://www.instagram.com/ultras_polonia_miedzyrzecze/"
             target="_blank" rel="noopener noreferrer">@ultras_polonia_miedzyrzecze</a><br />
-          <a href="https://www.instagram.com/fanatycy_z_polonii/" style="margin-top:0.3rem;display:block;"
+          <a href="https://www.instagram.com/fanatycy_z_polonii/" class="mt-small block"
             target="_blank" rel="noopener noreferrer">@fanatycy_z_polonii</a>
         </p>
       </div>
+      </div>
     </div>
-  </div>
+  </section>
   </main>
-  <footer>
-    <div class="footer-logo">
-      <img alt="UPM"
-        src="https://i.imgur.com/NFTSF1O.png" width="28" height="28" loading="lazy" decoding="async">      Ultras Polonia Międzyrzecze
-    </div>
-    <p class="footer-text">© 2026 UPM</p>
-    <div class="footer-socials">
-      <a href="https://www.facebook.com/profile.php?id=61567464391274" target="_blank" rel="noopener noreferrer">FB</a>
-      <a href="https://www.instagram.com/ultras_polonia_miedzyrzecze/" target="_blank" rel="noopener noreferrer">IG</a>
-      <a href="https://www.instagram.com/fanatycy_z_polonii/" target="_blank" rel="noopener noreferrer">IG2</a>
-      <a
-        href="mailto:19polonia.miedzyrzecze87@gmail.com">MAIL</a>
+  <footer role="contentinfo" aria-label="Stopka strony">
+    <div class="container footer-inner">
+      <div class="footer-logo">
+        <img alt="UPM"
+          src="https://i.imgur.com/NFTSF1O.png" width="28" height="28" loading="lazy" decoding="async">      Ultras Polonia Międzyrzecze
+      </div>
+      <p class="footer-text">© 2026 UPM</p>
+      <div class="footer-socials">
+        <a href="https://www.facebook.com/profile.php?id=61567464391274" target="_blank" rel="noopener noreferrer">FB</a>
+        <a href="https://www.instagram.com/ultras_polonia_miedzyrzecze/" target="_blank" rel="noopener noreferrer">IG</a>
+        <a href="https://www.instagram.com/fanatycy_z_polonii/" target="_blank" rel="noopener noreferrer">IG2</a>
+        <a
+          href="mailto:19polonia.miedzyrzecze87@gmail.com" rel="noreferrer">MAIL</a>
+      </div>
     </div>
   </footer>
-  <script src="./app.js" defer></script>
-  <noscript><p style="background:#000;color:#e8f0eb;padding:1rem;text-align:center;font-family:Barlow,sans-serif;margin:0">Ta strona wymaga JavaScript</p></noscript>
+  <script type="module" src="./app.js"></script>
+  <noscript><p class="noscript-warning">Ta strona wymaga JavaScript</p></noscript>
 </body>
 
 </html>

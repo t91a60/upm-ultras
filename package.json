@@ -4,7 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "jest --verbose"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose --passWithNoTests",
+    "lint": "eslint . --ext .js",
+    "format": "prettier --write .",
+    "check:css": "stylelint \"**/*.css\""
   },
   "repository": {
     "type": "git",
@@ -13,13 +16,21 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/t91a60/upm-ultras/issues"
   },
   "homepage": "https://github.com/t91a60/upm-ultras#readme",
   "devDependencies": {
+    "eslint": "^8.57.0",
     "jest": "^30.3.0",
-    "jest-environment-jsdom": "^30.3.0"
+    "jest-environment-jsdom": "^30.3.0",
+    "prettier": "^3.3.3",
+    "stylelint": "^15.11.0",
+    "stylelint-config-recommended": "^13.0.0"
+  }
+  ,
+  "jest": {
+    "testEnvironment": "jsdom"
   }
 }

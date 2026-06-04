@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "SportsOrganization",
+  "name": "Ultras Polonia Międzyrzecze",
+  "alternateName": "UPM",
+  "url": "https://t91a60.github.io/upm-ultras/",
+  "logo": "https://i.imgur.com/NFTSF1O.png",
+  "sameAs": [
+    "https://www.instagram.com/ultras_polonia_miedzyrzecze/",
+    "https://www.instagram.com/fanatycy_z_polonii/",
+    "https://www.facebook.com/profile.php?id=61567464391274"
+  ],
+  "email": "19polonia.miedzyrzecze87@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "ul. Sportowa",
+    "postalCode": "43-220",
+    "addressLocality": "Międzyrzecze",
+    "addressCountry": "PL"
+  }
+}

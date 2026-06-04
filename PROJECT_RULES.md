@@ -1,1 +1,1 @@
-AI must always load and follow rules from .skills directory.
+AI must always load and follow rules from .github directory.
