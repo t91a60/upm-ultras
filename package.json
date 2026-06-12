@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "dev": "npx serve . -p 8080 --no-clipboard",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose --passWithNoTests",
     "lint": "eslint . --ext .js",
     "format": "prettier --write .",
@@ -28,8 +29,7 @@
     "prettier": "^3.3.3",
     "stylelint": "^15.11.0",
     "stylelint-config-recommended": "^13.0.0"
-  }
-  ,
+  },
   "jest": {
     "testEnvironment": "jsdom"
   }

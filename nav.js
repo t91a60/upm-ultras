@@ -5,7 +5,7 @@ const SCROLL_THRESHOLD = 50;
 const getNavElements = () => ({
   navToggle: document.querySelector('.nav-toggle'),
   navLinks: document.querySelector('.nav-links'),
-  navElement: document.querySelector('nav')
+  navElement: document.querySelector('nav'),
 });
 
 const setMenuState = (navLinks, navToggle, isOpen) => {

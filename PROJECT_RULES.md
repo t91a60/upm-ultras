@@ -1,1 +1,0 @@
-AI must always load and follow rules from .github directory.

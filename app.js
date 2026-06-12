@@ -1,6 +1,6 @@
 import { hardenExternalLinks } from './links.js';
 import { initNav } from './nav.js';
-import { initReveal } from './ui.js';
+import { initReveal, initImageFallbacks } from './ui.js';
 
 const runWhenReady = (callback) => {
   if (document.readyState === 'loading') {
@@ -14,5 +14,6 @@ const runWhenReady = (callback) => {
 runWhenReady(() => {
   initNav();
   initReveal();
+  initImageFallbacks();
   hardenExternalLinks();
 });

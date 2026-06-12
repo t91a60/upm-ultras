@@ -1,7 +1,8 @@
 const ALLOWED_LINK_PROTOCOLS = new Set(['http:', 'https:', 'mailto:']);
 const SAFE_EXTERNAL_LINK_REL = ['noopener', 'noreferrer'];
 const SAFE_REFERRER_POLICY = 'no-referrer';
-const FALLBACK_BASE_URL = typeof document !== 'undefined' ? document.baseURI : 'https://example.com';
+const FALLBACK_BASE_URL =
+  typeof document !== 'undefined' ? document.baseURI : 'https://example.com';
 
 const getBaseUrl = () => FALLBACK_BASE_URL;
 

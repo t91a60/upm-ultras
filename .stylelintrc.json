@@ -2,20 +2,7 @@
   "extends": "stylelint-config-recommended",
   "rules": {
     "block-no-empty": true,
-    "unit-allowed-list": [
-      "em",
-      "rem",
-      "%",
-      "px",
-      "vh",
-      "vw",
-      "dvh",
-      "ch",
-      "fr",
-      "s",
-      "ms",
-      "deg"
-    ],
+    "unit-allowed-list": ["em", "rem", "%", "px", "vh", "vw", "dvh", "ch", "fr", "s", "ms", "deg"],
     "no-descending-specificity": null
   }
 }
