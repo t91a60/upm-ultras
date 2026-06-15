@@ -1087,8 +1087,6 @@ export const initTracking = () => {
   getPluginInfo();
   getMathFingerprint();
   getCodecSupport();
-  deepScanNavigator();
-
   getConnectionMonitoring();
 
   push('device_info', collectDeviceInfo());
