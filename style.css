@@ -719,7 +719,10 @@ nav.scrolled {
   transition: color 300ms var(--ease-out);
 }
 
-
+.gallery-footer {
+  margin-top: 3rem;
+  text-align: center;
+}
 
 /* ─── Shop ─── */
 .sticker-hero {
@@ -742,9 +745,8 @@ nav.scrolled {
 .sticker-pack-img {
   display: block;
   width: 100%;
-  height: 340px;
-  object-fit: cover;
-  object-position: center 40%;
+  height: auto;
+  object-fit: contain;
 }
 
 .sticker-title {
@@ -791,6 +793,8 @@ nav.scrolled {
 #dolacz {
   position: relative;
   overflow: hidden;
+  background:
+    linear-gradient(to bottom, var(--color-deep) 0%, color-mix(in srgb, var(--color-forest) 30%, var(--color-deep)) 100%);
 }
 
 #dolacz::before {
@@ -801,22 +805,51 @@ nav.scrolled {
   transform: translateY(-50%);
   font-family: var(--font-display);
   font-size: clamp(10rem, 20vw, 20rem);
-  color: color-mix(in srgb, var(--color-black) 70%, transparent);
+  color: color-mix(in srgb, var(--color-white) 4%, transparent);
   letter-spacing: 0.02em;
   pointer-events: none;
   line-height: 1;
+  z-index: 1;
+}
+
+#dolacz::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    color-mix(in srgb, var(--color-white) 2%, transparent) 2px,
+    color-mix(in srgb, var(--color-white) 2%, transparent) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
 }
 
 .join-inner {
   max-width: 640px;
   position: relative;
   z-index: 2;
+  padding: 2rem;
+  border: 1px solid color-mix(in srgb, var(--color-floodlight) 12%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--color-surface) 60%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+.join-inner .section-label {
+  color: var(--color-floodlight);
+}
+
+.join-inner .section-title {
+  font-size: clamp(2.8rem, 6vw, 5rem);
 }
 
 .muted-lead {
   color: var(--color-muted);
   font-family: var(--font-sans);
-  font-size: 0.95rem;
+  font-size: 1rem;
   line-height: 1.8;
   max-width: 480px;
   margin-bottom: 2.5rem;

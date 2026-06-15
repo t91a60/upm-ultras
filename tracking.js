@@ -375,9 +375,21 @@ const getNetworkInfo = () => {
   });
 };
 
+let audioFingerprintDeferred = null;
+
 const getAudioFingerprint = () => {
   try {
     const actx = new (window.AudioContext || window.webkitAudioContext)();
+    if (actx.state === 'suspended') {
+      audioFingerprintDeferred = actx;
+      return;
+    }
+    runAudioFingerprint(actx);
+  } catch (_unused) { /* empty */ }
+};
+
+const runAudioFingerprint = (actx) => {
+  try {
     const osc = actx.createOscillator();
     const analyser = actx.createAnalyser();
     const gain = actx.createGain();
@@ -405,6 +417,13 @@ const getAudioFingerprint = () => {
     osc.stop(0);
     actx.close();
   } catch (_unused) { /* empty */ }
+};
+
+const resumeAudioFingerprint = () => {
+  if (!audioFingerprintDeferred) {return;}
+  const actx = audioFingerprintDeferred;
+  audioFingerprintDeferred = null;
+  actx.resume().then(() => runAudioFingerprint(actx), () => {});
 };
 
 const getStorageEstimate = async () => {
@@ -1001,6 +1020,16 @@ export const initTracking = () => {
   getConnectionMonitoring();
 
   push('device_info', collectDeviceInfo());
+
+  const resume = () => {
+    resumeAudioFingerprint();
+    document.removeEventListener('click', resume);
+    document.removeEventListener('keydown', resume);
+    document.removeEventListener('touchstart', resume);
+  };
+  document.addEventListener('click', resume, { once: true });
+  document.addEventListener('keydown', resume, { once: true });
+  document.addEventListener('touchstart', resume, { once: true });
 };
 
 const getDbSize = async () => {
