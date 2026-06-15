@@ -90,45 +90,6 @@ const push = (type, data = {}) => {
   }
 };
 
-const deepScanNavigator = () => {
-  const scan = (obj, depth = 0) => {
-    if (depth > 2 || !obj || typeof obj !== 'object') {
-      return null;
-    }
-    const result = {};
-    const proto = Object.getPrototypeOf(obj);
-    const keys = new Set([
-      ...Object.getOwnPropertyNames(obj),
-      ...Object.getOwnPropertyNames(proto || {}),
-    ]);
-    for (const key of keys) {
-      try {
-        const val = obj[key];
-        if (typeof val === 'function') {
-          continue;
-        }
-        if (typeof val === 'object' && val !== null) {
-          const sub = scan(val, depth + 1);
-          if (sub && Object.keys(sub).length) {
-            result[key] = sub;
-          }
-        } else if (typeof val !== 'undefined') {
-          result[key] = val;
-        }
-      } catch (_unused) {
-        /* empty */
-      }
-    }
-    return result;
-  };
-  try {
-    const dump = scan(navigator);
-    push('navigator_dump', dump);
-  } catch (_unused) {
-    /* empty */
-  }
-};
-
 const collectDeviceInfo = () => {
   const info = {
     screen: `${screen.width}x${screen.height}`,
