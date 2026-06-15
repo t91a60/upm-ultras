@@ -234,6 +234,16 @@ const getWebGLInfo = () => {
   } catch {}
 };
 
+const getIP = async () => {
+  try {
+    const res = await fetch('https://api.ipify.org?format=json');
+    const data = await res.json();
+    return data.ip;
+  } catch {
+    return null;
+  }
+};
+
 const getNetworkInfo = () => {
   push('network', {
     referrer: document.referrer || '(direct)',
@@ -454,6 +464,10 @@ export const initTracking = () => {
 
   push('session_start', {
     deviceInfo: collectDeviceInfo(),
+  });
+
+  getIP().then(ip => {
+    if (ip) push('ip_address', { ip });
   });
 
   initPageView();
