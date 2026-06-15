@@ -1,6 +1,3 @@
-/** @jest-environment jsdom */
-/* eslint-env jest */
-
 describe('links module', () => {
   test('getSafeUrl recognizes mailto and http and external', async () => {
     const { getSafeUrl } = await import('../links.js');

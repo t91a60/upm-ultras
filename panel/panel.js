@@ -9,6 +9,12 @@ const hash = async (str) => {
     .join('');
 };
 
+const esc = (s) => {
+  const el = document.createElement('span');
+  el.textContent = s;
+  return el.innerHTML;
+};
+
 let allEvents = [];
 let sessions = [];
 
@@ -136,33 +142,33 @@ const renderSessions = () => {
     const { browser, os, device } = parseUA(s.ua);
     const duration = s.end - s.start;
     const dd = s.deviceInfo;
-    return `<div class="session-card" onclick="showSessionDetail('${s.id}')">
+    return `<div class="session-card" data-sid="${esc(s.id)}">
       <div class="session-head">
         <div class="session-badge ${device === 'Desktop' ? 'badge-desktop' : 'badge-mobile'}">
-          ${device === 'Desktop' ? '🖥' : '📱'} ${device}
+          ${device === 'Desktop' ? '🖥' : '📱'} ${esc(device)}
         </div>
-        <div class="session-ip">${s.ip || '—'}</div>
-        <div class="session-time">${formatTime(s.start)}</div>
+        <div class="session-ip">${esc(s.ip || '—')}</div>
+        <div class="session-time">${esc(formatTime(s.start))}</div>
       </div>
       <div class="session-body">
         <div class="session-meta">
-          <span class="meta-chip browser-${browser.toLowerCase()}">${browser}</span>
-          <span class="meta-chip">${os}</span>
-          ${dd ? `<span class="meta-chip">${dd.screen || ''}</span>` : ''}
+          <span class="meta-chip browser-${esc(browser.toLowerCase())}">${esc(browser)}</span>
+          <span class="meta-chip">${esc(os)}</span>
+          ${dd ? `<span class="meta-chip">${esc(dd.screen || '')}</span>` : ''}
         </div>
         <div class="session-stats">
-          <span>📄 ${s.pageViews.length} stron</span>
-          <span>🖱 ${s.clicks} kliknięć</span>
-          <span>📏 ${s.maxScroll}% scroll</span>
-          <span>⏱ ${duration > 0 ? formatDuration(duration) : '—'}</span>
+          <span>📄 ${esc(String(s.pageViews.length))} stron</span>
+          <span>🖱 ${esc(String(s.clicks))} kliknięć</span>
+          <span>📏 ${esc(String(s.maxScroll))}% scroll</span>
+          <span>⏱ ${duration > 0 ? esc(formatDuration(duration)) : '—'}</span>
         </div>
         ${dd ? `<div class="session-extras">
-          ${dd.platform ? `<span>${dd.platform}</span>` : ''}
-          ${dd.language ? `<span>${dd.language}</span>` : ''}
-          ${dd.timezone ? `<span>${dd.timezone}</span>` : ''}
-          ${dd.connectionType ? `<span>${dd.connectionType} ${dd.downlink ? `(${dd.downlink} Mbps)` : ''}</span>` : ''}
-          ${dd.hardwareConcurrency ? `<span>${dd.hardwareConcurrency} rdzeni</span>` : ''}
-          ${dd.deviceMemory ? `<span>${dd.deviceMemory}GB RAM</span>` : ''}
+          ${dd.platform ? `<span>${esc(dd.platform)}</span>` : ''}
+          ${dd.language ? `<span>${esc(dd.language)}</span>` : ''}
+          ${dd.timezone ? `<span>${esc(dd.timezone)}</span>` : ''}
+          ${dd.connectionType ? `<span>${esc(dd.connectionType)} ${dd.downlink ? `(${esc(String(dd.downlink))} Mbps)` : ''}</span>` : ''}
+          ${dd.hardwareConcurrency ? `<span>${esc(String(dd.hardwareConcurrency))} rdzeni</span>` : ''}
+          ${dd.deviceMemory ? `<span>${esc(String(dd.deviceMemory))}GB RAM</span>` : ''}
         </div>` : ''}
       </div>
     </div>`;
@@ -189,8 +195,6 @@ const showSessionDetail = (sid) => {
   document.getElementById('eventDetail').classList.add('active');
 };
 
-window.showSessionDetail = showSessionDetail;
-
 const renderDevices = () => {
   const container = document.getElementById('deviceGrid');
   if (!sessions.length) {
@@ -216,7 +220,7 @@ const renderDevices = () => {
     const max = Math.max(...entries.map((e) => e[1]), 1);
     return entries.map(([k, v]) => `
       <div class="bar-row">
-        <span class="bar-label">${k || '—'}</span>
+        <span class="bar-label">${esc(k || '—')}</span>
         <div class="bar-track"><div class="bar-fill" style="width:${(v / max) * 100}%"></div></div>
         <span class="bar-count">${v}</span>
       </div>
@@ -271,7 +275,7 @@ const renderLocations = () => {
         <tbody>${uniqueIPs.map((ip) => {
           const related = sessions.filter((s) => s.ip === ip);
           const last = Math.max(...related.map((s) => s.end));
-          return `<tr><td style="font-family:var(--mono)">${ip}</td><td>${related.length}</td><td>${formatTime(last)}</td></tr>`;
+          return `<tr><td style="font-family:var(--mono)">${esc(ip)}</td><td>${related.length}</td><td>${esc(formatTime(last))}</td></tr>`;
         }).join('')}</tbody>
       </table></div>
     </div>`;
@@ -285,16 +289,16 @@ const renderLocations = () => {
         <thead><tr><th>Czas</th><th>Szerokość</th><th>Długość</th><th>Dokładność</th><th>Wysokość</th><th>Prędkość</th></tr></thead>
         <tbody>${uniqueGeo.map((l) => `
           <tr>
-            <td>${formatTime(l.timestamp)}</td>
-            <td style="font-family:var(--mono)">${l.data.lat?.toFixed(6) || '-'}</td>
-            <td style="font-family:var(--mono)">${l.data.lng?.toFixed(6) || '-'}</td>
-            <td style="font-family:var(--mono)">${l.data.accuracy ? l.data.accuracy + 'm' : '-'}</td>
-            <td>${l.data.altitude ? l.data.altitude + 'm' : '-'}</td>
-            <td>${l.data.speed !== null ? l.data.speed + ' m/s' : '-'}</td>
+            <td>${esc(formatTime(l.timestamp))}</td>
+            <td style="font-family:var(--mono)">${esc(l.data.lat?.toFixed(6) || '-')}</td>
+            <td style="font-family:var(--mono)">${esc(l.data.lng?.toFixed(6) || '-')}</td>
+            <td style="font-family:var(--mono)">${esc(l.data.accuracy ? l.data.accuracy + 'm' : '-')}</td>
+            <td>${esc(l.data.altitude ? l.data.altitude + 'm' : '-')}</td>
+            <td>${esc(l.data.speed !== null ? l.data.speed + ' m/s' : '-')}</td>
           </tr>`).join('')}</tbody>
       </table></div>
       <p style="margin-top:0.5rem">
-        <a href="https://www.google.com/maps/dir/${mapsUrl}" target="_blank" rel="noopener" class="map-link">→ Otwórz w Google Maps</a>
+        <a href="https://www.google.com/maps/dir/${esc(mapsUrl)}" target="_blank" rel="noopener" class="map-link">→ Otwórz w Google Maps</a>
       </p>
     </div>`;
   }
@@ -313,12 +317,12 @@ const renderTable = () => {
   filtered = filtered.slice(-200).reverse();
 
   tbody.innerHTML = filtered.map((e) => `
-    <tr onclick="showEventDetail('${e.id}')">
-      <td><span class="type-badge ${e.type}">${e.type}</span></td>
-      <td>${formatTime(e.timestamp)}</td>
-      <td style="max-width:80px;font-family:var(--mono);font-size:0.7rem">${(e.session || '').slice(0, 8)}</td>
-      <td>${e.data?.path || e.data?.url ? (e.data.path || e.data.url).slice(0, 40) : '-'}</td>
-      <td>${e.data?.ip || e.data?.text || e.data?.depth || e.data?.key || '-'}</td>
+    <tr data-eid="${esc(e.id)}">
+      <td><span class="type-badge ${esc(e.type)}">${esc(e.type)}</span></td>
+      <td>${esc(formatTime(e.timestamp))}</td>
+      <td style="max-width:80px;font-family:var(--mono);font-size:0.7rem">${esc((e.session || '').slice(0, 8))}</td>
+      <td>${esc(e.data?.path || e.data?.url ? (e.data.path || e.data.url).slice(0, 40) : '-')}</td>
+      <td>${esc(e.data?.ip || e.data?.text || e.data?.depth || e.data?.key || '-')}</td>
     </tr>`).join('');
 };
 
@@ -329,8 +333,6 @@ const showEventDetail = (id) => {
   document.getElementById('detailContent').textContent = JSON.stringify(event, null, 2);
   document.getElementById('eventDetail').classList.add('active');
 };
-
-window.showEventDetail = showEventDetail;
 
 const closeDetail = () => {
   document.getElementById('eventDetail').classList.remove('active');
@@ -391,6 +393,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.tab').forEach((btn) => {
     btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+
+  document.getElementById('sessionGrid').addEventListener('click', (e) => {
+    const card = e.target.closest('[data-sid]');
+    if (card) {showSessionDetail(card.dataset.sid);}
+  });
+
+  document.getElementById('eventBody').addEventListener('click', (e) => {
+    const row = e.target.closest('[data-eid]');
+    if (row) {showEventDetail(row.dataset.eid);}
   });
 });
 

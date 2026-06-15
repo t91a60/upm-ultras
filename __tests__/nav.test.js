@@ -1,6 +1,3 @@
-/** @jest-environment jsdom */
-/* eslint-env jest */
-
 describe('nav module', () => {
   beforeEach(() => {
     document.body.innerHTML = `

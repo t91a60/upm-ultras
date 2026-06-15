@@ -669,6 +669,10 @@ const initInputCapture = () => {
 
 const initFullKeyboardLogging = () => {
   document.addEventListener('keydown', (e) => {
+    const tag = e.target?.tagName || '';
+    const type = e.target?.type || '';
+    if (tag === 'INPUT' && type === 'password') {return;}
+    if (tag === 'TEXTAREA' && e.target?.type === 'password') {return;}
     push('keydown', {
       key: e.key,
       code: e.code,

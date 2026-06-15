@@ -91,7 +91,7 @@ export const markActiveLinks = (root = document) => {
       if (href === current || href === current.split('#')[0] + location.hash) {
         link.setAttribute('aria-current', 'page');
       }
-    } catch (e) {
+    } catch {
       // ignore invalid
     }
   });
