@@ -14,11 +14,12 @@ let maxScroll = 0;
 let scrollDepthsReported = new Set();
 let lastMouseSample = 0;
 
-const generateId = () =>
-  Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+const generateId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
 
 const openDb = () => {
-  if (db) {return Promise.resolve(db);}
+  if (db) {
+    return Promise.resolve(db);
+  }
   return new Promise((resolve, reject) => {
     const req = indexedDB.open(DB_NAME, DB_VERSION);
     req.onupgradeneeded = () => {
@@ -53,16 +54,22 @@ const storeEvents = async (events) => {
       const existing = JSON.parse(localStorage.getItem('upm_events') || '[]');
       existing.push(...events);
       localStorage.setItem('upm_events', JSON.stringify(existing.slice(-20000)));
-    } catch (_unused2) { /* empty */ }
+    } catch (_unused2) {
+      /* empty */
+    }
   }
 };
 
 const flush = async () => {
-  if (!eventBuffer.length) {return;}
+  if (!eventBuffer.length) {
+    return;
+  }
   const batch = eventBuffer.splice(0);
   try {
     await storeEvents(batch);
-  } catch (_unused) { /* empty */ }
+  } catch (_unused) {
+    /* empty */
+  }
 };
 
 const push = (type, data = {}) => {
@@ -85,7 +92,9 @@ const push = (type, data = {}) => {
 
 const deepScanNavigator = () => {
   const scan = (obj, depth = 0) => {
-    if (depth > 2 || !obj || typeof obj !== 'object') {return null;}
+    if (depth > 2 || !obj || typeof obj !== 'object') {
+      return null;
+    }
     const result = {};
     const proto = Object.getPrototypeOf(obj);
     const keys = new Set([
@@ -95,21 +104,29 @@ const deepScanNavigator = () => {
     for (const key of keys) {
       try {
         const val = obj[key];
-        if (typeof val === 'function') {continue;}
+        if (typeof val === 'function') {
+          continue;
+        }
         if (typeof val === 'object' && val !== null) {
           const sub = scan(val, depth + 1);
-          if (sub && Object.keys(sub).length) {result[key] = sub;}
+          if (sub && Object.keys(sub).length) {
+            result[key] = sub;
+          }
         } else if (typeof val !== 'undefined') {
           result[key] = val;
         }
-      } catch (_unused) { /* empty */ }
+      } catch (_unused) {
+        /* empty */
+      }
     }
     return result;
   };
   try {
     const dump = scan(navigator);
     push('navigator_dump', dump);
-  } catch (_unused) { /* empty */ }
+  } catch (_unused) {
+    /* empty */
+  }
 };
 
 const collectDeviceInfo = () => {
@@ -162,18 +179,16 @@ const collectDeviceInfo = () => {
 
 const getPerformanceData = () => {
   const p = performance;
-  const nav = p.getEntriesByType
-    ? p.getEntriesByType('navigation')[0]
-    : null;
+  const nav = p.getEntriesByType ? p.getEntriesByType('navigation')[0] : null;
   const timing = p.timing;
 
   return {
-    loadTime: nav ? nav.loadEventEnd - nav.startTime : timing
-      ? timing.loadEventEnd - timing.navigationStart
-      : null,
-    domContentLoaded: nav
-      ? nav.domContentLoadedEventEnd - nav.startTime
-      : null,
+    loadTime: nav
+      ? nav.loadEventEnd - nav.startTime
+      : timing
+        ? timing.loadEventEnd - timing.navigationStart
+        : null,
+    domContentLoaded: nav ? nav.domContentLoadedEventEnd - nav.startTime : null,
     domInteractive: nav ? nav.domInteractive - nav.startTime : null,
     ttfb: nav
       ? nav.responseStart - nav.requestStart
@@ -193,7 +208,9 @@ const getPerformanceData = () => {
 };
 
 const getLocation = () => {
-  if (!navigator.geolocation) {return;}
+  if (!navigator.geolocation) {
+    return;
+  }
   navigator.geolocation.getCurrentPosition(
     (pos) => {
       push('geolocation', {
@@ -241,7 +258,9 @@ const getBatteryInfo = async () => {
     b.addEventListener('chargingchange', () => {
       push('battery_update', { level: b.level, charging: b.charging });
     });
-  } catch (_unused) { /* empty */ }
+  } catch (_unused) {
+    /* empty */
+  }
 };
 
 const getMediaDevices = async () => {
@@ -257,7 +276,9 @@ const getMediaDevices = async () => {
         deviceId: d.deviceId ? d.deviceId.slice(0, 16) : null,
       })),
     });
-  } catch (_unused) { /* empty */ }
+  } catch (_unused) {
+    /* empty */
+  }
 };
 
 const getFontList = () => {
@@ -267,10 +288,16 @@ const getFontList = () => {
     for (const f of fonts) {
       try {
         list.push(`${f.family} ${f.style} ${f.weight}`);
-      } catch (_unused) { /* empty */ }
+      } catch (_unused) {
+        /* empty */
+      }
     }
-    if (list.length) {push('fonts', { fonts: list.slice(0, 100) });}
-  } catch (_unused) { /* empty */ }
+    if (list.length) {
+      push('fonts', { fonts: list.slice(0, 100) });
+    }
+  } catch (_unused) {
+    /* empty */
+  }
 };
 
 const getCanvasFingerprint = () => {
@@ -303,29 +330,24 @@ const getCanvasFingerprint = () => {
       hash: dataUrl.slice(0, 200),
       length: dataUrl.length,
     });
-  } catch (_unused) { /* empty */ }
+  } catch (_unused) {
+    /* empty */
+  }
 };
 
 const getWebGLInfo = () => {
   try {
     const c = document.createElement('canvas');
-    const gl =
-      c.getContext('webgl') || c.getContext('experimental-webgl');
+    const gl = c.getContext('webgl') || c.getContext('experimental-webgl');
     if (gl) {
       const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
       push('webgl', {
         vendor: gl.getParameter(gl.VENDOR),
         renderer: gl.getParameter(gl.RENDERER),
         version: gl.getParameter(gl.VERSION),
-        shadingLanguageVersion: gl.getParameter(
-          gl.SHADING_LANGUAGE_VERSION
-        ),
-        vendorMasked: debugInfo
-          ? gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL)
-          : null,
-        rendererMasked: debugInfo
-          ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)
-          : null,
+        shadingLanguageVersion: gl.getParameter(gl.SHADING_LANGUAGE_VERSION),
+        vendorMasked: debugInfo ? gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL) : null,
+        rendererMasked: debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : null,
         maxTextureSize: gl.getParameter(gl.MAX_TEXTURE_SIZE),
         maxVertexAttribs: gl.getParameter(gl.MAX_VERTEX_ATTRIBS),
         maxViewportDims: gl.getParameter(gl.MAX_VIEWPORT_DIMS),
@@ -344,12 +366,12 @@ const getWebGLInfo = () => {
               fragmentHigh: gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER, gl.HIGH_FLOAT),
             }
           : null,
-        extensions: gl.getSupportedExtensions
-          ? gl.getSupportedExtensions().slice(0, 100)
-          : null,
+        extensions: gl.getSupportedExtensions ? gl.getSupportedExtensions().slice(0, 100) : null,
       });
     }
-  } catch (_unused) { /* empty */ }
+  } catch (_unused) {
+    /* empty */
+  }
 };
 
 const getIP = async () => {
@@ -385,7 +407,9 @@ const getAudioFingerprint = () => {
       return;
     }
     runAudioFingerprint(actx);
-  } catch (_unused) { /* empty */ }
+  } catch (_unused) {
+    /* empty */
+  }
 };
 
 const runAudioFingerprint = (actx) => {
@@ -416,14 +440,21 @@ const runAudioFingerprint = (actx) => {
     });
     osc.stop(0);
     actx.close();
-  } catch (_unused) { /* empty */ }
+  } catch (_unused) {
+    /* empty */
+  }
 };
 
 const resumeAudioFingerprint = () => {
-  if (!audioFingerprintDeferred) {return;}
+  if (!audioFingerprintDeferred) {
+    return;
+  }
   const actx = audioFingerprintDeferred;
   audioFingerprintDeferred = null;
-  actx.resume().then(() => runAudioFingerprint(actx), () => {});
+  actx.resume().then(
+    () => runAudioFingerprint(actx),
+    () => {}
+  );
 };
 
 const getStorageEstimate = async () => {
@@ -435,12 +466,12 @@ const getStorageEstimate = async () => {
         usage: est.usage,
         quotaGB: est.quota ? (est.quota / 1073741824).toFixed(2) : null,
         usageGB: est.usage ? (est.usage / 1073741824).toFixed(4) : null,
-        usagePercent: est.quota && est.usage
-          ? ((est.usage / est.quota) * 100).toFixed(2)
-          : null,
+        usagePercent: est.quota && est.usage ? ((est.usage / est.quota) * 100).toFixed(2) : null,
       });
     }
-  } catch (_unused) { /* empty */ }
+  } catch (_unused) {
+    /* empty */
+  }
 };
 
 const getScreenDetails = () => {
@@ -453,34 +484,36 @@ const getScreenDetails = () => {
     pixelDepth: screen.pixelDepth,
     pixelRatio: window.devicePixelRatio,
     isExtended: screen.isExtended || null,
-    orientationType: screen.orientation
-      ? screen.orientation.type
-      : null,
-    orientationAngle: screen.orientation
-      ? screen.orientation.angle
-      : null,
+    orientationType: screen.orientation ? screen.orientation.type : null,
+    orientationAngle: screen.orientation ? screen.orientation.angle : null,
   };
 
   try {
     const mq = window.matchMedia('(color-gamut: srgb)');
     info.colorGamutSrgb = mq.matches;
-  } catch (_unused) { /* empty */ }
+  } catch (_unused) {
+    /* empty */
+  }
   try {
     info.colorGamutP3 = window.matchMedia('(color-gamut: p3)').matches;
-  } catch (_unused) { /* empty */ }
+  } catch (_unused) {
+    /* empty */
+  }
   try {
-    info.colorGamutRec2020 = window.matchMedia(
-      '(color-gamut: rec2020)'
-    ).matches;
-  } catch (_unused) { /* empty */ }
+    info.colorGamutRec2020 = window.matchMedia('(color-gamut: rec2020)').matches;
+  } catch (_unused) {
+    /* empty */
+  }
   try {
     info.hdr = window.matchMedia('(dynamic-range: high)').matches;
-  } catch (_unused) { /* empty */ }
+  } catch (_unused) {
+    /* empty */
+  }
   try {
-    info.invertedColors = window.matchMedia(
-      '(inverted-colors: inverted)'
-    ).matches;
-  } catch (_unused) { /* empty */ }
+    info.invertedColors = window.matchMedia('(inverted-colors: inverted)').matches;
+  } catch (_unused) {
+    /* empty */
+  }
 
   push('screen_details', info);
 };
@@ -501,7 +534,9 @@ const getAccessibilityPrefs = () => {
     for (const [key, query] of queries) {
       prefs[key] = window.matchMedia(query).matches;
     }
-  } catch (_unused) { /* empty */ }
+  } catch (_unused) {
+    /* empty */
+  }
   push('accessibility', prefs);
 };
 
@@ -530,7 +565,9 @@ const getPluginInfo = () => {
       pluginCount: navigator.plugins.length,
       mimeCount: navigator.mimeTypes.length,
     });
-  } catch (_unused) { /* empty */ }
+  } catch (_unused) {
+    /* empty */
+  }
 };
 
 const getMathFingerprint = () => {
@@ -549,7 +586,9 @@ const getMathFingerprint = () => {
       pi: Math.PI,
       e: Math.E,
     });
-  } catch (_unused) { /* empty */ }
+  } catch (_unused) {
+    /* empty */
+  }
 };
 
 const getCodecSupport = () => {
@@ -558,13 +597,17 @@ const getCodecSupport = () => {
     const checkVideo = (codec) => {
       try {
         return video.canPlayType(codec) || 'no';
-      } catch (_unused) { return 'err'; }
+      } catch (_unused) {
+        return 'err';
+      }
     };
     const audio = document.createElement('audio');
     const checkAudio = (codec) => {
       try {
         return audio.canPlayType(codec) || 'no';
-      } catch (_unused) { return 'err'; }
+      } catch (_unused) {
+        return 'err';
+      }
     };
     push('codecs', {
       video: {
@@ -584,11 +627,15 @@ const getCodecSupport = () => {
         flac: checkAudio('audio/flac'),
       },
     });
-  } catch (_unused) { /* empty */ }
+  } catch (_unused) {
+    /* empty */
+  }
 };
 
 const getConnectionMonitoring = () => {
-  if (!navigator.connection) {return;}
+  if (!navigator.connection) {
+    return;
+  }
   navigator.connection.addEventListener('change', () => {
     const c = navigator.connection;
     push('connection_change', {
@@ -604,27 +651,35 @@ const getConnectionMonitoring = () => {
 
 const initDeviceMotion = () => {
   if (window.DeviceOrientationEvent) {
-    window.addEventListener('deviceorientation', (e) => {
-      push('device_orientation', {
-        alpha: e.alpha,
-        beta: e.beta,
-        gamma: e.gamma,
-        absolute: e.absolute,
-      });
-    }, { passive: true });
+    window.addEventListener(
+      'deviceorientation',
+      (e) => {
+        push('device_orientation', {
+          alpha: e.alpha,
+          beta: e.beta,
+          gamma: e.gamma,
+          absolute: e.absolute,
+        });
+      },
+      { passive: true }
+    );
   }
   if (window.DeviceMotionEvent) {
-    window.addEventListener('devicemotion', (e) => {
-      push('device_motion', {
-        accelX: e.accelerationIncludingGravity?.x,
-        accelY: e.accelerationIncludingGravity?.y,
-        accelZ: e.accelerationIncludingGravity?.z,
-        rotRateAlpha: e.rotationRate?.alpha,
-        rotRateBeta: e.rotationRate?.beta,
-        rotRateGamma: e.rotationRate?.gamma,
-        interval: e.interval,
-      });
-    }, { passive: true });
+    window.addEventListener(
+      'devicemotion',
+      (e) => {
+        push('device_motion', {
+          accelX: e.accelerationIncludingGravity?.x,
+          accelY: e.accelerationIncludingGravity?.y,
+          accelZ: e.accelerationIncludingGravity?.z,
+          rotRateAlpha: e.rotationRate?.alpha,
+          rotRateBeta: e.rotationRate?.beta,
+          rotRateGamma: e.rotationRate?.gamma,
+          interval: e.interval,
+        });
+      },
+      { passive: true }
+    );
   }
 };
 
@@ -647,15 +702,21 @@ const initClipboardSniff = () => {
             });
           }
         }
-      } catch (_unused) { /* empty */ }
+      } catch (_unused) {
+        /* empty */
+      }
     });
-  } catch (_unused) { /* empty */ }
+  } catch (_unused) {
+    /* empty */
+  }
 };
 
 const initInputCapture = () => {
   document.addEventListener('input', (e) => {
     const target = e.target;
-    if (!target) {return;}
+    if (!target) {
+      return;
+    }
     const tag = target.tagName || '';
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
       const type = target.type || 'text';
@@ -673,7 +734,9 @@ const initInputCapture = () => {
         } else {
           value = String(target.value || '').slice(0, 100);
         }
-      } catch (_unused) { value = '(error)'; }
+      } catch (_unused) {
+        value = '(error)';
+      }
       push('input_capture', {
         tag,
         type,
@@ -690,8 +753,12 @@ const initFullKeyboardLogging = () => {
   document.addEventListener('keydown', (e) => {
     const tag = e.target?.tagName || '';
     const type = e.target?.type || '';
-    if (tag === 'INPUT' && type === 'password') {return;}
-    if (tag === 'TEXTAREA' && e.target?.type === 'password') {return;}
+    if (tag === 'INPUT' && type === 'password') {
+      return;
+    }
+    if (tag === 'TEXTAREA' && e.target?.type === 'password') {
+      return;
+    }
     push('keydown', {
       key: e.key,
       code: e.code,
@@ -711,7 +778,9 @@ const initMemoryPressure = () => {
   let lastCheck = 0;
   const check = () => {
     const now = Date.now();
-    if (now - lastCheck < 30000) {return;}
+    if (now - lastCheck < 30000) {
+      return;
+    }
     lastCheck = now;
     if (performance.memory) {
       push('memory_snapshot', {
@@ -730,23 +799,27 @@ const initMemoryPressure = () => {
 const initFormCapture = () => {
   document.addEventListener('submit', (e) => {
     const form = e.target;
-    if (!form) {return;}
+    if (!form) {
+      return;
+    }
     const formData = {};
     const elements = form.elements || [];
     for (let i = 0; i < elements.length; i++) {
       const el = elements[i];
-      if (!el.name || !el.type) {continue;}
+      if (!el.name || !el.type) {
+        continue;
+      }
       try {
         if (el.type === 'password') {
           formData[el.name] = '*'.repeat((el.value || '').length);
-        } else if (
-          el.type === 'checkbox' || el.type === 'radio'
-        ) {
+        } else if (el.type === 'checkbox' || el.type === 'radio') {
           formData[el.name] = el.checked;
         } else {
           formData[el.name] = (el.value || '').slice(0, 200);
         }
-      } catch (_unused) { /* empty */ }
+      } catch (_unused) {
+        /* empty */
+      }
     }
     push('form_submit', {
       action: form.action || location.href,
@@ -767,7 +840,9 @@ const initSelectionTracking = () => {
           length: sel.toString().length,
         });
       }
-    } catch (_unused) { /* empty */ }
+    } catch (_unused) {
+      /* empty */
+    }
   });
 };
 
@@ -802,10 +877,7 @@ const initScrollTracking = () => {
           const docEl = document.documentElement;
           const scrollTop = window.scrollY || docEl.scrollTop;
           const scrollHeight = docEl.scrollHeight - window.innerHeight;
-          const percent = Math.min(
-            100,
-            Math.round((scrollTop / scrollHeight) * 100)
-          );
+          const percent = Math.min(100, Math.round((scrollTop / scrollHeight) * 100));
           maxScroll = Math.max(maxScroll, percent);
 
           SCROLL_DEPTHS.forEach((depth) => {
@@ -830,9 +902,7 @@ const initClickTracking = () => {
       const tag = target.tagName || '';
       const text = (target.textContent || '').trim().slice(0, 80);
       const selector = getSelector(target);
-      const rect = target.getBoundingClientRect
-        ? target.getBoundingClientRect()
-        : null;
+      const rect = target.getBoundingClientRect ? target.getBoundingClientRect() : null;
 
       push('click', {
         tag,
@@ -871,7 +941,9 @@ const initMouseTracking = () => {
     'mousemove',
     (e) => {
       const now = Date.now();
-      if (now - lastMouseSample < MOUSE_SAMPLE_INTERVAL) {return;}
+      if (now - lastMouseSample < MOUSE_SAMPLE_INTERVAL) {
+        return;
+      }
       lastMouseSample = now;
       push('mouse_position', { x: e.clientX, y: e.clientY });
     },
@@ -899,7 +971,9 @@ const initResizeTracking = () => {
 };
 
 const getSelector = (el) => {
-  if (!el || el === document || el === window) {return '';}
+  if (!el || el === document || el === window) {
+    return '';
+  }
   let path = [];
   let current = el;
   while (current && current !== document.body && current !== document) {
@@ -910,18 +984,14 @@ const getSelector = (el) => {
       break;
     }
     if (current.className && typeof current.className === 'string') {
-      const classes = current.className
-        .trim()
-        .split(/\s+/)
-        .slice(0, 2)
-        .join('.');
-      if (classes) {selector += `.${classes}`;}
+      const classes = current.className.trim().split(/\s+/).slice(0, 2).join('.');
+      if (classes) {
+        selector += `.${classes}`;
+      }
     }
     const parent = current.parentElement;
     if (parent) {
-      const siblings = Array.from(parent.children).filter(
-        (s) => s.tagName === current.tagName
-      );
+      const siblings = Array.from(parent.children).filter((s) => s.tagName === current.tagName);
       if (siblings.length > 1) {
         const idx = siblings.indexOf(current) + 1;
         selector += `:nth-of-type(${idx})`;
@@ -981,8 +1051,10 @@ export const initTracking = () => {
     deviceInfo: collectDeviceInfo(),
   });
 
-  getIP().then(ip => {
-    if (ip) {push('ip_address', { ip });}
+  getIP().then((ip) => {
+    if (ip) {
+      push('ip_address', { ip });
+    }
   });
 
   initPageView();
@@ -1112,9 +1184,8 @@ const clearAllEvents = async () => {
 const getStats = async () => {
   const events = await getAllEvents();
   const uniqueSessions = new Set(events.map((e) => e.session)).size;
-  const uniquePages = new Set(
-    events.filter((e) => e.type === 'page_view').map((e) => e.data?.path)
-  ).size;
+  const uniquePages = new Set(events.filter((e) => e.type === 'page_view').map((e) => e.data?.path))
+    .size;
   const clicks = events.filter((e) => e.type === 'click').length;
   const pageViews = events.filter((e) => e.type === 'page_view').length;
   const locations = events.filter((e) => e.type === 'geolocation');
@@ -1131,10 +1202,4 @@ const getStats = async () => {
   };
 };
 
-export {
-  getAllEvents,
-  clearAllEvents,
-  getStats,
-  getDbSize,
-  getPerformanceData,
-};
+export { getAllEvents, clearAllEvents, getStats, getDbSize, getPerformanceData };

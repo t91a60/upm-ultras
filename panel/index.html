@@ -1,130 +1,164 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UPM Panel</title>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.ipify.org; img-src 'self' data:; base-uri 'self'; object-src 'none'; form-action 'self'; script-src-attr 'none'; upgrade-insecure-requests" />
-  <link rel="stylesheet" href="./panel.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>📊</text></svg>" />
-</head>
-<body>
-  <div id="loginScreen" class="login-screen" style="display:none">
-    <div class="login-box">
-      <h1>UPM Panel</h1>
-      <p>Panel monitorowania ruchu</p>
-      <input type="password" id="password" class="login-input" placeholder="Hasło" autocomplete="off" />
-      <button id="loginBtn" class="login-btn">Zaloguj</button>
-      <p id="loginError" class="login-error"></p>
-    </div>
-  </div>
-
-  <div id="dashboard" class="dashboard">
-    <div class="dashboard-header">
-      <div>
-        <h1>UPM · Panel</h1>
-        <span>Dane zbierane lokalnie w przeglądarce</span>
-      </div>
-      <div class="header-actions">
-        <button id="refreshBtn" class="header-btn" title="Odśwież">⟳ Odśwież</button>
-        <button id="exportBtn" class="header-btn" title="Eksportuj JSON">↓ Eksport</button>
-        <button id="clearBtn" class="header-btn danger" title="Wyczyść dane">✕ Wyczyść</button>
-        <button id="logoutBtn" class="header-btn">Wyloguj</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UPM Panel</title>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.ipify.org; img-src 'self' data:; base-uri 'self'; object-src 'none'; form-action 'self'; script-src-attr 'none'; upgrade-insecure-requests"
+    />
+    <link rel="stylesheet" href="./panel.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>📊</text></svg>"
+    />
+  </head>
+  <body>
+    <div id="loginScreen" class="login-screen" style="display: none">
+      <div class="login-box">
+        <h1>UPM Panel</h1>
+        <p>Panel monitorowania ruchu</p>
+        <input
+          type="password"
+          id="password"
+          class="login-input"
+          placeholder="Hasło"
+          autocomplete="off"
+        />
+        <button id="loginBtn" class="login-btn">Zaloguj</button>
+        <p id="loginError" class="login-error"></p>
       </div>
     </div>
 
-    <div class="stats-grid" id="statsGrid">
-      <div class="stat-card"><div class="stat-value" id="statEvents">0</div><div class="stat-label">Wszystkie eventy</div></div>
-      <div class="stat-card"><div class="stat-value" id="statSessions">0</div><div class="stat-label">Sesje</div></div>
-      <div class="stat-card"><div class="stat-value" id="statPageViews">0</div><div class="stat-label">Odwiedziny</div></div>
-      <div class="stat-card"><div class="stat-value" id="statClicks">0</div><div class="stat-label">Kliknięcia</div></div>
-      <div class="stat-card"><div class="stat-value" id="statBrowsers">0</div><div class="stat-label">Przeglądarki</div></div>
-      <div class="stat-card"><div class="stat-value" id="statDevices">0</div><div class="stat-label">Urządzenia</div></div>
-    </div>
+    <div id="dashboard" class="dashboard">
+      <div class="dashboard-header">
+        <div>
+          <h1>UPM · Panel</h1>
+          <span>Dane zbierane lokalnie w przeglądarce</span>
+        </div>
+        <div class="header-actions">
+          <button id="refreshBtn" class="header-btn" title="Odśwież">⟳ Odśwież</button>
+          <button id="exportBtn" class="header-btn" title="Eksportuj JSON">↓ Eksport</button>
+          <button id="clearBtn" class="header-btn danger" title="Wyczyść dane">✕ Wyczyść</button>
+          <button id="logoutBtn" class="header-btn">Wyloguj</button>
+        </div>
+      </div>
 
-    <div class="tabs">
-      <button class="tab active" data-tab="sessions">Sesje</button>
-      <button class="tab" data-tab="devices">Urządzenia</button>
-      <button class="tab" data-tab="locations">Lokalizacje</button>
-      <button class="tab" data-tab="events">Eventy</button>
-    </div>
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card">
+          <div class="stat-value" id="statEvents">0</div>
+          <div class="stat-label">Wszystkie eventy</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statSessions">0</div>
+          <div class="stat-label">Sesje</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statPageViews">0</div>
+          <div class="stat-label">Odwiedziny</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statClicks">0</div>
+          <div class="stat-label">Kliknięcia</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statBrowsers">0</div>
+          <div class="stat-label">Przeglądarki</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statDevices">0</div>
+          <div class="stat-label">Urządzenia</div>
+        </div>
+      </div>
 
-    <div id="tabSessions" class="tab-content active">
-      <p class="section-title">Sesje gości</p>
-      <div class="session-grid" id="sessionGrid">
-        <p style="color:var(--muted);padding:2rem">Ładowanie...</p>
+      <div class="tabs">
+        <button class="tab active" data-tab="sessions">Sesje</button>
+        <button class="tab" data-tab="devices">Urządzenia</button>
+        <button class="tab" data-tab="locations">Lokalizacje</button>
+        <button class="tab" data-tab="events">Eventy</button>
+      </div>
+
+      <div id="tabSessions" class="tab-content active">
+        <p class="section-title">Sesje gości</p>
+        <div class="session-grid" id="sessionGrid">
+          <p style="color: var(--muted); padding: 2rem">Ładowanie...</p>
+        </div>
+      </div>
+
+      <div id="tabDevices" class="tab-content">
+        <p class="section-title">Urządzenia i przeglądarki</p>
+        <div class="device-grid" id="deviceGrid">
+          <p style="color: var(--muted); padding: 2rem">Ładowanie...</p>
+        </div>
+      </div>
+
+      <div id="tabLocations" class="tab-content">
+        <p class="section-title">Lokalizacje</p>
+        <div id="locationContent">
+          <p style="color: var(--muted); padding: 2rem">Ładowanie...</p>
+        </div>
+      </div>
+
+      <div id="tabEvents" class="tab-content">
+        <p class="section-title">Eventy (surowy zapis)</p>
+        <div class="filters">
+          <select id="filterType" class="filter-select">
+            <option value="">Wszystkie typy</option>
+            <option value="session_start">session_start</option>
+            <option value="page_view">page_view</option>
+            <option value="click">click</option>
+            <option value="scroll_depth">scroll_depth</option>
+            <option value="geolocation">geolocation</option>
+            <option value="ip_address">ip_address</option>
+            <option value="visibility">visibility</option>
+            <option value="resize">resize</option>
+            <option value="device_info">device_info</option>
+            <option value="performance">performance</option>
+            <option value="mouse_position">mouse_position</option>
+            <option value="page_leave">page_leave</option>
+            <option value="contextmenu">contextmenu</option>
+            <option value="keydown">keydown</option>
+            <option value="battery">battery</option>
+            <option value="canvas_fingerprint">canvas_fingerprint</option>
+            <option value="webgl">webgl</option>
+            <option value="fonts">fonts</option>
+            <option value="network">network</option>
+            <option value="media_devices">media_devices</option>
+          </select>
+          <input type="text" id="filterSession" class="filter-select" placeholder="Session ID..." />
+        </div>
+        <div class="event-table-wrap">
+          <table class="event-table">
+            <thead>
+              <tr>
+                <th>Typ</th>
+                <th>Czas</th>
+                <th>Sesja</th>
+                <th>Strona</th>
+                <th>Dane</th>
+              </tr>
+            </thead>
+            <tbody id="eventBody">
+              <tr>
+                <td colspan="5" style="color: var(--muted); text-align: center; padding: 2rem">
+                  Ładowanie...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
-    <div id="tabDevices" class="tab-content">
-      <p class="section-title">Urządzenia i przeglądarki</p>
-      <div class="device-grid" id="deviceGrid">
-        <p style="color:var(--muted);padding:2rem">Ładowanie...</p>
+    <div id="eventDetail" class="event-detail-modal">
+      <div class="modal-content">
+        <h2 id="detailTitle">Event</h2>
+        <pre id="detailContent"></pre>
+        <button id="detailClose" class="modal-close">Zamknij</button>
       </div>
     </div>
 
-    <div id="tabLocations" class="tab-content">
-      <p class="section-title">Lokalizacje</p>
-      <div id="locationContent">
-        <p style="color:var(--muted);padding:2rem">Ładowanie...</p>
-      </div>
-    </div>
-
-    <div id="tabEvents" class="tab-content">
-      <p class="section-title">Eventy (surowy zapis)</p>
-      <div class="filters">
-        <select id="filterType" class="filter-select">
-          <option value="">Wszystkie typy</option>
-          <option value="session_start">session_start</option>
-          <option value="page_view">page_view</option>
-          <option value="click">click</option>
-          <option value="scroll_depth">scroll_depth</option>
-          <option value="geolocation">geolocation</option>
-          <option value="ip_address">ip_address</option>
-          <option value="visibility">visibility</option>
-          <option value="resize">resize</option>
-          <option value="device_info">device_info</option>
-          <option value="performance">performance</option>
-          <option value="mouse_position">mouse_position</option>
-          <option value="page_leave">page_leave</option>
-          <option value="contextmenu">contextmenu</option>
-          <option value="keydown">keydown</option>
-          <option value="battery">battery</option>
-          <option value="canvas_fingerprint">canvas_fingerprint</option>
-          <option value="webgl">webgl</option>
-          <option value="fonts">fonts</option>
-          <option value="network">network</option>
-          <option value="media_devices">media_devices</option>
-        </select>
-        <input type="text" id="filterSession" class="filter-select" placeholder="Session ID..." />
-      </div>
-      <div class="event-table-wrap">
-        <table class="event-table">
-          <thead>
-            <tr>
-              <th>Typ</th>
-              <th>Czas</th>
-              <th>Sesja</th>
-              <th>Strona</th>
-              <th>Dane</th>
-            </tr>
-          </thead>
-          <tbody id="eventBody">
-            <tr><td colspan="5" style="color:var(--muted);text-align:center;padding:2rem">Ładowanie...</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <div id="eventDetail" class="event-detail-modal">
-    <div class="modal-content">
-      <h2 id="detailTitle">Event</h2>
-      <pre id="detailContent"></pre>
-      <button id="detailClose" class="modal-close">Zamknij</button>
-    </div>
-  </div>
-
-  <script type="module" src="./panel.js"></script>
-</body>
+    <script type="module" src="./panel.js"></script>
+  </body>
 </html>
