@@ -13,30 +13,30 @@ let allEvents = [];
 let sessions = [];
 
 const parseUA = (ua) => {
-  if (!ua) return { browser: '-', os: '-', device: 'Unknown' };
+  if (!ua) {return { browser: '-', os: '-', device: 'Unknown' };}
   let browser = 'Inna', os = 'Inny', device = 'Desktop';
 
-  if (ua.includes('Edg/') || ua.includes('Edge/')) browser = 'Edge';
-  else if (ua.includes('Chrome/') && !ua.includes('OPR/') && !ua.includes('Chromium/')) browser = 'Chrome';
-  else if (ua.includes('Firefox/') && !ua.includes('Seamonkey/')) browser = 'Firefox';
-  else if (/Version\/[\d.]+.*Safari/.test(ua) && !/Chrome|OPR/.test(ua)) browser = 'Safari';
-  else if (ua.includes('OPR/') || ua.includes('Opera/')) browser = 'Opera';
-  else if (ua.includes('Trident/') || ua.includes('MSIE')) browser = 'IE';
+  if (ua.includes('Edg/') || ua.includes('Edge/')) {browser = 'Edge';}
+  else if (ua.includes('Chrome/') && !ua.includes('OPR/') && !ua.includes('Chromium/')) {browser = 'Chrome';}
+  else if (ua.includes('Firefox/') && !ua.includes('Seamonkey/')) {browser = 'Firefox';}
+  else if (/Version\/[\d.]+.*Safari/.test(ua) && !/Chrome|OPR/.test(ua)) {browser = 'Safari';}
+  else if (ua.includes('OPR/') || ua.includes('Opera/')) {browser = 'Opera';}
+  else if (ua.includes('Trident/') || ua.includes('MSIE')) {browser = 'IE';}
 
-  if (/Windows NT 10|Windows NT 11/i.test(ua)) os = 'Windows 10/11';
-  else if (/Windows NT 6\.3/i.test(ua)) os = 'Windows 8.1';
-  else if (/Windows NT 6\.1/i.test(ua)) os = 'Windows 7';
-  else if (/Windows NT/i.test(ua)) os = 'Windows';
-  else if (/Mac OS X/i.test(ua)) os = 'macOS';
-  else if (/CrOS/i.test(ua)) os = 'ChromeOS';
-  else if (/Android/i.test(ua)) os = 'Android';
-  else if (/Linux/i.test(ua) && !/Android/i.test(ua)) os = 'Linux';
-  else if (/iPhone|iPad|iPod/i.test(ua)) os = 'iOS';
+  if (/Windows NT 10|Windows NT 11/i.test(ua)) {os = 'Windows 10/11';}
+  else if (/Windows NT 6\.3/i.test(ua)) {os = 'Windows 8.1';}
+  else if (/Windows NT 6\.1/i.test(ua)) {os = 'Windows 7';}
+  else if (/Windows NT/i.test(ua)) {os = 'Windows';}
+  else if (/Mac OS X/i.test(ua)) {os = 'macOS';}
+  else if (/CrOS/i.test(ua)) {os = 'ChromeOS';}
+  else if (/Android/i.test(ua)) {os = 'Android';}
+  else if (/Linux/i.test(ua) && !/Android/i.test(ua)) {os = 'Linux';}
+  else if (/iPhone|iPad|iPod/i.test(ua)) {os = 'iOS';}
 
-  if (/iPhone/i.test(ua)) device = 'iPhone';
-  else if (/iPad/i.test(ua)) device = 'iPad';
-  else if (/Android/i.test(ua)) device = /Mobile/i.test(ua) ? 'Telefon' : 'Tablet';
-  else if (/Mobile|Mobile Safari/i.test(ua)) device = 'Telefon';
+  if (/iPhone/i.test(ua)) {device = 'iPhone';}
+  else if (/iPad/i.test(ua)) {device = 'iPad';}
+  else if (/Android/i.test(ua)) {device = /Mobile/i.test(ua) ? 'Telefon' : 'Tablet';}
+  else if (/Mobile|Mobile Safari/i.test(ua)) {device = 'Telefon';}
 
   return { browser, os, device };
 };
@@ -53,8 +53,8 @@ const formatDuration = (ms) => {
   const s = Math.floor(ms / 1000);
   const m = Math.floor(s / 60);
   const h = Math.floor(m / 60);
-  if (h) return `${h}g ${m % 60}m`;
-  if (m) return `${m}m ${s % 60}s`;
+  if (h) {return `${h}g ${m % 60}m`;}
+  if (m) {return `${m}m ${s % 60}s`;}
   return `${s}s`;
 };
 
@@ -97,18 +97,18 @@ const buildSessions = () => {
   const map = new Map();
   allEvents.forEach((e) => {
     const sid = e.session;
-    if (!sid) return;
-    if (!map.has(sid)) map.set(sid, { id: sid, events: [], start: e.timestamp, end: e.timestamp, pageViews: [], clicks: 0, maxScroll: 0, ip: null, ua: e.userAgent || null, deviceInfo: null });
+    if (!sid) {return;}
+    if (!map.has(sid)) {map.set(sid, { id: sid, events: [], start: e.timestamp, end: e.timestamp, pageViews: [], clicks: 0, maxScroll: 0, ip: null, ua: e.userAgent || null, deviceInfo: null });}
     const s = map.get(sid);
     s.events.push(e);
-    if (e.timestamp < s.start) s.start = e.timestamp;
-    if (e.timestamp > s.end) s.end = e.timestamp;
-    if (e.type === 'page_view') s.pageViews.push(e);
-    if (e.type === 'click') s.clicks++;
-    if (e.type === 'scroll_depth') s.maxScroll = Math.max(s.maxScroll, e.data?.depth || 0);
-    if (e.type === 'ip_address' && e.data?.ip) s.ip = e.data.ip;
-    if (e.type === 'session_start' && e.data?.deviceInfo) s.deviceInfo = e.data.deviceInfo;
-    if (e.type === 'session_start' && e.userAgent) s.ua = e.userAgent;
+    if (e.timestamp < s.start) {s.start = e.timestamp;}
+    if (e.timestamp > s.end) {s.end = e.timestamp;}
+    if (e.type === 'page_view') {s.pageViews.push(e);}
+    if (e.type === 'click') {s.clicks++;}
+    if (e.type === 'scroll_depth') {s.maxScroll = Math.max(s.maxScroll, e.data?.depth || 0);}
+    if (e.type === 'ip_address' && e.data?.ip) {s.ip = e.data.ip;}
+    if (e.type === 'session_start' && e.data?.deviceInfo) {s.deviceInfo = e.data.deviceInfo;}
+    if (e.type === 'session_start' && e.userAgent) {s.ua = e.userAgent;}
   });
   sessions = Array.from(map.values()).sort((a, b) => b.start - a.start);
 };
@@ -171,7 +171,7 @@ const renderSessions = () => {
 
 const showSessionDetail = (sid) => {
   const s = sessions.find((x) => x.id === sid);
-  if (!s) return;
+  if (!s) {return;}
   document.getElementById('detailTitle').textContent = `Sesja: ${s.id.slice(0, 12)}...`;
   document.getElementById('detailContent').textContent = JSON.stringify({
     session: s.id,
@@ -212,7 +212,7 @@ const renderDevices = () => {
   const devices = countBy(sessions, (s) => parseUA(s.ua).device);
   const screens = countBy(sessions.filter((s) => s.deviceInfo?.screen), (s) => s.deviceInfo.screen);
 
-  const renderBar = (entries, labelKey) => {
+  const renderBar = (entries) => {
     const max = Math.max(...entries.map((e) => e[1]), 1);
     return entries.map(([k, v]) => `
       <div class="bar-row">
@@ -290,7 +290,7 @@ const renderLocations = () => {
             <td style="font-family:var(--mono)">${l.data.lng?.toFixed(6) || '-'}</td>
             <td style="font-family:var(--mono)">${l.data.accuracy ? l.data.accuracy + 'm' : '-'}</td>
             <td>${l.data.altitude ? l.data.altitude + 'm' : '-'}</td>
-            <td>${l.data.speed != null ? l.data.speed + ' m/s' : '-'}</td>
+            <td>${l.data.speed !== null ? l.data.speed + ' m/s' : '-'}</td>
           </tr>`).join('')}</tbody>
       </table></div>
       <p style="margin-top:0.5rem">
@@ -308,8 +308,8 @@ const renderTable = () => {
   const sessionFilter = document.getElementById('filterSession').value.trim();
 
   let filtered = [...allEvents];
-  if (typeFilter) filtered = filtered.filter((e) => e.type === typeFilter);
-  if (sessionFilter) filtered = filtered.filter((e) => e.session?.includes(sessionFilter));
+  if (typeFilter) {filtered = filtered.filter((e) => e.type === typeFilter);}
+  if (sessionFilter) {filtered = filtered.filter((e) => e.session?.includes(sessionFilter));}
   filtered = filtered.slice(-200).reverse();
 
   tbody.innerHTML = filtered.map((e) => `
@@ -324,7 +324,7 @@ const renderTable = () => {
 
 const showEventDetail = (id) => {
   const event = allEvents.find((e) => e.id === id);
-  if (!event) return;
+  if (!event) {return;}
   document.getElementById('detailTitle').textContent = `Event: ${event.type}`;
   document.getElementById('detailContent').textContent = JSON.stringify(event, null, 2);
   document.getElementById('eventDetail').classList.add('active');
@@ -348,7 +348,7 @@ const exportData = () => {
 };
 
 const clearData = async () => {
-  if (!confirm('Usunąć wszystkie dane trackingowe?')) return;
+  if (!confirm('Usunąć wszystkie dane trackingowe?')) {return;}
   try {
     const mod = await import('../tracking.js');
     await mod.clearAllEvents();
@@ -376,10 +376,10 @@ const checkAuth = () => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (!checkAuth()) document.getElementById('loginScreen').style.display = 'flex';
+  if (!checkAuth()) {document.getElementById('loginScreen').style.display = 'flex';}
 
   document.getElementById('loginBtn').addEventListener('click', login);
-  document.getElementById('password').addEventListener('keydown', (e) => { if (e.key === 'Enter') login(); });
+  document.getElementById('password').addEventListener('keydown', (e) => { if (e.key === 'Enter') {login();} });
   document.getElementById('logoutBtn').addEventListener('click', logout);
   document.getElementById('exportBtn').addEventListener('click', exportData);
   document.getElementById('clearBtn').addEventListener('click', clearData);
@@ -387,7 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('filterType').addEventListener('change', applyFilters);
   document.getElementById('filterSession').addEventListener('input', applyFilters);
   document.getElementById('detailClose').addEventListener('click', closeDetail);
-  document.getElementById('eventDetail').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeDetail(); });
+  document.getElementById('eventDetail').addEventListener('click', (e) => { if (e.target === e.currentTarget) {closeDetail();} });
 
   document.querySelectorAll('.tab').forEach((btn) => {
     btn.addEventListener('click', () => switchTab(btn.dataset.tab));

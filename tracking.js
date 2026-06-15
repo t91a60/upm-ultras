@@ -18,7 +18,7 @@ const generateId = () =>
   Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
 
 const openDb = () => {
-  if (db) return Promise.resolve(db);
+  if (db) {return Promise.resolve(db);}
   return new Promise((resolve, reject) => {
     const req = indexedDB.open(DB_NAME, DB_VERSION);
     req.onupgradeneeded = () => {
@@ -54,16 +54,16 @@ const storeEvents = async (events) => {
       const existing = JSON.parse(localStorage.getItem('upm_events') || '[]');
       existing.push(...events);
       localStorage.setItem('upm_events', JSON.stringify(existing.slice(-10000)));
-    } catch {}
+    } catch (_unused) { /* empty */ }
   }
 };
 
 const flush = async () => {
-  if (!eventBuffer.length) return;
+  if (!eventBuffer.length) {return;}
   const batch = eventBuffer.splice(0);
   try {
     await storeEvents(batch);
-  } catch {}
+  } catch (_unused) { /* empty */ }
 };
 
 const push = (type, data = {}) => {
@@ -148,7 +148,7 @@ const getPerformanceData = () => {
 };
 
 const getLocation = () => {
-  if (!navigator.geolocation) return;
+  if (!navigator.geolocation) {return;}
   navigator.geolocation.getCurrentPosition(
     (pos) => {
       push('geolocation', {
@@ -175,7 +175,7 @@ const getBatteryInfo = async () => {
       chargingTime: b.chargingTime,
       dischargingTime: b.dischargingTime,
     });
-  } catch {}
+  } catch (_unused) { /* empty */ }
 };
 
 const getMediaDevices = async () => {
@@ -186,16 +186,16 @@ const getMediaDevices = async () => {
       audioOutput: devices.filter((d) => d.kind === 'audiooutput').length,
       videoInput: devices.filter((d) => d.kind === 'videoinput').length,
     });
-  } catch {}
+  } catch (_unused) { /* empty */ }
 };
 
 const getFontList = () => {
   try {
     const fonts = document.fonts ? document.fonts.keys() : [];
     const list = [];
-    for (const f of fonts) list.push(`${f.family} ${f.style}`);
-    if (list.length) push('fonts', { fonts: list.slice(0, 50) });
-  } catch {}
+    for (const f of fonts) {list.push(`${f.family} ${f.style}`);}
+    if (list.length) {push('fonts', { fonts: list.slice(0, 50) });}
+  } catch (_unused) { /* empty */ }
 };
 
 const getCanvasFingerprint = () => {
@@ -213,7 +213,7 @@ const getCanvasFingerprint = () => {
     ctx.fillStyle = 'rgba(102, 204, 0, 0.7)';
     ctx.fillText('canvas', 4, 17);
     push('canvas_fingerprint', { hash: canvas.toDataURL().slice(0, 100) });
-  } catch {}
+  } catch (_unused) { /* empty */ }
 };
 
 const getWebGLInfo = () => {
@@ -231,7 +231,7 @@ const getWebGLInfo = () => {
         ),
       });
     }
-  } catch {}
+  } catch (_unused) { /* empty */ }
 };
 
 const getIP = async () => {
@@ -352,7 +352,7 @@ const initMouseTracking = () => {
     'mousemove',
     (e) => {
       const now = Date.now();
-      if (now - lastMouseSample < MOUSE_SAMPLE_INTERVAL) return;
+      if (now - lastMouseSample < MOUSE_SAMPLE_INTERVAL) {return;}
       lastMouseSample = now;
       push('mouse_position', { x: e.clientX, y: e.clientY });
     },
@@ -380,7 +380,7 @@ const initResizeTracking = () => {
 };
 
 const getSelector = (el) => {
-  if (!el || el === document || el === window) return '';
+  if (!el || el === document || el === window) {return '';}
   let path = [];
   let current = el;
   while (current && current !== document.body && current !== document) {
@@ -396,7 +396,7 @@ const getSelector = (el) => {
         .split(/\s+/)
         .slice(0, 2)
         .join('.');
-      if (classes) selector += `.${classes}`;
+      if (classes) {selector += `.${classes}`;}
     }
     const parent = current.parentElement;
     if (parent) {
@@ -467,7 +467,7 @@ export const initTracking = () => {
   });
 
   getIP().then(ip => {
-    if (ip) push('ip_address', { ip });
+    if (ip) {push('ip_address', { ip });}
   });
 
   initPageView();
