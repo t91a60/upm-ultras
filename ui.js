@@ -4,8 +4,17 @@ const revealAll = (elements) => {
   elements.forEach((element) => element.classList.add('visible'));
 };
 
+const revealChildren = (parent) => {
+  const children = parent.children;
+  for (let i = 0; i < children.length; i++) {
+    children[i].classList.add('visible');
+  }
+};
+
 const handleImageError = (img) => {
-  if (!img || img.hasAttribute('data-fallback')) { return; }
+  if (!img || img.hasAttribute('data-fallback')) {
+    return;
+  }
   img.setAttribute('data-fallback', '');
   if (img.dataset.fallbackSrc) {
     img.src = img.dataset.fallbackSrc;
@@ -31,13 +40,15 @@ const initImageFallbacks = () => {
 
 export const initReveal = () => {
   const elements = Array.from(document.querySelectorAll('.reveal'));
+  const parents = Array.from(document.querySelectorAll('.reveal-children'));
 
-  if (!elements.length) {
+  if (!elements.length && !parents.length) {
     return;
   }
 
   if (!('IntersectionObserver' in window)) {
     revealAll(elements);
+    parents.forEach(revealChildren);
     return;
   }
 
@@ -45,7 +56,11 @@ export const initReveal = () => {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+          if (entry.target.classList.contains('reveal-children')) {
+            revealChildren(entry.target);
+          } else {
+            entry.target.classList.add('visible');
+          }
           observer.unobserve(entry.target);
         }
       });
@@ -54,6 +69,7 @@ export const initReveal = () => {
   );
 
   elements.forEach((element) => observer.observe(element));
+  parents.forEach((parent) => observer.observe(parent));
 };
 
 export { initImageFallbacks, handleImageError };

@@ -95,12 +95,20 @@
         background: var(--accent);
         color: var(--black);
         font-weight: 500;
-        transition: all 0.3s;
+        transition:
+          transform 200ms cubic-bezier(0.23, 1, 0.32, 1),
+          background 200ms cubic-bezier(0.23, 1, 0.32, 1),
+          box-shadow 200ms cubic-bezier(0.23, 1, 0.32, 1);
       }
-      .btn:hover {
-        background: var(--light-green);
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(77, 170, 104, 0.2);
+      .btn:active {
+        transform: scale(0.97);
+      }
+      @media (hover: hover) and (pointer: fine) {
+        .btn:hover {
+          background: var(--light-green);
+          transform: translateY(-3px);
+          box-shadow: 0 10px 20px rgba(77, 170, 104, 0.2);
+        }
       }
     </style>
   </head>

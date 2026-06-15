@@ -4,11 +4,12 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "npx serve . -p 8080 --no-clipboard",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose --passWithNoTests",
     "lint": "eslint . --ext .js",
-    "format": "prettier --write .",
-    "check:css": "stylelint \"**/*.css\""
+    "format": "prettier --write ."
   },
   "repository": {
     "type": "git",
@@ -23,12 +24,13 @@
   },
   "homepage": "https://github.com/t91a60/upm-ultras#readme",
   "devDependencies": {
+    "@tailwindcss/vite": "^4.3.1",
     "eslint": "^8.57.0",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",
     "prettier": "^3.3.3",
-    "stylelint": "^15.11.0",
-    "stylelint-config-recommended": "^13.0.0"
+    "tailwindcss": "^4.3.1",
+    "vite": "^8.0.16"
   },
   "jest": {
     "testEnvironment": "jsdom"
