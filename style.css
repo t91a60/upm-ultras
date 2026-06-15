@@ -540,14 +540,8 @@ nav.scrolled {
   margin-bottom: 4rem;
   border-radius: 12px;
   border: 1px solid color-mix(in srgb, var(--color-floodlight) 8%, transparent);
-}
-
-.manifesto-banner-img {
-  width: 100%;
-  height: 340px;
-  object-fit: cover;
-  object-position: center 40%;
-  display: block;
+  min-height: 200px;
+  background: var(--color-surface);
 }
 
 .manifesto-banner-overlay {
@@ -684,6 +678,14 @@ nav.scrolled {
   grid-column: span 2;
 }
 
+.gallery-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .gallery-inner {
   position: absolute;
   inset: 0;
@@ -692,6 +694,7 @@ nav.scrolled {
   justify-content: center;
   flex-direction: column;
   gap: 0.5rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.1) 100%);
   transition: background 300ms var(--ease-out);
 }
 
@@ -716,11 +719,7 @@ nav.scrolled {
   transition: color 300ms var(--ease-out);
 }
 
-.gallery-logo {
-  width: 56px;
-  height: 56px;
-  object-fit: contain;
-}
+
 
 /* ─── Shop ─── */
 .sticker-hero {
@@ -740,10 +739,12 @@ nav.scrolled {
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
 }
 
-.sticker-pack-logo {
+.sticker-pack-img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 340px;
+  object-fit: cover;
+  object-position: center 40%;
 }
 
 .sticker-title {
@@ -927,12 +928,6 @@ footer {
   font-family: var(--font-sans);
 }
 
-.gallery-bg-1 { background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-green) 100%); }
-.gallery-bg-2 { background: linear-gradient(135deg, var(--color-deep) 0%, var(--color-forest) 100%); }
-.gallery-bg-3 { background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-mid) 100%); }
-.gallery-bg-4 { background: linear-gradient(135deg, var(--color-deep) 0%, var(--color-green) 100%); }
-.gallery-bg-5 { background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-forest) 100%); }
-
 /* ─── Halftone + scan overlays ─── */
 body::before {
   content: '';
@@ -1054,10 +1049,8 @@ body::after {
     background: var(--color-floodlight);
   }
 
-  .gallery-item:hover .gallery-inner { background: color-mix(in srgb, var(--color-floodlight) 8%, transparent); }
-  .gallery-item:hover .gallery-icon { color: var(--color-floodlight); }
-  .gallery-item:hover .gallery-icon svg { transform: scale(1.1); }
-  .gallery-item:hover .gallery-label { color: var(--color-white); }
+  .gallery-item:hover .gallery-inner { background: color-mix(in srgb, var(--color-floodlight) 12%, transparent); }
+  .gallery-item:hover .gallery-label { color: var(--color-floodlight); }
 
   .contact-val a:hover {
     color: var(--color-light-green);
