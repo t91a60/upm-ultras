@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Barlow+Condensed:wght@300;400;600;700;900&amp;family=Barlow:wght@300;400;500&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Russo+One&amp;family=Rubik:wght@300;400;500&amp;family=Oswald:wght@300;500;600;700&amp;display=swap"
       rel="stylesheet"
     />
     <link rel="icon" type="image/png" href="https://i.imgur.com/NFTSF1O.png" />
@@ -19,12 +19,15 @@
         --white: #e8f0eb;
         --accent: #3a8050;
         --light-green: #4daa68;
+        --font-sans: 'Rubik', sans-serif;
+        --font-display: 'Russo One', sans-serif;
+        --font-mono: 'Oswald', sans-serif;
         --deep: #060e09;
       }
       body {
         background: var(--black);
         color: var(--white);
-        font-family: 'Barlow', sans-serif;
+        font-family: var(--font-sans);
         margin: 0;
         min-height: 100vh;
         display: flex;
@@ -70,7 +73,7 @@
         padding: 2rem;
       }
       h1 {
-        font-family: 'Bebas Neue', sans-serif;
+        font-family: var(--font-display);
         font-size: clamp(6rem, 15vw, 12rem);
         margin: 0;
         line-height: 1;
