@@ -12,10 +12,20 @@ const runWhenReady = (callback) => {
   callback();
 };
 
+const initAdminShortcut = () => {
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.shiftKey && e.key === 'P') {
+      e.preventDefault();
+      window.open('./panel/', '_blank');
+    }
+  });
+};
+
 runWhenReady(() => {
   initNav();
   initReveal();
   initImageFallbacks();
   hardenExternalLinks();
   initTracking();
+  initAdminShortcut();
 });

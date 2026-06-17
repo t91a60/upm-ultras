@@ -1,3 +1,5 @@
+/* global L */
+
 const PASSWORD_HASH = '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92';
 const STORAGE_KEY = 'upm_admin_auth';
 
@@ -333,6 +335,113 @@ const renderDevices = () => {
   `;
 };
 
+const STADIUM_COORDS = [49.985, 19.045];
+const MAP_CONFIG = {
+  tileUrl: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+  maxZoom: 18,
+};
+
+let locationMap = null;
+let mapMarkers = [];
+let userMarker = null;
+
+const clearMapMarkers = () => {
+  if (locationMap) {
+    mapMarkers.forEach((m) => locationMap.removeLayer(m));
+    mapMarkers = [];
+    if (userMarker) {
+      locationMap.removeLayer(userMarker);
+      userMarker = null;
+    }
+  }
+};
+
+const initMap = () => {
+  const mapEl = document.getElementById('locationMap');
+  if (!mapEl || mapEl.querySelector('.leaflet-container')) { return; }
+
+  locationMap = L.map(mapEl, {
+    center: STADIUM_COORDS,
+    zoom: 13,
+    zoomControl: true,
+    attributionControl: true,
+  });
+
+  L.tileLayer(MAP_CONFIG.tileUrl, {
+    attribution: MAP_CONFIG.attribution,
+    maxZoom: MAP_CONFIG.maxZoom,
+  }).addTo(locationMap);
+
+  const stadiumIcon = L.divIcon({
+    className: '',
+    html: '<div class="loc-stadium-marker"></div>',
+    iconSize: [16, 16],
+    iconAnchor: [8, 8],
+  });
+
+  L.marker(STADIUM_COORDS, { icon: stadiumIcon })
+    .addTo(locationMap)
+    .bindPopup('<strong>Stadion Polonia Miedzyrzecze</strong><br>ul. Sportowa, 43-220 Miedzyrzecze');
+
+  setTimeout(() => locationMap.invalidateSize(), 100);
+};
+
+const addGeoMarker = (lat, lng, data, timestamp) => {
+  if (!locationMap) { return; }
+
+  const accuracy = data?.accuracy || 0;
+  const markerSize = Math.max(10, Math.min(20, 20 - accuracy / 50));
+
+  const icon = L.divIcon({
+    className: '',
+    html: `<div class="loc-guest-marker" style="width:${markerSize}px;height:${markerSize}px"></div>`,
+    iconSize: [markerSize, markerSize],
+    iconAnchor: [markerSize / 2, markerSize / 2],
+  });
+
+  const popupContent = `
+    <div style="font-size:0.78rem;line-height:1.6">
+      <strong style="color:var(--accent)">Gość</strong><br>
+      <span style="color:var(--muted)">${formatTime(timestamp)}</span><br>
+      <span style="font-family:var(--mono);font-size:0.7rem">
+        ${lat.toFixed(6)}, ${lng.toFixed(6)}
+      </span><br>
+      ${accuracy ? `Dokładność: ${accuracy}m` : ''}
+      ${data?.altitude ? `<br>Wysokość: ${data.altitude}m` : ''}
+      ${data?.speed ? `<br>Prędkość: ${data.speed} m/s` : ''}
+    </div>
+  `;
+
+  const marker = L.marker([lat, lng], { icon })
+    .addTo(locationMap)
+    .bindPopup(popupContent, { closeButton: true, maxWidth: 300 });
+
+  mapMarkers.push(marker);
+};
+
+const addUserLocationMarker = (lat, lng) => {
+  if (!locationMap) { return; }
+
+  if (userMarker) {
+    locationMap.removeLayer(userMarker);
+  }
+
+  const icon = L.divIcon({
+    className: '',
+    html: '<div class="loc-user-marker"></div>',
+    iconSize: [14, 14],
+    iconAnchor: [7, 7],
+  });
+
+  userMarker = L.marker([lat, lng], { icon })
+    .addTo(locationMap)
+    .bindPopup('<strong style="color:#3498db">Twoja lokalizacja</strong>')
+    .openPopup();
+
+  locationMap.setView([lat, lng], locationMap.getZoom() < 14 ? 14 : locationMap.getZoom());
+};
+
 const renderLocations = () => {
   const container = document.getElementById('locationContent');
   const ipEvents = allEvents.filter((e) => e.type === 'ip_address');
@@ -348,7 +457,16 @@ const renderLocations = () => {
     }
   });
 
+  clearMapMarkers();
+  initMap();
+
+  if (uniqueGeo.length) {
+    uniqueGeo.forEach((l) => addGeoMarker(l.data.lat, l.data.lng, l.data, l.timestamp));
+  }
+
   if (!uniqueIPs.length && !uniqueGeo.length) {
+    document.getElementById('locationMap').innerHTML =
+      '<p style="color:var(--muted);padding:2rem;text-align:center">Brak danych o lokalizacji</p>';
     container.innerHTML =
       '<p style="color:var(--muted);padding:2rem">Brak danych o lokalizacji</p>';
     return;
@@ -497,6 +615,9 @@ const switchTab = (tab) => {
     .forEach((c) =>
       c.classList.toggle('active', c.id === `tab${tab.charAt(0).toUpperCase() + tab.slice(1)}`)
     );
+  if (tab === 'locations' && locationMap) {
+    setTimeout(() => locationMap.invalidateSize(), 50);
+  }
 };
 
 const checkAuth = () => {
@@ -527,6 +648,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('filterType').addEventListener('change', applyFilters);
   document.getElementById('filterSession').addEventListener('input', applyFilters);
   document.getElementById('detailClose').addEventListener('click', closeDetail);
+
+  document.getElementById('locMyLocation').addEventListener('click', () => {
+    if (!navigator.geolocation) { return; }
+    navigator.geolocation.getCurrentPosition(
+      (pos) => addUserLocationMarker(pos.coords.latitude, pos.coords.longitude),
+      () => {},
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  });
   document.getElementById('eventDetail').addEventListener('click', (e) => {
     if (e.target === e.currentTarget) {
       closeDetail();

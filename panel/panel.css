@@ -13,6 +13,7 @@
   --blue: #3498db;
   --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
   --mono: 'Cascadia Code', 'Consolas', monospace;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 *,
@@ -422,8 +423,102 @@ body {
   opacity: 0.8;
   text-decoration: underline;
 }
+.loc-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.loc-toolbar-label {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.location-map {
+  width: 100%;
+  height: 400px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.location-map .leaflet-container {
+  font-family: var(--font);
+  font-size: 0.78rem;
+}
+
+.location-map .leaflet-popup-content-wrapper {
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.location-map .leaflet-popup-tip {
+  background: var(--surface);
+}
+
+.location-map .leaflet-popup-content {
+  margin: 0.6rem 0.8rem;
+}
+
+.location-map .leaflet-control-zoom a {
+  background: var(--card);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.location-map .leaflet-control-zoom a:hover {
+  background: var(--surface);
+}
+
+.loc-user-marker {
+  width: 14px;
+  height: 14px;
+  background: #3498db;
+  border: 3px solid rgba(52, 152, 219, 0.3);
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(52, 152, 219, 0.5);
+}
+
+.loc-guest-marker {
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border: 2px solid rgba(46, 204, 113, 0.25);
+  border-radius: 50%;
+}
+
+.loc-stadium-marker {
+  width: 16px;
+  height: 16px;
+  background: var(--orange);
+  border: 3px solid rgba(243, 156, 18, 0.3);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(243, 156, 18, 0.4);
+}
+
+.loc-heat-marker {
+  width: 10px;
+  height: 10px;
+  background: var(--red);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
 .loc-section {
   margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .location-map {
+    height: 280px;
+  }
 }
 
 .event-table-wrap {
