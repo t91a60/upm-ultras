@@ -4,16 +4,30 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta name="theme-color" content="#000000" />
-    <title>404 - Nie znaleziono | UPM</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="author" content="UPM Ultras Polonia Miedzyrzecze" />
+    <meta
+      name="description"
+      content="Strona nie została znaleziona. Wróć do oficjalnej strony kibiców Ultras Polonia Międzyrzecze."
+    />
+    <title>404 - Nie znaleziono | UPM Ultras Polonia Międzyrzecze</title>
+    <link rel="canonical" href="https://t91a60.github.io/upm-ultras/404.html" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Russo+One&amp;family=Rubik:wght@300;400;500&amp;family=Oswald:wght@300;500;600;700&amp;display=swap"
-      rel="stylesheet"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Russo+One&amp;family=Rubik:wght@300;400&amp;family=Oswald:wght@300;600;700&amp;display=swap"
+      fetchpriority="low"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Russo+One&amp;family=Rubik:wght@300;400&amp;family=Oswald:wght@300;600;700&amp;display=swap"
+    /></noscript>
     <link rel="icon" type="image/png" href="https://i.imgur.com/NFTSF1O.png" />
     <style>
-      /* Minimal inline CSS for 404 page to ensure it works even if paths break */
       :root {
         --black: #000000;
         --white: #e8f0eb;
@@ -103,6 +117,10 @@
           background 200ms cubic-bezier(0.23, 1, 0.32, 1),
           box-shadow 200ms cubic-bezier(0.23, 1, 0.32, 1);
       }
+      .btn:focus-visible {
+        outline: 2px solid var(--light-green);
+        outline-offset: 3px;
+      }
       .btn:active {
         transform: scale(0.97);
       }
@@ -114,15 +132,25 @@
         }
       }
     </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Strona Główna", "item": "https://t91a60.github.io/upm-ultras/" },
+          { "@type": "ListItem", "position": 2, "name": "404 - Nie znaleziono" }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div class="hero-bg" aria-hidden="true">
       <img class="hero-bg-img" src="https://i.imgur.com/421xxEr.png" alt="" />
     </div>
-    <div class="content">
+    <main class="content" role="main">
       <h1>404</h1>
       <p>Ta strona nie istnieje na naszym rewirze.</p>
       <a href="/upm-ultras/" class="btn">Wróć do bazy</a>
-    </div>
+    </main>
   </body>
 </html>

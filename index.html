@@ -10,7 +10,6 @@
       name="copyright"
       content="Copyright (c) 2026 Ultras Polonia Miedzyrzecze. All rights reserved."
     />
-    <meta name="generator" content="Ultras Polonia Międzyrzecze" />
     <meta name="robots" content="index, follow" />
     <meta name="google-site-verification" content="WNKwlMi9YpRN1sOz7GRxWw3LfHTi4eMce1PUNukpzVg" />
     <meta name="keywords" content="Ultras Polonia Międzyrzecze, UPM, Polonia Międzyrzecze, kibice, ultras, doping, oprawy, naklejki, wlepki, galeria, trybuny, piłka nożna, fanatycy, czarno-zieloni" />
@@ -20,6 +19,7 @@
     />
     <meta http-equiv="Referrer-Policy" content="no-referrer" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
     <meta
       http-equiv="Permissions-Policy"
       content="geolocation=(self), camera=(), microphone=(), payment=(), usb=(), accelerometer=(), gyroscope=(), magnetometer=(), midi=(), sync-xhr=(), autoplay=(), encrypted-media=(), picture-in-picture=(), display-capture=(), fullscreen=(), clipboard-write=(self), clipboard-read=()"
@@ -30,12 +30,25 @@
       content="Oficjalna strona Ultras Polonia Międzyrzecze. Doping, oprawy, galerie z trybun, naklejki UPM, manifest grupy i rekrutacja nowych członków. Razem tworzymy historię czarno-zielonych! Dołącz do nas."
     />
     <link rel="canonical" href="https://t91a60.github.io/upm-ultras/" />
+    <link rel="dns-prefetch" href="https://i.imgur.com" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Russo+One&amp;family=Rubik:wght@300;400;500&amp;family=Oswald:wght@300;500;600;700&amp;display=swap"
-      rel="stylesheet"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Russo+One&amp;family=Rubik:wght@300;400&amp;family=Oswald:wght@300;600;700&amp;display=swap"
+      fetchpriority="low"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Russo+One&amp;family=Rubik:wght@300;400&amp;family=Oswald:wght@300;600;700&amp;display=swap"
+    /></noscript>
+    <link rel="preload" as="image" href="https://i.imgur.com/421xxEr.png" fetchpriority="high" />
+    <link rel="preload" as="image" href="https://i.imgur.com/NFTSF1O.png" fetchpriority="high" />
     <meta property="og:title" content="UPM - Ultras Polonia Międzyrzecze" />
     <meta
       property="og:description"
@@ -58,39 +71,176 @@
     <meta name="twitter:image" content="https://i.imgur.com/NFTSF1O.png" />
     <meta name="twitter:site" content="@ultras_polonia_miedzyrzecze" />
     <link rel="icon" type="image/png" href="https://i.imgur.com/NFTSF1O.png" />
-    <link rel="preload" as="image" href="https://i.imgur.com/NFTSF1O.png" fetchpriority="high" />
+    <link rel="apple-touch-icon" href="https://i.imgur.com/NFTSF1O.png" />
+    <link rel="manifest" href="/upm-ultras/manifest.json" />
     <link rel="stylesheet" href="./style.css" />
     <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "SportsOrganization",
-        "name": "Ultras Polonia Międzyrzecze",
-        "alternateName": "UPM",
-        "description": "Oficjalna strona kibiców Ultras Polonia Międzyrzecze. Doping, oprawy, naklejki, galerie z trybun i rekrutacja. Razem tworzymy historię!",
-        "url": "https://t91a60.github.io/upm-ultras/",
-        "logo": "https://i.imgur.com/NFTSF1O.png",
-        "image": "https://i.imgur.com/NFTSF1O.png",
-        "sport": "Soccer",
-        "foundingDate": "1987",
-        "sameAs": [
-          "https://www.instagram.com/ultras_polonia_miedzyrzecze/",
-          "https://www.instagram.com/fanatycy_z_polonii/",
-          "https://www.facebook.com/profile.php?id=61567464391274"
-        ],
-        "email": "19polonia.miedzyrzecze87@gmail.com",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "ul. Sportowa",
-          "postalCode": "43-220",
-          "addressLocality": "Międzyrzecze",
-          "addressCountry": "PL"
+      [
+        {
+          "@context": "https://schema.org",
+          "@type": "SportsOrganization",
+          "name": "Ultras Polonia Międzyrzecze",
+          "alternateName": "UPM",
+          "description": "Oficjalna strona kibiców Ultras Polonia Międzyrzecze. Doping, oprawy, naklejki, galerie z trybun i rekrutacja. Razem tworzymy historię!",
+          "url": "https://t91a60.github.io/upm-ultras/",
+          "logo": { "@type": "ImageObject", "url": "https://i.imgur.com/NFTSF1O.png" },
+          "image": "https://i.imgur.com/NFTSF1O.png",
+          "sport": "Soccer",
+          "foundingDate": "1987",
+          "sameAs": [
+            "https://www.instagram.com/ultras_polonia_miedzyrzecze/",
+            "https://www.instagram.com/fanatycy_z_polonii/",
+            "https://www.facebook.com/profile.php?id=61567464391274"
+          ],
+          "email": "19polonia.miedzyrzecze87@gmail.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "ul. Sportowa",
+            "postalCode": "43-220",
+            "addressLocality": "Międzyrzecze",
+            "addressCountry": "PL"
+          },
+          "memberOf": {
+            "@type": "SportsTeam",
+            "name": "Polonia Międzyrzecze",
+            "url": "https://t91a60.github.io/upm-ultras/"
+          }
         },
-        "memberOf": {
-          "@type": "SportsTeam",
-          "name": "Polonia Międzyrzecze",
-          "url": "https://t91a60.github.io/upm-ultras/"
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "UPM - Ultras Polonia Międzyrzecze",
+          "alternateName": "UPM",
+          "url": "https://t91a60.github.io/upm-ultras/",
+          "description": "Oficjalna strona kibiców Ultras Polonia Międzyrzecze. Doping, oprawy, naklejki, galerie z trybun i rekrutacja.",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://t91a60.github.io/upm-ultras/?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "UPM - Ultras Polonia Międzyrzecze",
+          "description": "Oficjalna strona kibiców Ultras Polonia Międzyrzecze. Doping, oprawy, naklejki, galerie z trybun i rekrutacja.",
+          "url": "https://t91a60.github.io/upm-ultras/",
+          "inLanguage": "pl",
+          "isPartOf": { "@id": "https://t91a60.github.io/upm-ultras/#website" }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Strona Główna", "item": "https://t91a60.github.io/upm-ultras/" },
+            { "@type": "ListItem", "position": 2, "name": "Aktualności", "item": "https://t91a60.github.io/upm-ultras/#aktualnosci" },
+            { "@type": "ListItem", "position": 3, "name": "Galeria", "item": "https://t91a60.github.io/upm-ultras/#galeria" },
+            { "@type": "ListItem", "position": 4, "name": "Sklep", "item": "https://t91a60.github.io/upm-ultras/#sklep" },
+            { "@type": "ListItem", "position": 5, "name": "Kontakt", "item": "https://t91a60.github.io/upm-ultras/#kontakt" }
+          ]
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Kim są Ultras Polonia Międzyrzecze?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Ultras Polonia Międzyrzecze (UPM) to zrzeszenie kibiców piłkarskiego klubu Polonia Międzyrzecze, działające nieprzerwanie od 1987 roku. Grupa organizuje doping, przygotowuje oprawy stadionowe, tworzy flagi i sektorówki oraz integruje środowisko kibicowskie na Górnym Śląsku."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Jak dołączyć do grupy UPM?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Aby dołączyć do Ultras Polonia Międzyrzecze, napisz na Instagram (@ultras_polonia_miedzyrzecze) lub wyślij e-mail na adres 19polonia.miedzyrzecze87@gmail.com. Nie ma formalnych wymagań — liczy się zaangażowanie i lojalność wobec klubu."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Gdzie odbywają się mecze Polonii Międzyrzecze?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Mecze domowe Polonii Międzyrzecze rozgrywane są na boisku przy ul. Sportowej w Międzyrzeczu (43-220). Aktualne zapowiedzi meczów publikujemy w sekcji Aktualności oraz na Instagramie."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Jak kupić pakiet wlepek UPM?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Pakiet 24 wlepek w 6 unikalnych wzorach można zamówić przez Instagram (@fanatycy_z_polonii) lub e-mail. Odbór osobisty na meczu domowym przy ul. Sportowej lub po wcześniejszym ustaleniu."
+              }
+            }
+          ]
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Zapowiedź meczu — Polonia Międzyrzecze vs Ogrodnik Tychy",
+          "description": "Za tydzień podejmujemy Ogrodnik Tychy na własnym boisku. Zbiórka do puszki na cele Ultras. Wlepki dostępne w przerwie spotkania.",
+          "image": "https://i.imgur.com/2lrmtWB.jpeg",
+          "datePublished": "2026-03-01",
+          "author": { "@type": "Organization", "name": "Ultras Polonia Międzyrzecze" },
+          "publisher": { "@type": "Organization", "name": "Ultras Polonia Międzyrzecze" }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "107. rocznica odzyskania niepodległości — Polonia znaczy Polska",
+          "description": "Świętujemy 107. rocznicę odzyskania niepodległości. POLONIA znaczy POLSKA.",
+          "image": "https://i.imgur.com/vXU3Fr2.jpeg",
+          "datePublished": "2025-11-11",
+          "author": { "@type": "Organization", "name": "Ultras Polonia Międzyrzecze" },
+          "publisher": { "@type": "Organization", "name": "Ultras Polonia Międzyrzecze" }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Wyprawa UPM w góry — zdobywamy Babią Górę",
+          "description": "Wyprawa Ultras Polonia Międzyrzecze na Babią Górę. Integracja grupy i aktywność fizyczna.",
+          "image": "https://i.imgur.com/Ig78gs9.jpeg",
+          "datePublished": "2025-11-02",
+          "author": { "@type": "Organization", "name": "Ultras Polonia Międzyrzecze" },
+          "publisher": { "@type": "Organization", "name": "Ultras Polonia Międzyrzecze" }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Polonia Międzyrzecze vs Siódemka Tychy — zapowiedź meczu",
+          "description": "Polonia zmierzy się z Siódemką Tychy na własnym boisku. Każdy mecz to siła wsparcia z trybun.",
+          "image": "https://i.imgur.com/OrMxuYf.jpeg",
+          "datePublished": "2025-10-14",
+          "author": { "@type": "Organization", "name": "Ultras Polonia Międzyrzecze" },
+          "publisher": { "@type": "Organization", "name": "Ultras Polonia Międzyrzecze" }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Polonia Międzyrzecze wygrywa 6:0 z LKS Gardawice",
+          "description": "Relacja z wyjazdu na mecz Polonia Międzyrzecze vs LKS Gardawice. Zwycięstwo 6:0 i znakomity doping.",
+          "image": "https://i.imgur.com/v1GotTl.jpeg",
+          "datePublished": "2025-06-09",
+          "author": { "@type": "Organization", "name": "Ultras Polonia Międzyrzecze" },
+          "publisher": { "@type": "Organization", "name": "Ultras Polonia Międzyrzecze" }
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "Derby gminy — Polonia Międzyrzecze vs GTS Bojszowy",
+          "description": "DERBY DLA POLONII! Derby gminy z GTS Bojszowy. BYŁA, BĘDZIE, JEST — POLONIA NASZ KS.",
+          "image": "https://i.imgur.com/cJ8wQ8M.jpeg",
+          "datePublished": "2025-05-16",
+          "author": { "@type": "Organization", "name": "Ultras Polonia Międzyrzecze" },
+          "publisher": { "@type": "Organization", "name": "Ultras Polonia Międzyrzecze" }
         }
-      }
+      ]
     </script>
   </head>
 
@@ -127,7 +277,16 @@
         </ul>
       </nav>
     </header>
-    <main id="main-content" class="main-content" tabindex="-1">
+    <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+      <ol class="breadcrumb-list">
+        <li class="breadcrumb-item"><a href="#hero">Strona Główna</a></li>
+        <li class="breadcrumb-item"><a href="#aktualnosci">Aktualności</a></li>
+        <li class="breadcrumb-item"><a href="#galeria">Galeria</a></li>
+        <li class="breadcrumb-item"><a href="#sklep">Sklep</a></li>
+        <li class="breadcrumb-item"><a href="#kontakt">Kontakt</a></li>
+      </ol>
+    </nav>
+    <main id="main-content" class="main-content" tabindex="-1" role="main">
       <section id="hero" class="section section-hero">
         <div class="hero-bg" aria-hidden="true">
           <img
@@ -147,7 +306,7 @@
             alt="UPM Ultras Polonia Międzyrzecze"
             class="hero-logo-img"
             src="https://i.imgur.com/NFTSF1O.png"
-            srcset="https://i.imgur.com/NFTSF1O.png 280w, https://i.imgur.com/NFTSF1O.png 560w"
+            srcset="https://i.imgur.com/NFTSF1O.png 280w"
             sizes="(max-width: 600px) 60vw, 280px"
             width="280"
             height="280"
@@ -161,7 +320,7 @@
         </div>
         <div class="hero-diagonal" aria-hidden="true"></div>
       </section>
-      <section id="manifesto" class="section section--deferred">
+      <section id="manifesto" class="section section--deferred" aria-label="Manifest grupy">
         <div class="container manifesto-inner reveal">
           <div class="manifesto-banner-wrap">
             <div class="manifesto-banner-overlay">
@@ -175,7 +334,7 @@
           </p>
         </div>
       </section>
-      <section id="aktualnosci" class="section section--deferred">
+      <section id="aktualnosci" class="section section--deferred" aria-label="Aktualności">
         <div class="container">
           <h2 class="section-title">Co Słychać<br />Na Trybunach</h2>
           <div class="news-grid">
@@ -361,7 +520,7 @@
           </div>
         </div>
       </section>
-      <section id="galeria" class="section section--deferred">
+      <section id="galeria" class="section section--deferred" aria-label="Galeria zdjęć z trybun">
         <div class="container">
           <p class="section-label">Galeria</p>
           <h2 class="section-title">Żywe Zdjęcia<br />Z Trybun</h2>
@@ -426,7 +585,7 @@
           </div>
         </div>
       </section>
-      <section id="sklep" class="section section--deferred">
+      <section id="sklep" class="section section--deferred" aria-label="Sklep z wlepkami UPM">
         <div class="container">
           <p class="section-label">Sklep UPM</p>
           <h2 class="section-title">Noś Barwy<br />Z Dumą</h2>
@@ -473,7 +632,7 @@
           </div>
         </div>
       </section>
-      <section id="dolacz" class="section section--deferred">
+      <section id="dolacz" class="section section--deferred" aria-label="Rekrutacja nowych członków">
         <div class="container join-inner">
           <p class="section-label">Dołącz do Nas</p>
           <h2 class="section-title">Zostań<br />Jednym z Nas</h2>
@@ -518,7 +677,73 @@
           </p>
         </div>
       </section>
-      <section id="kontakt" class="section section--deferred">
+      <section id="faq" class="section section--deferred" aria-label="Najczęściej zadawane pytania">
+        <div class="container">
+          <p class="section-label">FAQ</p>
+          <h2 class="section-title">Masz Pytanie?<br />Sprawdź FAQ</h2>
+          <div class="faq-list">
+            <details class="faq-item" name="faq">
+              <summary class="faq-question">Kim są Ultras Polonia Międzyrzecze?</summary>
+              <div class="faq-answer">
+                <p>
+                  UPM (Ultras Polonia Międzyrzecze) to zrzeszenie kibiców piłkarskiego klubu
+                  Polonia Międzyrzecze, działające nieprzerwanie od 1987 roku. Grupa zajmuje
+                  się organizacją dopingu na meczach, przygotowywaniem opraw stadionowych,
+                  tworzeniem flag i sektorówek oraz integracją środowiska kibicowskiego
+                  na Górnym Śląsku.
+                </p>
+              </div>
+            </details>
+            <details class="faq-item" name="faq">
+              <summary class="faq-question">Jak dołączyć do UPM?</summary>
+              <div class="faq-answer">
+                <p>
+                  Wystarczy napisać do nas przez Instagram
+                  (<a href="https://www.instagram.com/ultras_polonia_miedzyrzecze/" target="_blank" rel="noopener noreferrer">@ultras_polonia_miedzyrzecze</a>)
+                  lub wysłać e-mail na adres
+                  <a href="mailto:19polonia.miedzyrzecze87@gmail.com">19polonia.miedzyrzecze87@gmail.com</a>.
+                  Nie ma formalnych wymagań — liczy się zaangażowanie i lojalność wobec klubu.
+                </p>
+              </div>
+            </details>
+            <details class="faq-item" name="faq">
+              <summary class="faq-question">Gdzie i kiedy gra Polonia Międzyrzecze?</summary>
+              <div class="faq-answer">
+                <p>
+                  Mecze domowe Polonii Międzyrzecze rozgrywane są na boisku przy
+                  ul. Sportowej w Międzyrzeczu (43-220). Aktualne zapowiedzi meczów
+                  znajdziesz w sekcji
+                  <a href="#aktualnosci">Aktualności</a> oraz na naszym
+                  <a href="https://www.instagram.com/ultras_polonia_miedzyrzecze/" target="_blank" rel="noopener noreferrer">Instagramie</a>.
+                </p>
+              </div>
+            </details>
+            <details class="faq-item" name="faq">
+              <summary class="faq-question">Jak kupić pakiet wlepek UPM?</summary>
+              <div class="faq-answer">
+                <p>
+                  Pakiet 24 wlepek w 6 unikalnych wzorach można zamówić przez
+                  <a href="https://www.instagram.com/fanatycy_z_polonii/" target="_blank" rel="noopener noreferrer">@fanatycy_z_polonii</a>
+                  lub e-mail. Odbór osobisty na meczu domowym przy ul. Sportowej
+                  lub po wcześniejszym ustaleniu.
+                </p>
+              </div>
+            </details>
+            <details class="faq-item" name="faq">
+              <summary class="faq-question">Czy mogę zamówić oprawę na wydarzenie?</summary>
+              <div class="faq-answer">
+                <p>
+                  Tak! Jeśli reprezentujesz klub lub organizację i chcesz, aby UPM
+                  przygotowało oprawę, flagę lub sektorówkę — skontaktuj się z nami
+                  mailowo. Przygotowujemy oprawy dopasowane do okazji, zachowując
+                  standardy ultrasów.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+      <section id="kontakt" class="section section--deferred" aria-label="Kontakt">
         <div class="container">
           <p class="section-label mb-2">Kontakt</p>
           <div class="contact-grid">

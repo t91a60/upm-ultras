@@ -1,7 +1,7 @@
 import js from '@eslint/js';
 
 export default [
-  { ignores: ['dist/'] },
+  { ignores: ['dist/', 'scripts/'] },
 
   js.configs.recommended,
 
@@ -43,6 +43,7 @@ export default [
         ClipboardItem: 'readonly',
         performance: 'readonly',
         requestAnimationFrame: 'readonly',
+        requestIdleCallback: 'readonly',
         HTMLElement: 'readonly',
         Element: 'readonly',
         Event: 'readonly',
@@ -59,6 +60,25 @@ export default [
         'error',
         { varsIgnorePattern: '^_', argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' },
       ],
+    },
+  },
+
+  {
+    files: ['public/sw.js'],
+    languageOptions: {
+      sourceType: 'script',
+      globals: {
+        self: 'readonly',
+        caches: 'readonly',
+        Response: 'readonly',
+        fetch: 'readonly',
+        Request: 'readonly',
+        Promise: 'readonly',
+        console: 'readonly',
+      },
+    },
+    rules: {
+      curly: 'off',
     },
   },
 

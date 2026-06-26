@@ -1,0 +1,20 @@
+{
+  "name": "Ultras Polonia Międzyrzecze",
+  "short_name": "UPM",
+  "description": "Oficjalna strona kibiców Ultras Polonia Międzyrzecze",
+  "start_url": "/upm-ultras/",
+  "scope": "/upm-ultras/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "lang": "pl",
+  "icons": [
+    {
+      "src": "https://i.imgur.com/NFTSF1O.png",
+      "sizes": "280x280",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
