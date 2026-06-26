@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /panel/
-Disallow: /dist/
 
 Sitemap: https://t91a60.github.io/upm-ultras/sitemap.xml
