@@ -12,36 +12,10 @@ const runWhenReady = (callback) => {
   callback();
 };
 
-const initAdminShortcut = () => {
-  document.addEventListener('keydown', (e) => {
-    if (e.ctrlKey && e.shiftKey && e.key === 'P') {
-      e.preventDefault();
-      window.open('./panel/', '_blank');
-    }
-  });
-};
-
-const deferTracking = () => {
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(
-      () => {
-        import('./tracking.js').then((mod) => mod.initTracking());
-      },
-      { timeout: 3000 }
-    );
-  } else {
-    setTimeout(() => {
-      import('./tracking.js').then((mod) => mod.initTracking());
-    }, 1000);
-  }
-};
-
 runWhenReady(() => {
   initNav();
   initReveal();
   initImageFallbacks();
   hardenExternalLinks();
-  deferTracking();
-  initAdminShortcut();
   registerSW();
 });

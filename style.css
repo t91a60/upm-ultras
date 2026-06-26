@@ -330,6 +330,9 @@ nav.scrolled {
 }
 
 .nav-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   font-family: var(--font-mono);
   font-size: 0.78rem;
   font-weight: 600;
@@ -338,7 +341,6 @@ nav.scrolled {
   color: var(--color-muted);
   text-decoration: none;
   position: relative;
-  padding: 4px 0;
   transition: color 200ms var(--ease-out);
 }
 
@@ -737,17 +739,6 @@ nav.scrolled {
   transition: background 300ms var(--ease-out);
 }
 
-.gallery-icon {
-  font-size: 3rem;
-  color: var(--color-dim);
-  transition: color 300ms var(--ease-out);
-  line-height: 1;
-}
-
-.gallery-icon svg {
-  transition: transform 300ms var(--ease-out);
-}
-
 .gallery-label {
   font-family: var(--font-mono);
   font-size: 0.7rem;
@@ -966,6 +957,9 @@ nav.scrolled {
 }
 
 .breadcrumb-item a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   color: var(--color-muted);
   text-decoration: none;
   pointer-events: auto;
