@@ -7,6 +7,7 @@ const revealAll = (elements) => {
 const revealChildren = (parent) => {
   const children = parent.children;
   for (let i = 0; i < children.length; i++) {
+    children[i].style.setProperty('--i', String(i));
     children[i].classList.add('visible');
   }
 };

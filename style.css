@@ -4,15 +4,10 @@
 @theme {
   --color-black: #0a0a0a;
   --color-deep: #080c09;
-  --color-dark: #0e1410;
   --color-surface: #121212;
   --color-forest: #16281e;
-  --color-pitch: #1a4a2a;
-  --color-green: #1a3a2a;
-  --color-mid: #2a5a3a;
   --color-floodlight: #2ecc71;
   --color-amber: #f4c430;
-  --color-accent: #2ecc71;
   --color-light-green: #4ae08a;
   --color-white: #f0f0f0;
   --color-muted: #809a84;
@@ -24,7 +19,6 @@
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
-  --ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* ─── Animations ─── */
@@ -180,7 +174,7 @@
   }
 
   .btn:active {
-    transform: scale(0.96);
+    transform: scale(0.97);
   }
 
   .btn:focus-visible {
@@ -260,8 +254,8 @@
     opacity: 0;
     transform: translateY(30px);
     transition:
-      opacity 500ms var(--ease-out),
-      transform 500ms var(--ease-out);
+      opacity 350ms var(--ease-out),
+      transform 350ms var(--ease-out);
   }
 
   .reveal.visible {
@@ -273,8 +267,9 @@
     opacity: 0;
     transform: translateY(20px);
     transition:
-      opacity 500ms var(--ease-out),
-      transform 500ms var(--ease-out);
+      opacity 350ms var(--ease-out),
+      transform 350ms var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 60ms);
   }
 
   .reveal-children > *.visible {
@@ -375,6 +370,16 @@ nav.scrolled {
   transition:
     transform 200ms var(--ease-out),
     opacity 200ms var(--ease-out);
+}
+
+.nav-toggle[aria-expanded='true'] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle[aria-expanded='true'] span:nth-child(2) {
+  opacity: 0;
+}
+.nav-toggle[aria-expanded='true'] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 /* ─── Hero ─── */
@@ -966,10 +971,6 @@ nav.scrolled {
   transition: color 200ms var(--ease-out);
 }
 
-.breadcrumb-item a:hover {
-  color: var(--color-floodlight);
-}
-
 /* ─── FAQ ─── */
 .faq-list {
   max-width: 720px;
@@ -1428,7 +1429,7 @@ body::after {
   }
 
   .btn:active {
-    transform: scale(0.96);
+    transform: scale(0.97);
   }
   .btn-primary:active {
     background: color-mix(in srgb, var(--color-floodlight) 80%, var(--color-black));
@@ -1453,7 +1454,7 @@ body::after {
 
 @media (hover: hover) and (pointer: fine) {
   .btn:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     box-shadow:
       0 18px 44px rgba(46, 204, 113, 0.12),
       0 0 24px rgba(46, 204, 113, 0.25);
@@ -1474,6 +1475,10 @@ body::after {
   }
   .nav-links a:hover::after {
     transform: scaleX(1);
+  }
+
+  .breadcrumb-item a:hover {
+    color: var(--color-floodlight);
   }
 
   .news-card:hover {
