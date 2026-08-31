@@ -6,9 +6,9 @@ Audit plans for the UPM Ultras site (`C:\Users\sellb\Documents\GitHub\upm-ultras
 
 | # | Title | Severity | Category | Status |
 | --- | --- | --- | --- | --- |
-| 001 | Gate smooth scroll under reduced motion | MEDIUM | Accessibility | TODO |
-| 002 | Add press feedback to news cards and gallery items | MEDIUM | Physicality & origin | TODO |
-| 003 | Gate FAQ answer link hover behind hover media query | MEDIUM | Accessibility | TODO |
+| 001 | Gate smooth scroll under reduced motion | MEDIUM | Accessibility | DONE |
+| 002 | Add press feedback to news cards and gallery items | MEDIUM | Physicality & origin | DONE |
+| 003 | Gate FAQ answer link hover behind hover media query | MEDIUM | Accessibility | DONE |
 
 ## Recommended execution order
 

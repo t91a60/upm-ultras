@@ -1045,10 +1045,6 @@ nav.scrolled {
   text-underline-offset: 2px;
 }
 
-.faq-answer a:hover {
-  color: var(--color-light-green);
-}
-
 /* ─── Focus visible global ─── */
 a:focus-visible,
 button:focus-visible,
@@ -1507,6 +1503,15 @@ body::after {
     color: var(--color-light-green);
     text-decoration-color: var(--color-light-green);
   }
+
+  .faq-answer a:hover {
+    color: var(--color-light-green);
+  }
+
+  .news-card:active,
+  .gallery-item:active {
+    transform: scale(0.98);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1516,6 +1521,10 @@ body::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 
   .reveal,

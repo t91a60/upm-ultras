@@ -3,3 +3,9 @@ coverage/
 dist/
 .github/copilot-instructions.md
 .stitch/DESIGN.md
+DESIGN.md
+AGENTS.md
+.impeccable/live/config.json
+.impeccable/design.json
+/plans
+PRODUCT.md

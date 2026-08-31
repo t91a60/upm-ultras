@@ -1,6 +1,6 @@
 # 002 — Add press feedback to news cards and gallery items
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: 4830ab2
 - **Severity**: MEDIUM
 - **Category**: Physicality & origin

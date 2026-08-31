@@ -1,6 +1,6 @@
 # 003 — Gate FAQ answer link hover behind hover media query
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: 4830ab2
 - **Severity**: MEDIUM
 - **Category**: Accessibility

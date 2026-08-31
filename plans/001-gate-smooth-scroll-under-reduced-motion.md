@@ -1,6 +1,6 @@
 # 001 — Gate smooth scroll under reduced motion
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: 4830ab2
 - **Severity**: MEDIUM
 - **Category**: Accessibility
