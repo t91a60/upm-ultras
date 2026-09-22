@@ -686,7 +686,6 @@ nav.scrolled {
   background: var(--color-forest);
   position: relative;
   overflow: hidden;
-  cursor: pointer;
   border: 1px solid color-mix(in srgb, var(--color-floodlight) 6%, transparent);
   border-radius: 8px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
@@ -733,7 +732,7 @@ nav.scrolled {
   font-weight: 600;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--color-dim);
+  color: var(--color-muted);
   transition: color 300ms var(--ease-out);
 }
 
@@ -935,7 +934,7 @@ nav.scrolled {
   font-size: 0.65rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-dim);
+  color: var(--color-muted);
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
@@ -1052,7 +1051,7 @@ textarea:focus-visible {
   font-size: 0.72rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-dim);
+  color: var(--color-muted);
 }
 .mb-2 {
   margin-bottom: 2rem;
@@ -1079,7 +1078,7 @@ textarea:focus-visible {
   font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.15em;
-  color: var(--color-dim);
+  color: var(--color-muted);
 }
 
 .noscript-warning {
@@ -1485,8 +1484,7 @@ body::after {
     color: var(--color-light-green);
   }
 
-  .news-card:active,
-  .gallery-item:active {
+  .news-card:active {
     transform: scale(0.98);
   }
 }
