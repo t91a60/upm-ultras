@@ -1,6 +1,6 @@
 import { hardenExternalLinks } from './links.js';
 import { initNav } from './nav.js';
-import { initReveal, initImageFallbacks } from './ui.js';
+import { initReveal, initLightbox, initImageFallbacks } from './ui.js';
 import { registerSW } from './sw-register.js';
 
 const runWhenReady = (callback) => {
@@ -15,6 +15,7 @@ const runWhenReady = (callback) => {
 runWhenReady(() => {
   initNav();
   initReveal();
+  initLightbox();
   initImageFallbacks();
   hardenExternalLinks();
   registerSW();

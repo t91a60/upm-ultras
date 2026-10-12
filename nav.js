@@ -12,10 +12,51 @@ const setMenuState = (navLinks, navToggle, isOpen) => {
   navLinks.classList.toggle(NAV_OPEN_CLASS, isOpen);
   navToggle.setAttribute('aria-expanded', String(isOpen));
   navLinks.setAttribute('aria-hidden', String(!isOpen));
-  document.body.classList.toggle('menu-open', isOpen);
 };
 
 const getFocusableLink = (navLinks) => navLinks.querySelector('a');
+
+const initScrollSpy = (navElement) => {
+  if (!navElement || !('IntersectionObserver' in window)) {
+    return;
+  }
+
+  const linkBySection = new Map();
+  navElement.querySelectorAll('.nav-links a[href^="#"]').forEach((link) => {
+    const anchor = link.getAttribute('href');
+    const section = document.querySelector(anchor);
+    if (section instanceof Element) {
+      linkBySection.set(section, link);
+    }
+  });
+
+  if (linkBySection.size === 0) {
+    return;
+  }
+
+  const setActive = (link) => {
+    linkBySection.forEach((candidate) => {
+      if (candidate === link) {
+        candidate.setAttribute('aria-current', 'location');
+      } else if (candidate.hasAttribute('aria-current')) {
+        candidate.removeAttribute('aria-current');
+      }
+    });
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActive(linkBySection.get(entry.target));
+        }
+      });
+    },
+    { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
+  );
+
+  linkBySection.forEach((_link, section) => observer.observe(section));
+};
 
 export const initNav = () => {
   const { navToggle, navLinks, navElement } = getNavElements();
@@ -41,7 +82,6 @@ export const initNav = () => {
   const closeMenu = () => {
     if (!navLinks.classList.contains(NAV_OPEN_CLASS)) {
       navToggle.setAttribute('aria-expanded', 'false');
-      document.body.classList.remove('menu-open');
       return;
     }
 
@@ -83,11 +123,6 @@ export const initNav = () => {
     if (event.key === 'Escape') {
       closeMenu();
     }
-    // allow Enter/Space on toggle to open/close
-    if (event.target === navToggle && (event.key === 'Enter' || event.key === ' ')) {
-      event.preventDefault();
-      toggleMenu();
-    }
   };
 
   const onResize = () => {
@@ -118,4 +153,5 @@ export const initNav = () => {
   window.addEventListener('scroll', onScroll, { passive: true });
 
   onScroll();
+  initScrollSpy(navElement);
 };

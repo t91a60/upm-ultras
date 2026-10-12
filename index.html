@@ -37,7 +37,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Russo+One&amp;family=Rubik:wght@300;400&amp;family=Oswald:wght@300;600;700&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Russo+One&amp;family=Rubik:wght@300;400;700&amp;family=Oswald:wght@300;600;700&amp;display=swap"
     />
     <link rel="preload" as="image" href="https://i.imgur.com/421xxEr.png" fetchpriority="high" />
     <link rel="preload" as="image" href="https://i.imgur.com/NFTSF1O.png" fetchpriority="high" />
@@ -54,7 +54,7 @@
     <meta property="og:image:width" content="280" />
     <meta property="og:image:height" content="280" />
     <meta property="og:image:alt" content="Logo Ultras Polonia Międzyrzecze" />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="UPM - Ultras Polonia Międzyrzecze" />
     <meta
       name="twitter:description"
@@ -66,6 +66,7 @@
     <link rel="apple-touch-icon" href="https://i.imgur.com/NFTSF1O.png" />
     <link rel="manifest" href="/upm-ultras/manifest.json" />
     <link rel="stylesheet" href="./style.css" />
+    <script src="./head-init.js"></script>
     <script type="application/ld+json">
       [
         {
@@ -229,6 +230,7 @@
   </head>
 
   <body>
+    <noscript><p class="noscript-warning">Ta strona działa najlepiej z JavaScript</p></noscript>
     <a class="skip-link" href="#main-content">Przejdź do treści</a>
     <header class="site-header">
       <nav id="main-nav" aria-label="Główna nawigacja">
@@ -261,15 +263,6 @@
         </ul>
       </nav>
     </header>
-    <nav aria-label="Breadcrumb" class="breadcrumb-nav">
-      <ol class="breadcrumb-list">
-        <li class="breadcrumb-item"><a href="#hero">Strona Główna</a></li>
-        <li class="breadcrumb-item"><a href="#aktualnosci">Aktualności</a></li>
-        <li class="breadcrumb-item"><a href="#galeria">Galeria</a></li>
-        <li class="breadcrumb-item"><a href="#sklep">Sklep</a></li>
-        <li class="breadcrumb-item"><a href="#kontakt">Kontakt</a></li>
-      </ol>
-    </nav>
     <main id="main-content" class="main-content" tabindex="-1" role="main">
       <section id="hero" class="section section-hero">
         <div class="hero-bg" aria-hidden="true">
@@ -301,6 +294,10 @@
           <h1 class="hero-title">Ultras <span class="outline">Polonia</span></h1>
           <p class="hero-subtitle">Międzyrzecze</p>
           <div class="hero-badge">Razem Tworzymy Historię</div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#dolacz">Dołącz do nas</a>
+            <a class="btn btn-outline" href="#galeria">Zobacz galerię</a>
+          </div>
         </div>
         <div class="hero-diagonal" aria-hidden="true"></div>
       </section>
@@ -324,7 +321,7 @@
           <div class="news-grid">
             <article class="news-card card reveal">
               <div class="news-body-wrap">
-                <time class="news-date" datetime="2026-03">Mar 2026</time>
+                <time class="news-date" datetime="2026-03">Marzec 2026</time>
                 <img
                   alt="Zapowiedź meczu UPM i zbiórka na cele Ultras"
                   src="https://i.imgur.com/2lrmtWB.jpeg"
@@ -335,12 +332,12 @@
                   height="400"
                   fetchpriority="low"
                 />
-                <p class="news-body">
-                  Siemanko! Za tydzień podejmujemy
-                  <strong class="text-white">Ogrodnik Tychy</strong> na własnym boisku, obecność
-                  obowiązkowa! Na meczu będziemy zbierać do puszki na cele Ultras. Nie zatrzymujemy
-                  się po ostatnich oprawach i nie zaniżamy poprzeczki którą podnieśliśmy przy
-                  oprawie “Razem Tworzymy Historię”. Wlepki dostępne w przerwie spotkania.
+<p class="news-body">
+                  Siemanko! Pod koniec marca podejmowaliśmy
+                  <strong class="text-white">Ogrodnik Tychy</strong> na własnym boisku — obecność
+                  obowiązkowa! Na meczu zbieraliśmy do puszki na cele Ultras. Nie zatrzymujemy
+                  się po ostatnich oprawach i nie zaniżamy poprzeczki, którą podnieśliśmy przy
+                  oprawie "Razem Tworzymy Historię". Wlepki były dostępne w przerwie spotkania.
                   <svg
                     class="news-emoji"
                     width="16"
@@ -374,7 +371,7 @@
                   fetchpriority="low"
                 />
                 <p class="news-body">
-                  Dziś świętujemy
+                  W listopadzie świętowaliśmy
                   <strong class="text-white">107. rocznicę odzyskania niepodległości!</strong>
                   POLONIA znaczy POLSKA
                 </p>
@@ -394,8 +391,8 @@
                   fetchpriority="low"
                 />
                 <p class="news-body">
-                  W niedzielę z samego rana postanawiamy zadbać o tężyznę fizyczną wyruszając w
-                  góry. Wyprawa kończy się sukcesem - zdobywamy
+                  W niedzielę z samego rana postanowiliśmy zadbać o tężyznę fizyczną, wyruszając w
+                  góry. Wyprawa zakończyła się sukcesem — zdobyliśmy
                   <strong class="text-white">Babią Górę</strong>. Sport to zdrowie! UPM!
                 </p>
               </div>
@@ -414,10 +411,10 @@
                   fetchpriority="low"
                 />
                 <p class="news-body">
-                  W najbliższą niedzielę,
-                  <strong class="text-white">19 października o 15:30</strong>, Polonia zmierzy się z
+                  W niedzielę,
+                  <strong class="text-white">19 października o 15:30</strong>, Polonia mierzyła się z
                   Siódemką Tychy na własnym boisku. Każdy mecz to nie tylko gra - to siła wsparcia z
-                  trybun. Przyjdź i bądź częścią tej atmosfery!
+                  trybun. Dziękujemy każdemu, kto dołączył i stał się częścią tej atmosfery!
                   <svg
                     class="news-emoji"
                     width="16"
@@ -452,10 +449,11 @@
                   fetchpriority="low"
                 />
                 <p class="news-body">
-                  Polonia mierzy się z LKS Gardawice - jesteśmy tam w 2 auta, prowadzimy przyzwoity
-                  doping w asyście bębna. Nasi piłkarze stają na wysokości zadania i wygrywają
-                  <strong class="text-white">aż 6:0!</strong> Po meczu dziękujemy sobie nawzajem i w
-                  znakomitych nastrojach wracamy do Gminy.
+                  Polonia mierzyła się z LKS Gardawice - byliśmy tam w 2 auta, prowadziliśmy
+                  przyzwoity doping w asyście bębna. Nasi piłkarze stanęli na wysokości zadania i
+                  wygrali
+                  <strong class="text-white">aż 6:0!</strong> Po meczu podziękowaliśmy sobie nawzajem
+                  i w znakomitych nastrojach wróciliśmy do Gminy.
                 </p>
               </div>
             </article>
@@ -473,8 +471,9 @@
                   fetchpriority="low"
                 />
                 <p class="news-body">
-                  <strong class="text-white">DERBY DLA POLONII!</strong> Jutrzejsze derby gminy z
-                  GTS Bojszowy - nie ma innej opcji, DERBY SĄ NASZE! Nie może Was tam zabraknąć!!!
+                  <strong class="text-white">DERBY DLA POLONII!</strong> Derby gminy z GTS Bojszowy
+                  rozegrane - nie było innej opcji, DERBY BYŁY NASZE! W sektorze nie zabrakło żadnego
+                  głosu!
                   BYŁA, BĘDZIE, JEST - POLONIA NASZ KS. Dostępna nowa edycja wlepek!
                   <svg
                     class="news-emoji"
@@ -500,65 +499,64 @@
       </section>
       <section id="galeria" class="section section--deferred" aria-label="Galeria zdjęć z trybun">
         <div class="container">
-          <p class="section-label">Galeria</p>
           <h2 class="section-title">Żywe Zdjęcia<br />Z Trybun</h2>
           <div class="gallery-grid">
-            <div class="gallery-item">
+            <button type="button" class="gallery-item" aria-label="Podgląd: Oprawa Razem Tworzymy Historię">
               <img
                 class="gallery-bg-img"
                 src="https://i.imgur.com/djfn8tI.jpg"
-                alt="Oprawa Razem Tworzymy Historię"
+                alt=""
                 width="800"
                 height="640"
                 loading="lazy"
                 decoding="async"
               />
-              <div class="gallery-inner">
+              <span class="gallery-inner">
                 <span class="gallery-label">Razem Tworzymy Historię</span>
-              </div>
-            </div>
-            <div class="gallery-item">
+              </span>
+            </button>
+            <button type="button" class="gallery-item" aria-label="Podgląd: Doping UPM">
               <img
                 class="gallery-bg-img"
                 src="https://i.imgur.com/z2IACaQ.jpg"
-                alt="Doping UPM"
+                alt=""
                 width="400"
                 height="200"
                 loading="lazy"
                 decoding="async"
               />
-              <div class="gallery-inner">
+              <span class="gallery-inner">
                 <span class="gallery-label">Doping - Derby 2025</span>
-              </div>
-            </div>
-            <div class="gallery-item">
+              </span>
+            </button>
+            <button type="button" class="gallery-item" aria-label="Podgląd: Oprawa UPM">
               <img
                 class="gallery-bg-img"
                 src="https://i.imgur.com/DJuSS3M.jpg"
-                alt="Oprawa UPM"
+                alt=""
                 width="400"
                 height="200"
                 loading="lazy"
                 decoding="async"
               />
-              <div class="gallery-inner">
+              <span class="gallery-inner">
                 <span class="gallery-label">Oprawa - Sezon 25/26</span>
-              </div>
-            </div>
-            <div class="gallery-item">
+              </span>
+            </button>
+            <button type="button" class="gallery-item" aria-label="Podgląd: Flagi i sektorówki UPM">
               <img
                 class="gallery-bg-img"
                 src="https://i.imgur.com/nh5Ce0V.jpg"
-                alt="Flagi i sektorówki UPM"
+                alt=""
                 width="400"
                 height="200"
                 loading="lazy"
                 decoding="async"
               />
-              <div class="gallery-inner">
+              <span class="gallery-inner">
                 <span class="gallery-label">Flagi - Wyjazdy</span>
-              </div>
-            </div>
+              </span>
+            </button>
           </div>
           <div class="gallery-footer">
             <a
@@ -573,7 +571,6 @@
       </section>
       <section id="sklep" class="section section--deferred" aria-label="Sklep z wlepkami UPM">
         <div class="container">
-          <p class="section-label">Sklep UPM</p>
           <h2 class="section-title">Noś Barwy<br />Z Dumą</h2>
           <div class="sticker-hero">
             <div class="sticker-visual reveal">
@@ -607,20 +604,19 @@
                 Zamów przez e-mail lub odbierz osobiście na boisku przy ul. Sportowej.
               </p>
               <a
-                class="btn btn-primary shop-btn-big"
-                href="https://www.instagram.com/ultras_polonia_miedzyrzecze/"
+                class="btn btn-outline shop-btn-big"
+                href="https://www.instagram.com/fanatycy_z_polonii/"
                 target="_blank"
                 rel="noopener noreferrer"
-                >Napisz do nas</a
+                >Zamów wlepki</a
               >
-              <p class="shop-note">przejdź do profilu fanatycy i wyślij wiadomość</p>
+              <p class="shop-note">najszybciej zamówisz przez @fanatycy_z_polonii</p>
             </div>
           </div>
         </div>
       </section>
       <section id="dolacz" class="section section--deferred" aria-label="Rekrutacja nowych członków">
         <div class="container join-inner">
-          <p class="section-label">Dołącz do Nas</p>
           <h2 class="section-title">Zostań<br />Jednym z Nas</h2>
           <div class="divider"></div>
           <p class="muted-lead">
@@ -655,7 +651,7 @@
             </svg>
             @ultras_polonia_miedzyrzecze
           </a>
-          <p class="small-uppercase-dim">
+          <p class="mail-note">
             lub napisz na maila -
             <a href="mailto:19polonia.miedzyrzecze87@gmail.com" class="link-muted"
               >19polonia.miedzyrzecze87@gmail.com</a
@@ -665,7 +661,6 @@
       </section>
       <section id="faq" class="section section--deferred" aria-label="Najczęściej zadawane pytania">
         <div class="container">
-          <p class="section-label">FAQ</p>
           <h2 class="section-title">Masz Pytanie?<br />Sprawdź FAQ</h2>
           <div class="faq-list">
             <details class="faq-item" name="faq">
@@ -720,7 +715,7 @@
               <div class="faq-answer">
                 <p>
                   Tak! Jeśli reprezentujesz klub lub organizację i chcesz, aby UPM
-                  przygotowało oprawę, flagę lub sektorówkę. Skontaktuj się z nami
+                  przygotowało oprawę, flagę lub sektorówkę, skontaktuj się z nami
                   mailowo. Przygotowujemy oprawy dopasowane do okazji, zachowując
                   standardy ultrasów.
                 </p>
@@ -731,7 +726,7 @@
       </section>
       <section id="kontakt" class="section section--deferred" aria-label="Kontakt">
         <div class="container">
-          <p class="section-label mb-2">Kontakt</p>
+          <h2 class="section-title">Kontakt</h2>
           <div class="contact-grid">
             <div>
               <p class="contact-type">E-mail</p>
@@ -779,7 +774,38 @@
       </section>
     </main>
 
+    <dialog class="lightbox" aria-label="Podgląd zdjęcia z galerii">
+      <img class="lightbox-img" alt="" width="800" height="600" decoding="async" />
+      <span class="lightbox-caption"></span>
+      <button type="button" class="lightbox-close" aria-label="Zamknij podgląd">×</button>
+    </dialog>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p class="footer-anthem">Nie do końca zgaszona - POLONIA NASZ KS</p>
+        <div class="footer-links">
+          <a
+            class="btn btn-outline footer-btn"
+            href="https://www.instagram.com/ultras_polonia_miedzyrzecze/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >@ultras_polonia_miedzyrzecze</a
+          >
+          <a
+            class="btn btn-outline footer-btn"
+            href="https://www.instagram.com/fanatycy_z_polonii/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >@fanatycy_z_polonii</a
+          >
+          <a class="btn btn-primary footer-btn" href="#dolacz">Razem Tworzymy Historię</a>
+        </div>
+        <p class="footer-legend">
+          Ultras Polonia Międzyrzecze - od 1987. Wlepki i gadżety: napisz na @fanatycy_z_polonii.
+        </p>
+      </div>
+    </footer>
+
     <script type="module" src="./app.js"></script>
-    <noscript><p class="noscript-warning">Ta strona wymaga JavaScript</p></noscript>
   </body>
 </html>

@@ -4,14 +4,6 @@ const revealAll = (elements) => {
   elements.forEach((element) => element.classList.add('visible'));
 };
 
-const revealChildren = (parent) => {
-  const children = parent.children;
-  for (let i = 0; i < children.length; i++) {
-    children[i].style.setProperty('--i', String(i));
-    children[i].classList.add('visible');
-  }
-};
-
 const handleImageError = (img) => {
   if (!img || img.hasAttribute('data-fallback')) {
     return;
@@ -22,10 +14,6 @@ const handleImageError = (img) => {
   } else {
     img.removeAttribute('src');
     img.style.display = 'none';
-    const placeholder = img.nextElementSibling;
-    if (placeholder && placeholder.classList.contains('news-img-placeholder')) {
-      placeholder.style.display = 'flex';
-    }
   }
 };
 
@@ -41,15 +29,13 @@ const initImageFallbacks = () => {
 
 export const initReveal = () => {
   const elements = Array.from(document.querySelectorAll('.reveal'));
-  const parents = Array.from(document.querySelectorAll('.reveal-children'));
 
-  if (!elements.length && !parents.length) {
+  if (!elements.length) {
     return;
   }
 
   if (!('IntersectionObserver' in window)) {
     revealAll(elements);
-    parents.forEach(revealChildren);
     return;
   }
 
@@ -57,11 +43,7 @@ export const initReveal = () => {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          if (entry.target.classList.contains('reveal-children')) {
-            revealChildren(entry.target);
-          } else {
-            entry.target.classList.add('visible');
-          }
+          entry.target.classList.add('visible');
           observer.unobserve(entry.target);
         }
       });
@@ -70,7 +52,57 @@ export const initReveal = () => {
   );
 
   elements.forEach((element) => observer.observe(element));
-  parents.forEach((parent) => observer.observe(parent));
+};
+
+export const initLightbox = () => {
+  const dialog = document.querySelector('.lightbox');
+  const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+
+  if (!dialog || !galleryItems.length) {
+    return;
+  }
+
+  const img = dialog.querySelector('.lightbox-img');
+  const caption = dialog.querySelector('.lightbox-caption');
+  const closeButton = dialog.querySelector('.lightbox-close');
+
+  if (!img || !caption || !closeButton) {
+    return;
+  }
+
+  const openLightbox = (item) => {
+    const source = item.querySelector('img');
+    const label = item.querySelector('.gallery-label');
+
+    if (source) {
+      img.src = source.currentSrc || source.src;
+    }
+    caption.textContent = label ? label.textContent.trim() : '';
+
+    if (typeof dialog.showModal === 'function') {
+      dialog.showModal();
+    } else {
+      dialog.setAttribute('open', '');
+    }
+  };
+
+  galleryItems.forEach((item) => {
+    item.addEventListener('click', () => openLightbox(item));
+  });
+
+  closeButton.addEventListener('click', () => {
+    if (typeof dialog.close === 'function') {
+      dialog.close();
+    } else {
+      dialog.removeAttribute('open');
+    }
+  });
+
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) {
+      dialog.close();
+    }
+  });
 };
 
 export { initImageFallbacks, handleImageError };
