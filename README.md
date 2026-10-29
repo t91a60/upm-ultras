@@ -1,37 +1,29 @@
-<div align="center">
-
 # UPM Ultras
 
-**Oficjalna strona Ultras Polonia Międzyrzecze.**
+A single-page website for Ultras Polonia Międzyrzecze, a football supporters' group.
+The site content is in Polish and includes group news, a photo gallery, sticker
+shop information, joining instructions, an FAQ, and contact details.
 
-[Odwiedź stronę](https://t91a60.github.io/upm-ultras/) · [Zgłoś problem](https://github.com/t91a60/upm-ultras/issues)
-</div>
+[Visit the website](https://t91a60.github.io/upm-ultras/) ·
+[Report an issue](https://github.com/t91a60/upm-ultras/issues)
 
-Jednostronicowa, responsywna witryna informacyjna grupy kibicowskiej. Projekt jest statyczny, szybki w ładowaniu i przystosowany do ekranów mobilnych.
+## Features and stack
 
-## Co znajduje się na stronie
+The site uses HTML, CSS, and JavaScript modules, built with Vite 8 and Tailwind CSS
+v4. It includes a mobile navigation menu with keyboard controls, section tracking,
+gallery lightboxes, image fallbacks, and external-link handling.
 
-- manifest i aktualności grupy;
-- galeria zdjęć z trybun;
-- sekcja sklepu z wlepkami;
-- informacje dla osób chcących dołączyć;
-- FAQ oraz dane kontaktowe;
-- responsywna nawigacja i usprawnienia dla linków zewnętrznych;
-- service worker oraz manifest dla podstawowej obsługi offline.
+Vitest and JSDOM cover navigation and link behavior; ESLint checks JavaScript,
+Prettier formats files, and Sharp generates WebP and AVIF images.
 
-## Stack
+A web manifest and service worker are included, but offline availability depends
+on successful service-worker installation and cached resources. It should not be
+assumed to work on a first visit without a network connection.
 
-| Obszar | Technologia |
-| --- | --- |
-| Widok | Semantyczny HTML, CSS i moduły JavaScript |
-| Narzędzia | Vite 8, Tailwind CSS v4, Prettier |
-| Testy i lint | Vitest, ESLint, JSDOM |
-| Grafika | Sharp (`npm run convert-images`) |
-| Hosting | GitHub Pages |
+## Run locally
 
-## Start lokalny
-
-Wymagany jest Node.js. Repozytorium zawiera plik blokady zależności, dlatego użyj `npm ci`.
+Use **Node.js 22.13+ or Node.js 24+** with npm; the workflows use Node.js 22.
+The locked Vite and JSDOM dependencies require recent Node.js patch releases.
 
 ```bash
 git clone https://github.com/t91a60/upm-ultras.git
@@ -40,37 +32,70 @@ npm ci
 npm run dev
 ```
 
-Vite poda adres lokalnego serwera w terminalu, zwykle `http://localhost:5173`.
+Open the URL printed by Vite, normally
+`http://localhost:5173/upm-ultras/`. No backend, API keys, or environment variables
+are required for the site.
 
-## Polecenia
+## Development commands
 
-```bash
-npm run lint             # sprawdza JavaScript
-npm test                 # uruchamia testy jednostkowe
-npm run build            # tworzy produkcyjny katalog dist/
-npm run convert-images   # optymalizuje obrazy
-npm run optimize         # obrazy + build
-npm run preview          # podgląd produkcyjnego buildu
-```
+| Command | Purpose |
+| --- | --- |
+| `npm run lint` | Check JavaScript with ESLint |
+| `npm test` | Run the Vitest unit suite once |
+| `npm run build` | Create the production site in `dist/` |
+| `npm run preview` | Serve the production build locally after building |
+| `npm run convert-images` | Generate WebP and AVIF files from images in `public/images/` |
+| `npm run optimize` | Convert images, then build |
+| `npm run format` | Format project files with Prettier; this modifies files |
 
-## Struktura projektu
+The image converter reads PNG, JPG, and JPEG files directly inside
+`public/images/` and writes variants alongside them. It also generates 640, 1080,
+and 1920-pixel versions when the source is wider than the target size. It does not
+process subdirectories or update HTML image references for you.
+
+## Project layout
 
 ```text
-index.html          zawartość i sekcje strony
-style.css           style witryny
-app.js              inicjalizacja modułów
-nav.js              zachowanie nawigacji
-links.js            bezpieczna obsługa linków zewnętrznych
-ui.js               animacje wejścia i fallbacki obrazów
-public/             manifest, service worker, 404 i pliki SEO
-scripts/            optymalizacja obrazów
-__tests__/          testy nawigacji i linków
+index.html          Site content and sections
+style.css           Site styles
+app.js              Module initialization
+nav.js              Mobile navigation and section tracking
+links.js            URL validation and external-link handling
+ui.js               Reveal effects, gallery lightbox, image fallbacks
+public/             Manifest, service worker, 404 page, SEO files, images
+scripts/            Image conversion
+__tests__/          Navigation and link tests
+.github/workflows/  CI and GitHub Pages deployment
 ```
 
-## Wdrożenie
+## Deployment and troubleshooting
 
-Konfiguracja Vite używa ścieżki bazowej `/upm-ultras/`. Push do `main` przechodzi przez lint, testy i build, a workflow wdrożeniowy publikuje wynik na [GitHub Pages](https://t91a60.github.io/upm-ultras/).
+Vite's base path is `/upm-ultras/`. Both workflows run on pushes to `main` and
+`master`; CI also runs for pull requests targeting those branches. The deployment
+workflow checks lint and tests, builds the site, and publishes `dist/` to
+[GitHub Pages](https://t91a60.github.io/upm-ultras/).
 
-## Licencja
+When hosting at another path, review `vite.config.js`, the worker registration in
+`sw-register.js`, and the URLs in `public/sw.js` and `public/manifest.json`.
+Changing Vite's base alone does not update those hardcoded paths.
 
-Metadane projektu w `package.json` wskazują licencję ISC, ale repozytorium nie zawiera osobnego pliku `LICENSE`. Przed ponownym wykorzystaniem kodu, tekstów lub materiałów graficznych należy najpierw potwierdzić zasady ich użycia.
+If an old version persists, inspect or unregister the service worker and clear
+its caches in the browser's developer tools. Its cache names are fixed. The
+worker also precaches `/upm-ultras/style.css`, while Vite emits a hashed CSS asset
+in production; check the worker's installation status before relying on offline
+behavior.
+
+For image-conversion errors, check that input files are supported images in
+`public/images/`. An empty input directory is allowed and produces no images.
+
+## Contributing
+
+Keep site content changes in `index.html`, styles in `style.css`, and interactive
+behavior in the relevant JavaScript module. Run lint, tests, and a production
+build before submitting a pull request. Check navigation and gallery behavior in
+a browser when editing those features.
+
+## License
+
+`package.json` declares ISC, but this repository has no standalone `LICENSE`
+file. Confirm permission before reusing code, text, or images.
