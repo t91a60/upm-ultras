@@ -4,10 +4,10 @@
 
 **Oficjalna strona Ultras Polonia Międzyrzecze.**
 
-[Odwiedź stronę](https://t91a60.github.io/upm-ultras/) · [Zgłoś problem](https://github.com/t91a60/upm-ultras/issues)
+[Odwiedź stronę](https://t91a60.github.io/upm-ultras/) · [Uruchom lokalnie](#start-lokalny) · [Zgłoś problem](https://github.com/t91a60/upm-ultras/issues)
 </div>
 
-Jednostronicowa, responsywna witryna informacyjna grupy kibicowskiej. Projekt jest statyczny, szybki w ładowaniu i przystosowany do ekranów mobilnych.
+Polskojęzyczna strona informacyjna grupy kibicowskiej: aktualności, zdjęcia z trybun i informacje dla osób, które chcą dołączyć. Witryna jest statyczna, ma układ dostosowany do telefonów i nie wymaga własnego backendu.
 
 ## Co znajduje się na stronie
 
@@ -19,7 +19,7 @@ Jednostronicowa, responsywna witryna informacyjna grupy kibicowskiej. Projekt je
 - responsywna nawigacja i usprawnienia dla linków zewnętrznych;
 - service worker oraz manifest dla podstawowej obsługi offline.
 
-## Stack
+## Technologie
 
 | Obszar | Technologia |
 | --- | --- |
@@ -31,7 +31,7 @@ Jednostronicowa, responsywna witryna informacyjna grupy kibicowskiej. Projekt je
 
 ## Start lokalny
 
-Wymagany jest Node.js. Repozytorium zawiera plik blokady zależności, dlatego użyj `npm ci`.
+Użyj Node.js 22, zgodnie z workflow CI. Repozytorium zawiera plik blokady zależności, dlatego do instalacji użyj `npm ci`.
 
 ```bash
 git clone https://github.com/t91a60/upm-ultras.git
